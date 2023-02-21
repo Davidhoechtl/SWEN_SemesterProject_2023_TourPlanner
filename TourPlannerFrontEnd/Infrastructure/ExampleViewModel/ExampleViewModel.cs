@@ -8,11 +8,11 @@ using TourPlannerFrontEnd.Models;
 
 namespace TourPlannerFrontEnd.Infrastructure
 {
-    internal class ExampleViewModel : PropertyChangedBase
+    internal class ExampleViewModel : ViewModel<ExampleModel>
     {
         public string Message
         {
-            get => Model.Message;
+            get => Model?.Message;
             set
             {
                 if(Model != null)
@@ -23,12 +23,14 @@ namespace TourPlannerFrontEnd.Infrastructure
             }
         }
 
-        public ExampleViewModel()
+        protected override void OnModelChanged()
         {
-            Model = new ExampleModel();
-            Model.Message = "Test";
-        }
+            if(Model != null)
+            {
+                Message = "Model got set";
+            }
 
-        private ExampleModel Model;
+            base.OnModelChanged();
+        }
     }
 }
