@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TourPlannerFrontEnd.ShellView"
+﻿<Window x:Class="TourPlannerFrontEnd.Infrastructure.ShellView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,6 +6,6 @@
              mc:Ignorable="d"
              Width="100" Height="100">
     <Grid>
-
+        <UserControl x:Name="Example"/>
     </Grid>
-</UserControl>
+</Window>

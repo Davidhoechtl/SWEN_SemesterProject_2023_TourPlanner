@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TourPlannerFrontEnd
+namespace TourPlannerFrontEnd.Infrastructure
 {
     /// <summary>
-    /// Interaction logic for ShellView.xaml
+    /// Interaction logic for ExampleView.xaml
     /// </summary>
-    public partial class ShellView : UserControl
+    public partial class ExampleView : UserControl
     {
-        public ShellView()
+        public ExampleView()
         {
             InitializeComponent();
         }

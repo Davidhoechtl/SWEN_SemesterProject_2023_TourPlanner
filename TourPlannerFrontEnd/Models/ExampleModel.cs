@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlannerFrontEnd
+namespace TourPlannerFrontEnd.Models
 {
-    internal class ShellViewModel
+    internal class ExampleModel
     {
+        public string Message { get; set; }
     }
 }
