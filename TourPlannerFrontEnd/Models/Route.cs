@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace TourPlannerFrontEnd.Models
 {
-    internal class Tour
+    class Route
     {
-        public string Name { get; set; }
-        public DateTime StartDate { get; set; } = DateTime.Today;
-
-        public Route route { get; set; }
+        public Location Start { get; set; }
+        public Location Destination { get; set; }
+        public RouteType TravellingType { get; set; }
     }
 }

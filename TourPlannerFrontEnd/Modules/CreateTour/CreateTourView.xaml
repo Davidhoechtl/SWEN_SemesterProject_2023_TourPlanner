@@ -12,6 +12,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -24,7 +27,16 @@
         <Label Content="Startdatum:" Grid.Row="1"/>
         <DatePicker x:Name="StartDate" MinWidth="100" Grid.Row="1" Grid.Column="1"/>
 
-        <Button x:Name="Save" Content="Save" Grid.Row="2"/>
-        <Button x:Name="Back" Content="Back" Grid.Row="3"/>
+        <Label Content="From:" Grid.Row="2"/>
+        <TextBox x:Name="Start" MinWidth="100" Grid.Row="2" Grid.Column="1"/>
+
+        <Label Content="To:" Grid.Row="3"/>
+        <TextBox x:Name="Destination" MinWidth="100" Grid.Row="3" Grid.Column="1"/>
+
+        <Label Content="Travelling type:" Grid.Row="4"/>
+        <ComboBox x:Name="TravellingTypes" SelectedItem="SelectedTravellingType" MinWidth="100" Grid.Row="4" Grid.Column="1"/>
+
+        <Button x:Name="Save" Content="Save" Grid.Row="5"/>
+        <Button x:Name="Back" Content="Back" Grid.Row="6"/>
     </Grid>
 </UserControl>
