@@ -1,15 +1,13 @@
-﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using TourPlannerFrontEnd.Infrastructure;
-using TourPlannerFrontEnd.Models;
-
+﻿
 namespace TourPlannerFrontEnd.Modules.CreateTour
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Models;
+
     internal class CreateTourViewModel : ViewModel<Tour>
     {
         public string Name
@@ -78,10 +76,8 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(ShellViewModel conductor)
+        public CreateTourViewModel()
         {
-            this.conductor = conductor;
-
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
         }
 
@@ -96,17 +92,10 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                             $"StartDate of the new tour: {StartDate}");
         }
 
-        public async Task Back()
-        {
-            await conductor.NavigateBackOneStep(new System.Threading.CancellationToken());
-        }
-
         private string startLocationData;
         private string destinationLocationData;
 
         private string selectedTravellingType;
         private readonly string[] travellingTypes;
-
-        private readonly ShellViewModel conductor;
     }
 }
