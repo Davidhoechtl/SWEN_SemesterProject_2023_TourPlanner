@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS public."Tour"
 (
     "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     "Name" text NOT NULL,
-    "From" text NOT NULL,
-    "To" text NOT NULL,
+    "Start" text NOT NULL,
+    "Destination" text NOT NULL,
     "TravellingType" text NOT NULL,
     PRIMARY KEY ("Id")
 );

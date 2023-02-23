@@ -2,14 +2,13 @@
 namespace TourPlannerFrontEnd.Infrastructure
 {
     using Caliburn.Micro;
-    using Microsoft.Xaml.Behaviors.Core;
+    using MTCG.DAL;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using TourPlannerBackEnd.Repositories;
-    using TourPlannerFrontEnd.Models;
     using TourPlannerFrontEnd.Modules.CreateTour;
     using TourPlannerFrontEnd.Modules.OverviewTours;
 
@@ -21,12 +20,12 @@ namespace TourPlannerFrontEnd.Infrastructure
     /// </summary>
     internal class ShellViewModel : Conductor<Screen>
     {
-        public ShellViewModel()
+        public ShellViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory)
         {
             screens = new List<Screen>()
             {
                 new ToursOverviewScreenViewModel(this),
-                new CreateTourScreenViewModel(this, new TourRepository())
+                new CreateTourScreenViewModel(this, tourRepository, unitOfWorkFactory)
             };
         }
 

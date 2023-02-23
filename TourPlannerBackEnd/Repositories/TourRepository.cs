@@ -13,14 +13,14 @@ namespace TourPlannerBackEnd.Repositories
     {
         public void InsertTour(Tour tour, IUnitOfWork unitOfWork)
         {
-            string insertStatement = "INSERT INTO Tour(Name, From, To, TravellingType) VALUES (@name, @from, @to, @travellingType)";
+            string insertStatement = "INSERT INTO public.\"Tour\" (\"Name\", \"Start\", \"Destination\", \"TravellingType\") VALUES (@name, @start, @destination, @travellingType)";
             //unitOfWork.
 
             unitOfWork.ExecuteNonQuery(insertStatement,
                 new NpgsqlParameter("name", tour.Name),
-                new NpgsqlParameter("From", tour.route.Start.Street),
-                new NpgsqlParameter("From", tour.route.Destination.Street),
-                new NpgsqlParameter("From", tour.route.TravellingType.ToString())
+                new NpgsqlParameter("start", tour.route.Start.Street),
+                new NpgsqlParameter("destination", tour.route.Destination.Street),
+                new NpgsqlParameter("travellingType", tour.route.TravellingType.ToString())
             );
         }
     }

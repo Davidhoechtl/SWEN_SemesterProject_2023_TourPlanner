@@ -1,13 +1,14 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.CreateTour
 {
+    using MTCG.DAL;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
+    using TourPlannerBackEnd.Models;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
-    using TourPlannerFrontEnd.Models;
 
     internal class CreateTourViewModel : ViewModel<Tour>
     {
@@ -16,7 +17,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             get => Model?.Name;
             set
             {
-                if(Model != null)
+                if (Model != null)
                 {
                     Model.Name = value;
                     NotifyOfPropertyChange(nameof(Name));
@@ -24,20 +25,20 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public string From
+        public string Start
         {
             get => startLocationData;
             set
             {
-                if(startLocationData != value)
+                if (startLocationData != value)
                 {
                     startLocationData = value;
-                    NotifyOfPropertyChange(nameof(From));
+                    NotifyOfPropertyChange(nameof(Start));
                 }
             }
         }
 
-        public string To
+        public string Destination
         {
             get => destinationLocationData;
             set
@@ -45,7 +46,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                 if (destinationLocationData != value)
                 {
                     destinationLocationData = value;
-                    NotifyOfPropertyChange(nameof(To));
+                    NotifyOfPropertyChange(nameof(Destination));
                 }
             }
         }
@@ -56,7 +57,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             get => selectedTravellingType;
             set
             {
-                if(selectedTravellingType != value)
+                if (selectedTravellingType != value)
                 {
                     selectedTravellingType = value;
                     NotifyOfPropertyChange(nameof(SelectedTravellingType));
@@ -77,9 +78,11 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(TourRepository tourRepository)
+        public CreateTourViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
+            this.tourRepository = tourRepository;
+            this.unitOfWorkFactory = unitOfWorkFactory;
         }
 
         /// <summary>
@@ -89,8 +92,24 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         {
             // api get route
 
-            MessageBox.Show($"Name of the new tour: {Name} \n" +
-                            $"StartDate of the new tour: {StartDate}");
+            if (this.Model != null)
+            {
+                this.Model.route = new Route()
+                {
+                    Start = new Location() { Street = Start },
+                    Destination = new Location() { Street = Destination },
+                    TravellingType = Enum.GetValues<RouteType>().First(type => type.ToString().Equals(SelectedTravellingType, StringComparison.Ordinal))
+                };
+
+                using (IUnitOfWork unitOfWork = unitOfWorkFactory.CreateAndBeginTransaction())
+                {
+                    tourRepository.InsertTour(this.Model, unitOfWork);
+                    unitOfWork.Commit();
+
+                }
+
+                MessageBox.Show($"Erfolgreich gespeichert");
+            }
         }
 
         private string startLocationData;
@@ -98,5 +117,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
         private string selectedTravellingType;
         private readonly string[] travellingTypes;
+        private readonly TourRepository tourRepository;
+        private readonly UnitOfWorkFactory unitOfWorkFactory;
     }
 }
