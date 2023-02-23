@@ -15,4 +15,8 @@
     <Page Include="App.xaml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TourPlannerBackEnd\TourPlannerBackEnd.csproj" />
+  </ItemGroup>
+
 </Project>

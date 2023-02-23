@@ -8,6 +8,7 @@ namespace TourPlannerFrontEnd.Infrastructure
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Models;
     using TourPlannerFrontEnd.Modules.CreateTour;
     using TourPlannerFrontEnd.Modules.OverviewTours;
@@ -20,12 +21,12 @@ namespace TourPlannerFrontEnd.Infrastructure
     /// </summary>
     internal class ShellViewModel : Conductor<Screen>
     {
-        public ShellViewModel()
+        public ShellViewModel(TourRepository tourRepository)
         {
             screens = new List<Screen>()
             {
                 new ToursOverviewScreenViewModel(this),
-                new CreateTourScreenViewModel(this)
+                new CreateTourScreenViewModel(this, tourRepository)
             };
         }
 

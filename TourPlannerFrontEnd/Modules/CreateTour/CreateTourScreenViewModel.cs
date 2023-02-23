@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TourPlannerBackEnd.Repositories;
 using TourPlannerFrontEnd.Infrastructure;
 using TourPlannerFrontEnd.Models;
 
@@ -16,12 +17,12 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
         public CreateTourViewModel CreateTourViewModel { get; init; }
 
-        public CreateTourScreenViewModel(ShellViewModel conductor)
+        public CreateTourScreenViewModel(ShellViewModel conductor, TourRepository tourRepository)
         {
             this.conductor = conductor;
 
             DisplayName = "Create Tour";
-            CreateTourViewModel = new CreateTourViewModel();
+            CreateTourViewModel = new CreateTourViewModel(tourRepository);
             CreateTourViewModel.Model = new Tour();
         }
 

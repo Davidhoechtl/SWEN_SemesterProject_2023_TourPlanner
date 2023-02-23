@@ -5,6 +5,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
+    using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Models;
 
@@ -76,7 +77,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel()
+        public CreateTourViewModel(TourRepository tourRepository)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
         }
