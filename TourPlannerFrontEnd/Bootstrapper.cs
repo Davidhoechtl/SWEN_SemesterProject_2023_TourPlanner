@@ -20,17 +20,58 @@ namespace TourPlannerFrontEnd
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
             DisplayRootViewForAsync<ShellViewModel>();
-            InitializeIoCContainer();
         }
 
-        private void InitializeIoCContainer()
+        protected override void Configure()
         {
-            ContainerBuilder containerBuilder = new ContainerBuilder();
+            ContainerBuilder builder = new ContainerBuilder();
 
-            BackendIoCModule backendIoCModule = new(containerBuilder);
+            BackendIoCModule backendIoCModule = new(builder);
             backendIoCModule.Load();
 
-            containerBuilder.Build();
+            builder.RegisterType<WindowManager>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<EventAggregator>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            builder.RegisterType<ShellViewModel>()
+                .SingleInstance();
+
+            Container = builder.Build();
         }
+
+        protected override IEnumerable<object> GetAllInstances(Type service)
+        {
+            var type = typeof(IEnumerable<>).MakeGenericType(service);
+            return Container.Resolve(type) as IEnumerable<object>;
+        }
+
+        protected override object GetInstance(Type service, string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                if (Container.IsRegistered(service))
+                    return Container.Resolve(service);
+            }
+            else
+            {
+                if (Container.IsRegisteredWithKey(key, service))
+                    return Container.ResolveKeyed(key, service);
+            }
+
+            var msgFormat = "Could not locate any instances of contract {0}.";
+            var msg = string.Format(msgFormat, key ?? service.Name);
+            throw new Exception(msg);
+        }
+
+        protected override void BuildUp(object instance)
+        {
+            Container.InjectProperties(instance);
+        }
+
+        private static IContainer Container;
     }
 }
