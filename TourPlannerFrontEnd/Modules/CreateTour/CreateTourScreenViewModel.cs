@@ -15,21 +15,28 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     class CreateTourScreenViewModel : Screen
     {
         private readonly ShellViewModel conductor;
+        private readonly TourRepository tourRepository;
+        private readonly UnitOfWorkFactory unitOfWorkFactory;
 
         public CreateTourViewModel CreateTourViewModel { get; init; }
+
 
         public CreateTourScreenViewModel(ShellViewModel conductor, TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory)
         {
             this.conductor = conductor;
-
+            this.tourRepository = tourRepository;
+            this.unitOfWorkFactory = unitOfWorkFactory;
             DisplayName = "Create Tour";
             CreateTourViewModel = new CreateTourViewModel(tourRepository, unitOfWorkFactory);
             CreateTourViewModel.Model = new Tour();
         }
 
+  
         public async Task Back()
         {
             await conductor.NavigateBackOneStep(new System.Threading.CancellationToken());
         }
+
+
     }
 }

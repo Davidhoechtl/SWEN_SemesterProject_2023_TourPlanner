@@ -3,13 +3,13 @@
 BEGIN;
 
 
-CREATE TABLE IF NOT EXISTS public."Tour"
+CREATE TABLE IF NOT EXISTS public.tour
 (
-    "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    "Name" text NOT NULL,
-    "Start" text NOT NULL,
-    "Destination" text NOT NULL,
-    "TravellingType" text NOT NULL,
-    PRIMARY KEY ("Id")
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+    name text NOT NULL,
+    start text NOT NULL,
+    destination text NOT NULL,
+    travellingtype text NOT NULL,
+    PRIMARY KEY (id)
 );
 END;

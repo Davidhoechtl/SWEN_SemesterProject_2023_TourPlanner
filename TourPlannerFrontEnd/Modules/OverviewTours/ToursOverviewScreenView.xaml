@@ -11,11 +11,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
   
         <Label x:Name="DisplayName" FontSize="40"/>
         <ContentControl x:Name="CreateTourViewModel" Grid.Row="1"/>
 
         <Button x:Name="CreateTour" Content="Create Tour" Grid.Row="2"/>
+        <DataGrid x:Name="Tours" Grid.Row="3" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

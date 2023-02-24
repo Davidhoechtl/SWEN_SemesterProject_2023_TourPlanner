@@ -20,11 +20,11 @@ namespace TourPlannerFrontEnd.Infrastructure
     /// </summary>
     internal class ShellViewModel : Conductor<Screen>
     {
-        public ShellViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory)
+        public ShellViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory, IQueryDatabase queryDatabase)
         {
             screens = new List<Screen>()
             {
-                new ToursOverviewScreenViewModel(this),
+                new ToursOverviewScreenViewModel(this, queryDatabase, tourRepository ),
                 new CreateTourScreenViewModel(this, tourRepository, unitOfWorkFactory)
             };
         }
