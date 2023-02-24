@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlannerBackEnd.Infrastructure;
 using TourPlannerBackEnd.Repositories;
 
 namespace TourPlannerBackEnd
@@ -18,8 +19,18 @@ namespace TourPlannerBackEnd
 
         public void Load()
         {
+            RegisterInfrastructure(builder);
             RegisterIoCModules(builder);
             RegisterRepositories(builder);
+        }
+
+        private void RegisterInfrastructure(ContainerBuilder builder)
+        {
+            builder.RegisterTypes(
+                typeof(ApiKeyLoader),
+                typeof(MapQuestApiService)
+            )
+            .SingleInstance();
         }
 
         private void RegisterRepositories(ContainerBuilder builder)

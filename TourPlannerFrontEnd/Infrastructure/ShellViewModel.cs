@@ -8,6 +8,7 @@ namespace TourPlannerFrontEnd.Infrastructure
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Modules.CreateTour;
     using TourPlannerFrontEnd.Modules.OverviewTours;
@@ -20,12 +21,16 @@ namespace TourPlannerFrontEnd.Infrastructure
     /// </summary>
     internal class ShellViewModel : Conductor<Screen>
     {
-        public ShellViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory, IQueryDatabase queryDatabase)
+        public ShellViewModel(
+            TourRepository tourRepository, 
+            UnitOfWorkFactory unitOfWorkFactory, 
+            IQueryDatabase queryDatabase,
+            MapQuestApiService mapQuestApiService)
         {
             screens = new List<Screen>()
             {
                 new ToursOverviewScreenViewModel(this, queryDatabase, tourRepository ),
-                new CreateTourScreenViewModel(this, tourRepository, unitOfWorkFactory)
+                new CreateTourScreenViewModel(this, tourRepository, unitOfWorkFactory, mapQuestApiService)
             };
         }
 

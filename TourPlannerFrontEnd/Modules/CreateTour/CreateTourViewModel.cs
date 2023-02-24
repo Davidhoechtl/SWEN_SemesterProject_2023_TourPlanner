@@ -5,7 +5,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows;
+    using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Models;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
@@ -78,22 +80,26 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory)
+        public CreateTourViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory, MapQuestApiService mapQuestApiService)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
             this.tourRepository = tourRepository;
             this.unitOfWorkFactory = unitOfWorkFactory;
+            this.mapQuestApiService = mapQuestApiService;
         }
 
         /// <summary>
         /// Gets called when the button save is pressed
         /// </summary>
-        public void Save()
+        public async Task Save()
         {
             // api get route
 
+
             if (this.Model != null)
             {
+                Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
+                Location destination = await mapQuestApiService.GetLocationFromAddressLine(Destination);
                 this.Model.route = new Route()
                 {
                     Start = new Location() { Street = Start },
@@ -119,5 +125,6 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         private readonly string[] travellingTypes;
         private readonly TourRepository tourRepository;
         private readonly UnitOfWorkFactory unitOfWorkFactory;
+        private readonly MapQuestApiService mapQuestApiService;
     }
 }
