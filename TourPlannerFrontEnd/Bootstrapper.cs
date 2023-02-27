@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TourPlannerBackEnd;
 using TourPlannerFrontEnd.Infrastructure;
+using TourPlannerFrontEnd.Modules.CreateTour;
+using TourPlannerFrontEnd.Modules.OverviewTours;
 
 namespace TourPlannerFrontEnd
 {
@@ -37,7 +39,19 @@ namespace TourPlannerFrontEnd
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
+            // autowiring of propertie NavigationHost is nessecary (conductor depends on screens screens depend on navigation)
+            // other options are navigatonMessages via Eventaggregator to louse couple those two types
+            builder.RegisterTypes(
+                    typeof(CreateTourScreenViewModel),
+                    typeof(ToursOverviewScreenViewModel)
+                )
+              .As<Screen>()
+              .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies) 
+              .SingleInstance();
+
             builder.RegisterType<ShellViewModel>()
+                .AsImplementedInterfaces()
+                .AsSelf()
                 .SingleInstance();
 
             Container = builder.Build();

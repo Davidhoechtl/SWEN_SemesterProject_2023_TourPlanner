@@ -80,12 +80,11 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory, MapQuestApiService mapQuestApiService)
+        public CreateTourViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
             this.tourRepository = tourRepository;
             this.unitOfWorkFactory = unitOfWorkFactory;
-            this.mapQuestApiService = mapQuestApiService;
         }
 
         /// <summary>
@@ -98,8 +97,8 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
             if (this.Model != null)
             {
-                Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
-                Location destination = await mapQuestApiService.GetLocationFromAddressLine(Destination);
+                //Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
+                //Location destination = await mapQuestApiService.GetLocationFromAddressLine(Destination);
                 this.Model.route = new Route()
                 {
                     Start = new Location() { Street = Start },
@@ -125,6 +124,5 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         private readonly string[] travellingTypes;
         private readonly TourRepository tourRepository;
         private readonly UnitOfWorkFactory unitOfWorkFactory;
-        private readonly MapQuestApiService mapQuestApiService;
     }
 }

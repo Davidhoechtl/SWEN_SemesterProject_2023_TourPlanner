@@ -19,19 +19,12 @@ namespace TourPlannerFrontEnd.Infrastructure
     /// Note:
     /// Conducter inherits <see cref="Screen"/> and enables an easy way to swap between views from its children
     /// </summary>
-    internal class ShellViewModel : Conductor<Screen>
+    internal class ShellViewModel : Conductor<Screen>, INavigationHost
     {
         public ShellViewModel(
-            TourRepository tourRepository, 
-            UnitOfWorkFactory unitOfWorkFactory, 
-            IQueryDatabase queryDatabase,
-            MapQuestApiService mapQuestApiService)
+            IEnumerable<Screen> screens)
         {
-            screens = new List<Screen>()
-            {
-                new ToursOverviewScreenViewModel(this, queryDatabase, tourRepository ),
-                new CreateTourScreenViewModel(this, tourRepository, unitOfWorkFactory, mapQuestApiService)
-            };
+            this.screens = screens.ToList();
         }
 
         /// <summary>
