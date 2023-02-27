@@ -5,11 +5,13 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlannerFrontEnd", "TourPlannerFrontEnd\TourPlannerFrontEnd.csproj", "{DF908EF5-9267-4272-BC3D-22D2CC3887CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlannerBackEnd", "TourPlannerBackEnd\TourPlannerBackEnd.csproj", "{30481EEE-B370-4E62-BAB1-DD69FF5A30DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlannerBackEnd", "TourPlannerBackEnd\TourPlannerBackEnd.csproj", "{30481EEE-B370-4E62-BAB1-DD69FF5A30DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlannerTests", "TourPlannerTests\TourPlannerTests.csproj", "{50B097E3-328F-41BA-9E18-42144C65BD96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlannerTests", "TourPlannerTests\TourPlannerTests.csproj", "{50B097E3-328F-41BA-9E18-42144C65BD96}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataAccess", "TourPlanner.DataAccess\TourPlanner.DataAccess.csproj", "{73FB44EC-9119-4AC4-83C1-CB2483400F37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.MapQuestApi", "TourPlanner.MapRequestApi\TourPlanner.MapQuestApi.csproj", "{C62B5B17-46EE-410E-ACD6-A4962196E5AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{73FB44EC-9119-4AC4-83C1-CB2483400F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73FB44EC-9119-4AC4-83C1-CB2483400F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73FB44EC-9119-4AC4-83C1-CB2483400F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62B5B17-46EE-410E-ACD6-A4962196E5AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62B5B17-46EE-410E-ACD6-A4962196E5AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62B5B17-46EE-410E-ACD6-A4962196E5AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62B5B17-46EE-410E-ACD6-A4962196E5AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

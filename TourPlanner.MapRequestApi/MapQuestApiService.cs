@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using TourPlannerBackEnd.Models;
-
-namespace TourPlannerBackEnd.Infrastructure
+﻿
+namespace TourPlanner.MapQuestApi
 {
+    using System.Net.Http.Headers;
+    using System.Text;
+    using System.Web;
+    using TourPlanner.MapQuestApi.Domain;
+
     public class MapQuestApiService
     {
         private const string RootURL = "http://www.mapquestapi.com/";
         private readonly string apiKey;
 
-        public MapQuestApiService(ApiKeyLoader apiKeyLoader)
+        public MapQuestApiService(string apiKey)
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(RootURL);
@@ -22,10 +19,10 @@ namespace TourPlannerBackEnd.Infrastructure
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
 
-            apiKey = apiKeyLoader.Load();
+            this.apiKey = apiKey;
         }
 
-        public async Task<Location> GetLocationFromAddressLine(string addressLine)
+        public async Task<MapQuestLocation> GetLocationFromAddressLine(string addressLine)
         {
             UriBuilder uriBuilder = new UriBuilder(Path.Combine(RootURL, "geocoding/v1/address"));
             var query = HttpUtility.ParseQueryString(uriBuilder.Query, UTF8Encoding.UTF8);
@@ -39,7 +36,7 @@ namespace TourPlannerBackEnd.Infrastructure
                 string json = await response.Content.ReadAsStringAsync();
 
                 // convert to location object
-                return new Location();
+                return new MapQuestLocation();
             }
             else
             {

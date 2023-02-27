@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlannerBackEnd.Infrastructure
+namespace TourPlanner.MapQuestApi.Domain
 {
-    internal class HttpRestClient
+    public class MapQuestLocation
     {
     }
 }
