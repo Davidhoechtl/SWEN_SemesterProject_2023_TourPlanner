@@ -28,7 +28,7 @@ namespace TourPlannerBackEnd
         {
             builder.RegisterTypes(
                 typeof(ApiKeyLoader),
-                typeof(MapQuestApiService)
+                typeof(TourPlannerMapQuestService)
             )
             .SingleInstance();
         }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TourPlanner.DataAccess\TourPlanner.DataAccess.csproj" />
+    <ProjectReference Include="..\TourPlanner.MapRequestApi\TourPlanner.MapQuestApi.csproj" />
   </ItemGroup>
 
 </Project>
