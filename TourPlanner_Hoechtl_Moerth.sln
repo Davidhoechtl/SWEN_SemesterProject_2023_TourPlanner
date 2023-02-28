@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlannerTests", "TourPla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.MapQuestApi", "TourPlanner.MapRequestApi\TourPlanner.MapQuestApi.csproj", "{C62B5B17-46EE-410E-ACD6-A4962196E5AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.EntityFramework.DataAccess", "TourPlanner.EntityFramework.DataAccess\TourPlanner.EntityFramework.DataAccess.csproj", "{8556980A-407F-4178-946A-40CC6C3C8390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataAccess.EntityFramework", "TourPlanner.EntityFramework.DataAccess\TourPlanner.DataAccess.EntityFramework.csproj", "{8556980A-407F-4178-946A-40CC6C3C8390}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataTransferObjects", "TourPlanner.DataTransferObjects\TourPlanner.DataTransferObjects.csproj", "{C43F2D0C-3B24-4F05-888D-6DBB930AF8E4}"
 EndProject

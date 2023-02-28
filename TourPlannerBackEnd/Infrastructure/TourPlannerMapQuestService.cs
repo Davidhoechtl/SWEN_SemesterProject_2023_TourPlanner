@@ -1,9 +1,9 @@
 ﻿
 namespace TourPlannerBackEnd.Infrastructure
 {
+    using TourPlanner.DataTransferObjects.Models;
     using TourPlanner.MapQuestApi;
     using TourPlanner.MapQuestApi.Domain;
-    using TourPlannerBackEnd.Models;
 
     /// <summary>
     /// Bridge between the MapQuest REST API and TourPlanner

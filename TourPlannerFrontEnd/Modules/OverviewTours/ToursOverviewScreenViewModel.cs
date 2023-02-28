@@ -2,7 +2,6 @@
 namespace TourPlannerFrontEnd.Modules.OverviewTours
 {
     using Caliburn.Micro;
-    using MTCG.DAL;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -17,9 +16,8 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         public INavigationHost NavigationHost { get; set; }
 
-        public ToursOverviewScreenViewModel(IQueryDatabase queryDatabase, TourRepository tourRepository)
+        public ToursOverviewScreenViewModel(TourRepository tourRepository)
         {
-            this.queryDatabase = queryDatabase;
             this.tourRepository = tourRepository;
             DisplayName = "Tour Overview";
         }
@@ -40,11 +38,10 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         {
             return await Task.Run(() =>
             {
-                return tourRepository.GetAllTours(queryDatabase); ;
+                return tourRepository.GetAllTours();
             }, cancellationToken);
         }
 
-        private readonly IQueryDatabase queryDatabase;
         private readonly TourRepository tourRepository;
     }
 }

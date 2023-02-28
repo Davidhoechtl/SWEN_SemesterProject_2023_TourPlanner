@@ -1,10 +1,10 @@
 ﻿using Autofac;
-using MTCG.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner.EntityFramework.DataAccess;
 using TourPlannerBackEnd.Infrastructure;
 using TourPlannerBackEnd.Repositories;
 
@@ -20,7 +20,7 @@ namespace TourPlannerBackEnd
         public void Load()
         {
             RegisterInfrastructure(builder);
-            RegisterIoCModules(builder);
+            RegisterDataAccess(builder);
             RegisterRepositories(builder);
         }
 
@@ -41,10 +41,9 @@ namespace TourPlannerBackEnd
             .SingleInstance();
         }
 
-        private void RegisterIoCModules(ContainerBuilder builder)
+        private void RegisterDataAccess(ContainerBuilder builder)
         {
-            DatabaseIoC databaeIoc = new(builder);
-            databaeIoc.Load();
+            builder.RegisterType<TourPlannerDbContext>();
         }
 
         private readonly ContainerBuilder builder;

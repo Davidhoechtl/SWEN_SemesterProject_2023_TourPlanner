@@ -2,7 +2,6 @@
 namespace TourPlannerFrontEnd.Infrastructure
 {
     using Caliburn.Micro;
-    using MTCG.DAL;
     using System;
     using System.Collections.Generic;
     using System.Linq;

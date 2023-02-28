@@ -2,7 +2,6 @@
 namespace TourPlannerFrontEnd.Modules.CreateTour
 {
     using Caliburn.Micro;
-    using MTCG.DAL;
     using System.Threading.Tasks;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Repositories;
@@ -15,10 +14,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         public INavigationHost NavigationHost { get; set; }
 
         public CreateTourScreenViewModel(
-            TourRepository tourRepository,
-            UnitOfWorkFactory unitOfWorkFactory)
+            TourRepository tourRepository)
         {
-            CreateTourViewModel = new CreateTourViewModel(tourRepository, unitOfWorkFactory);
+            CreateTourViewModel = new CreateTourViewModel(tourRepository);
             CreateTourViewModel.Model = new Tour();
 
             DisplayName = "Create Tour";

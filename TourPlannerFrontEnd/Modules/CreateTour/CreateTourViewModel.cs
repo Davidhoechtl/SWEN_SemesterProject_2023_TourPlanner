@@ -1,7 +1,6 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.CreateTour
 {
-    using MTCG.DAL;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -80,11 +79,10 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(TourRepository tourRepository, UnitOfWorkFactory unitOfWorkFactory)
+        public CreateTourViewModel(TourRepository tourRepository)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
             this.tourRepository = tourRepository;
-            this.unitOfWorkFactory = unitOfWorkFactory;
         }
 
         /// <summary>
@@ -104,12 +102,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                 this.Model.Destination = new Location() { Street = Destination };
                 this.Model.TravellingType = SelectedTravellingType;
 
-                using (IUnitOfWork unitOfWork = unitOfWorkFactory.CreateAndBeginTransaction())
-                {
-                    tourRepository.InsertTour(this.Model, unitOfWork);
-                    unitOfWork.Commit();
-
-                }
+                tourRepository.InsertTour(this.Model);
 
                 MessageBox.Show($"Erfolgreich gespeichert");
             }
@@ -121,6 +114,5 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         private string selectedTravellingType;
         private readonly string[] travellingTypes;
         private readonly TourRepository tourRepository;
-        private readonly UnitOfWorkFactory unitOfWorkFactory;
     }
 }
