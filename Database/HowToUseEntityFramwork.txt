@@ -1,0 +1,7 @@
+Go into the TourPlanner.EntityFramwork.DataAccess Project Root and open command line
+
+How to create create script:
+dotnet ef migrations script --output "script.sql"
+
+How to create initial migration
+dotnet ef migrations add InitialCreate
