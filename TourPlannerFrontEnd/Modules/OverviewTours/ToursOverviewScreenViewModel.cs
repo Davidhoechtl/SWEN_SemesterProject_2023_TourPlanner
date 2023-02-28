@@ -6,7 +6,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using TourPlannerBackEnd.Models;
+    using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Modules.CreateTour;

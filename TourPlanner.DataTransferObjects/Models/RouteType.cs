@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlannerBackEnd.Models
+namespace TourPlanner.DataTransferObjects.Models
 {
     /// <summary>
     /// This enum contains all possible route options

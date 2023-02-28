@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TourPlanner.DataAccess.Extensions;
-using TourPlannerBackEnd.Models;
+using TourPlanner.DataTransferObjects.Models;
 
 namespace TourPlannerBackEnd.Repositories
 {

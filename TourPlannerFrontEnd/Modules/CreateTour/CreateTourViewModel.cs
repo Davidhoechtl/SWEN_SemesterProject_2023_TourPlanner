@@ -7,8 +7,8 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
+    using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Infrastructure;
-    using TourPlannerBackEnd.Models;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
 

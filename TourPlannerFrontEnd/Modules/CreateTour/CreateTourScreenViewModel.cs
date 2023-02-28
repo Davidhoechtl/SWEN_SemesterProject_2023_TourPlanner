@@ -4,7 +4,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using Caliburn.Micro;
     using MTCG.DAL;
     using System.Threading.Tasks;
-    using TourPlannerBackEnd.Models;
+    using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
 
