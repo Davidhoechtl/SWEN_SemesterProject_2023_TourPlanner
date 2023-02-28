@@ -19,9 +19,9 @@ namespace TourPlannerBackEnd.Repositories
 
             unitOfWork.ExecuteNonQuery(insertStatement,
                 new NpgsqlParameter("name", tour.Name),
-                new NpgsqlParameter("start", tour.route.Start.Street),
-                new NpgsqlParameter("destination", tour.route.Destination.Street),
-                new NpgsqlParameter("travellingType", tour.route.TravellingType.ToString())
+                new NpgsqlParameter("start", tour.Start.Street),
+                new NpgsqlParameter("destination", tour.Destination.Street),
+                new NpgsqlParameter("travellingType", tour.TravellingType.ToString())
             );
         }
 
@@ -54,21 +54,16 @@ namespace TourPlannerBackEnd.Repositories
             if (reader.IsOnRow)
             {
                 tour.Name = reader.GetValue<string>("name");
+                tour.TravellingType = reader.GetValue<string>("travellingtype");
 
-                string travellingType = reader.GetValue<string>("travellingtype");
-                RouteType routeType = Enum.GetValues<RouteType>().First(v => v.ToString().Equals(travellingType));
-
-                tour.route = new Route()
+                tour.Start = new Location()
                 {
-                    Start = new Location()
-                    {
-                        Street = reader.GetValue<string>("start")
-                    },
-                    Destination = new Location()
-                    {
-                        Street = reader.GetValue<string>("destination")
-                    },
-                    TravellingType = routeType
+                    Street = reader.GetValue<string>("start")
+                };
+
+                tour.Destination = new Location()
+                {
+                    Street = reader.GetValue<string>("destination")
                 };
             }
 

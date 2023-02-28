@@ -99,12 +99,10 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             {
                 //Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
                 //Location destination = await mapQuestApiService.GetLocationFromAddressLine(Destination);
-                this.Model.route = new Route()
-                {
-                    Start = new Location() { Street = Start },
-                    Destination = new Location() { Street = Destination },
-                    TravellingType = Enum.GetValues<RouteType>().First(type => type.ToString().Equals(SelectedTravellingType, StringComparison.Ordinal))
-                };
+
+                this.Model.Start = new Location() { Street = Start };
+                this.Model.Destination = new Location() { Street = Destination };
+                this.Model.TravellingType = SelectedTravellingType;
 
                 using (IUnitOfWork unitOfWork = unitOfWorkFactory.CreateAndBeginTransaction())
                 {
