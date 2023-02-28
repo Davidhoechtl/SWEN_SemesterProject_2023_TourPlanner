@@ -9,6 +9,8 @@ namespace TourPlanner.DataTransferObjects.Models
     public class Tour
     {
         public int Id { get; set; }
+        public int LocationStartId { get; set; }
+        public int LocationEndId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; } = DateTime.Today;
 
