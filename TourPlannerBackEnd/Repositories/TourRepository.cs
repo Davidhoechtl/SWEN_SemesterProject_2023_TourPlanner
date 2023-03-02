@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,10 @@ namespace TourPlannerBackEnd.Repositories
 
         public List<Tour> GetAllTours()
         {
-            return dbContext.Tours.ToList();
+            return dbContext.Tours
+                .Include(t => t.Start)
+                .Include(t => t.Destination)
+                .ToList();
         }
     }
 }
