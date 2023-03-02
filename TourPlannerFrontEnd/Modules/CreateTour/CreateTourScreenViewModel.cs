@@ -2,12 +2,14 @@
 namespace TourPlannerFrontEnd.Modules.CreateTour
 {
     using Caliburn.Micro;
+    using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows.Navigation;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
 
-    class CreateTourScreenViewModel : Screen
+    class CreateTourScreenViewModel : NavigationScreen
     {
         public CreateTourViewModel CreateTourViewModel { get; init; }
 
@@ -26,6 +28,12 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         public async Task Back()
         {
             await NavigationHost.NavigateBackOneStep(new System.Threading.CancellationToken());
+        }
+
+        public override Task OnPageNavigatedTo(CancellationToken cancellationToken)
+        {
+            // noop
+            return Task.CompletedTask;
         }
     }
 }

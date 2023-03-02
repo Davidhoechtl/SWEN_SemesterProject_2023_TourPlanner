@@ -10,7 +10,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Modules.CreateTour;
 
-    internal class ToursOverviewScreenViewModel : Screen
+    internal class ToursOverviewScreenViewModel : NavigationScreen
     {
         public List<Tour> Tours { get; private set; }
 
@@ -27,19 +27,18 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             await NavigationHost.NavigateToScreen<CreateTourScreenViewModel>(new System.Threading.CancellationToken());
         }
 
-        protected override async Task OnActivateAsync(CancellationToken cancellationToken)
-        {
-            Tours = await GetToursAsync(cancellationToken);
-            NotifyOfPropertyChange(nameof(Tours));
-            await base.OnActivateAsync(cancellationToken);
-        }
-
         private async Task<List<Tour>> GetToursAsync(CancellationToken cancellationToken)
         {
             return await Task.Run(() =>
             {
                 return tourRepository.GetAllTours();
             }, cancellationToken);
+        }
+
+        public override async Task OnPageNavigatedTo(CancellationToken cancellationToken)
+        {
+            Tours = await GetToursAsync(cancellationToken);
+            NotifyOfPropertyChange(nameof(Tours));
         }
 
         private readonly TourRepository tourRepository;

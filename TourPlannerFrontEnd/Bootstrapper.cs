@@ -47,7 +47,7 @@ namespace TourPlannerFrontEnd
                     typeof(CreateTourScreenViewModel),
                     typeof(ToursOverviewScreenViewModel)
                 )
-              .As<Screen>()
+              .As<NavigationScreen>()
               .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies) 
               .SingleInstance();
 

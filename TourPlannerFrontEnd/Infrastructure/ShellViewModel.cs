@@ -18,10 +18,10 @@ namespace TourPlannerFrontEnd.Infrastructure
     /// Note:
     /// Conducter inherits <see cref="Screen"/> and enables an easy way to swap between views from its children
     /// </summary>
-    internal class ShellViewModel : Conductor<Screen>, INavigationHost
+    internal class ShellViewModel : Conductor<NavigationScreen>, INavigationHost
     {
         public ShellViewModel(
-            IEnumerable<Screen> screens)
+            IEnumerable<NavigationScreen> screens)
         {
             this.screens = screens.ToList();
         }
@@ -40,7 +40,7 @@ namespace TourPlannerFrontEnd.Infrastructure
             await NavigateToScreen<ToursOverviewScreenViewModel>(cancellationToken);
         }
 
-        protected override Task ChangeActiveItemAsync(Screen newItem, bool closePrevious, CancellationToken cancellationToken)
+        protected override Task ChangeActiveItemAsync(NavigationScreen newItem, bool closePrevious, CancellationToken cancellationToken)
         {
             screenStack.Push(newItem);
             return base.ChangeActiveItemAsync(newItem, closePrevious, cancellationToken);
@@ -51,7 +51,7 @@ namespace TourPlannerFrontEnd.Infrastructure
             // current view needs to be skipped
             screenStack.Pop();
 
-            Screen screen = screenStack.Pop();
+            NavigationScreen screen = screenStack.Pop();
             if (screen != null)
             {
                 await ActivateItemAsync(screen, cancellationToken);
@@ -60,9 +60,10 @@ namespace TourPlannerFrontEnd.Infrastructure
 
         public async Task NavigateToScreen<T>(CancellationToken cancellationToken) where T : Screen
         {
-            Screen screen = screens.FirstOrDefault(s => s is T);
+            NavigationScreen screen = screens.FirstOrDefault(s => s is T);
             if (screen != null)
             {
+                await screen.OnPageNavigatedTo(cancellationToken);
                 await ActivateItemAsync(screen, cancellationToken);
             }
             else
@@ -71,12 +72,12 @@ namespace TourPlannerFrontEnd.Infrastructure
             }
         }
 
-        public override IEnumerable<Screen> GetChildren()
+        public override IEnumerable<NavigationScreen> GetChildren()
         {
             return screens;
         }
 
-        private Stack<Screen> screenStack = new();
-        private List<Screen> screens = new();
+        private Stack<NavigationScreen> screenStack = new();
+        private List<NavigationScreen> screens = new();
     }
 }
