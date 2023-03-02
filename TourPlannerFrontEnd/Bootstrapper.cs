@@ -22,6 +22,8 @@ namespace TourPlannerFrontEnd
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
             DisplayRootViewForAsync<ShellViewModel>();
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
         protected override void Configure()

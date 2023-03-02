@@ -98,11 +98,14 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                 //Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
                 //Location destination = await mapQuestApiService.GetLocationFromAddressLine(Destination);
 
-                this.Model.Start = new Location() { Street = Start };
-                this.Model.Destination = new Location() { Street = Destination };
+                this.Model.Start = new Location() { Street = Start, City = string.Empty, PostCode=2131, State = string.Empty};
+                this.Model.Destination = new Location() { Street = Destination, City = string.Empty, PostCode = 2131, State = string.Empty };
                 this.Model.TravellingType = SelectedTravellingType;
 
-                tourRepository.InsertTour(this.Model);
+                await Task.Run(() =>
+                {
+                    tourRepository.InsertTour(this.Model);
+                });
 
                 MessageBox.Show($"Erfolgreich gespeichert");
             }
