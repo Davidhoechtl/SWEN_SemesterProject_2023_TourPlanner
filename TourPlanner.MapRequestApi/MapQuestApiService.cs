@@ -41,10 +41,13 @@ namespace TourPlanner.MapQuestApi
                 try
                 {
                     var info = jsonDocument.RootElement.GetProperty("info");
-                    foreach(JsonElement element in jsonDocument.RootElement.GetProperty("results").EnumerateArray())
+                    foreach (JsonElement element in jsonDocument.RootElement.GetProperty("results").EnumerateArray())
                     {
-                        MapQuestLocation[] location = element.Deserialize<MapQuestLocation[]>();
-                        return location.FirstOrDefault();
+                        foreach (JsonElement locationJson in element.GetProperty("locations").EnumerateArray())
+                        {
+                            MapQuestLocation location = locationJson.Deserialize<MapQuestLocation>();
+                            return location;
+                        }
                     }
                 }
                 catch
