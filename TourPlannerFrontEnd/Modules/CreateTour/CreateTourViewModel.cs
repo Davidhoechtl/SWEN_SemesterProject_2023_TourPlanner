@@ -79,10 +79,11 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(TourRepository tourRepository)
+        public CreateTourViewModel(TourRepository tourRepository, TourPlannerMapQuestService mapQuestService)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
             this.tourRepository = tourRepository;
+            this.mapQuestService = mapQuestService;
         }
 
         /// <summary>
@@ -98,9 +99,12 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                 //Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
                 //Location destination = await mapQuestApiService.GetLocationFromAddressLine(Destination);
 
-                this.Model.Start = new Location() { Street = Start, City = string.Empty, PostCode=2131, State = string.Empty};
-                this.Model.Destination = new Location() { Street = Destination, City = string.Empty, PostCode = 2131, State = string.Empty };
+                //this.Model.Start = new Location() { Street = Start, City = string.Empty, PostCode=2131, State = string.Empty};
+                //this.Model.Destination = new Location() { Street = Destination, City = string.Empty, PostCode = 2131, State = string.Empty };
                 this.Model.TravellingType = SelectedTravellingType;
+
+                this.Model.Start = await mapQuestService.GetLocationFromSingleLineAddress(Start);
+                this.Model.Destination = await mapQuestService.GetLocationFromSingleLineAddress(Destination);
 
                 await Task.Run(() =>
                 {
@@ -117,5 +121,6 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         private string selectedTravellingType;
         private readonly string[] travellingTypes;
         private readonly TourRepository tourRepository;
+        private readonly TourPlannerMapQuestService mapQuestService;
     }
 }

@@ -1,8 +1,10 @@
 ﻿
 namespace TourPlanner.MapQuestApi
 {
+    using Newtonsoft.Json;
     using System.Net.Http.Headers;
     using System.Text;
+    using System.Text.Json;
     using System.Web;
     using TourPlanner.MapQuestApi.Domain;
 
@@ -35,8 +37,22 @@ namespace TourPlanner.MapQuestApi
             {
                 string json = await response.Content.ReadAsStringAsync();
 
-                // convert to location object
-                return new MapQuestLocation();
+                JsonDocument jsonDocument = JsonDocument.Parse(json);
+                try
+                {
+                    var info = jsonDocument.RootElement.GetProperty("info");
+                    foreach(JsonElement element in jsonDocument.RootElement.GetProperty("results").EnumerateArray())
+                    {
+                        MapQuestLocation[] location = element.Deserialize<MapQuestLocation[]>();
+                        return location.FirstOrDefault();
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Could not parse the json body recieved");
+                }
+
+                return null;
             }
             else
             {
