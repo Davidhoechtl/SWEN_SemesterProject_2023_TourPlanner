@@ -22,8 +22,6 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             TourPlannerMapQuestService mapQuestService)
         {
             CreateTourViewModel = new CreateTourViewModel(tourRepository, mapQuestService);
-            CreateTourViewModel.Model = new Tour();
-
             DisplayName = "Create Tour";
         }
 
@@ -36,6 +34,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         public override Task OnPageNavigatedTo(CancellationToken cancellationToken)
         {
             // noop
+            CreateTourViewModel.Model = new Tour();
             return Task.CompletedTask;
         }
     }

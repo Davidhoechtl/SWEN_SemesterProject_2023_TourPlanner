@@ -126,6 +126,13 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
+        protected override void OnModelChanged()
+        {
+            startLocationData = null;
+            destinationLocationData = null;
+            Refresh();
+        }
+
         private string startLocationData;
         private string destinationLocationData;
 
