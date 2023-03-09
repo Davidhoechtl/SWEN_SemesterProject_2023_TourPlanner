@@ -101,10 +101,21 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
                 //this.Model.Start = new Location() { Street = Start, City = string.Empty, PostCode=2131, State = string.Empty};
                 //this.Model.Destination = new Location() { Street = Destination, City = string.Empty, PostCode = 2131, State = string.Empty };
-                this.Model.TravellingType = SelectedTravellingType;
 
+                this.Model.TravellingType = SelectedTravellingType;
                 this.Model.Start = await mapQuestService.GetLocationFromSingleLineAddress(Start);
+                if(this.Model.Start == null)
+                {
+                    MessageBox.Show("Error: Startlocation is invalid");
+                    return;
+                }
+
                 this.Model.Destination = await mapQuestService.GetLocationFromSingleLineAddress(Destination);
+                if (this.Model.Destination == null)
+                {
+                    MessageBox.Show("Error: Destination location is invalid");
+                    return;
+                }
 
                 await Task.Run(() =>
                 {

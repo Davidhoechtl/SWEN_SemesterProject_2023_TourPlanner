@@ -9,12 +9,12 @@ namespace TourPlanner.MapQuestApi
     using System.Xml.Linq;
     using TourPlanner.MapQuestApi.Domain;
 
-    public class MapQuestApiService
+    public class MapQuestGeocodingApiService
     {
         private const string RootURL = "http://www.mapquestapi.com/";
         private readonly string apiKey;
 
-        public MapQuestApiService(string apiKey)
+        public MapQuestGeocodingApiService(string apiKey)
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(RootURL);

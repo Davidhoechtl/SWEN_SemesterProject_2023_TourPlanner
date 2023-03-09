@@ -35,7 +35,7 @@ namespace TourPlanner.MapQuestApi.Domain
         public string geocodeQuality { get; set; }
         public bool dragPoint { get; set; }
         public string sideOfStreet { get; set; }
-        public int linkId { get; set; }
+        public string linkId { get; set; }
         public string unknownInput { get; set; }
         public string type { get; set; }
     }
