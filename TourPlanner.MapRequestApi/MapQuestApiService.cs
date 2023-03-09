@@ -6,6 +6,7 @@ namespace TourPlanner.MapQuestApi
     using System.Text;
     using System.Text.Json;
     using System.Web;
+    using System.Xml.Linq;
     using TourPlanner.MapQuestApi.Domain;
 
     public class MapQuestApiService
@@ -38,23 +39,15 @@ namespace TourPlanner.MapQuestApi
                 string json = await response.Content.ReadAsStringAsync();
 
                 JsonDocument jsonDocument = JsonDocument.Parse(json);
-                try
+                foreach( JsonElement resultItem in GetResultIfSuccessfull(jsonDocument.RootElement))
                 {
-                    var info = jsonDocument.RootElement.GetProperty("info");
-                    foreach (JsonElement element in jsonDocument.RootElement.GetProperty("results").EnumerateArray())
+                    foreach (JsonElement locationJson in resultItem.GetProperty("locations").EnumerateArray())
                     {
-                        foreach (JsonElement locationJson in element.GetProperty("locations").EnumerateArray())
-                        {
-                            MapQuestLocation location = locationJson.Deserialize<MapQuestLocation>();
-                            return location;
-                        }
+                        MapQuestLocation location = locationJson.Deserialize<MapQuestLocation>();
+                        return location;
                     }
                 }
-                catch
-                {
-                    throw new Exception("Could not parse the json body recieved");
-                }
-
+              
                 return null;
             }
             else
@@ -62,6 +55,43 @@ namespace TourPlanner.MapQuestApi
                 // handle api error
                 return null;
             }
+        }
+
+        private IEnumerable<JsonElement> GetResultIfSuccessfull(JsonElement root)
+        {
+            if(root.TryGetProperty("info", out JsonElement info))
+            {
+                if (IsResponseSuccessfull(info))
+                {
+                    return GetResultsArrayEnumerator(root);
+                }
+            }
+         
+            return new List<JsonElement>();
+        }
+
+        private bool IsResponseSuccessfull(JsonElement info)
+        {
+            if(info.TryGetProperty("statuscode", out JsonElement status))
+            {
+                short statusCode = status.GetInt16();
+                if(statusCode == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private IEnumerable<JsonElement> GetResultsArrayEnumerator(JsonElement root)
+        {
+            if(root.TryGetProperty("results", out JsonElement resultArray))
+            {
+                return resultArray.EnumerateArray();
+            }
+
+            return new List<JsonElement>();
         }
 
         HttpClient client;
