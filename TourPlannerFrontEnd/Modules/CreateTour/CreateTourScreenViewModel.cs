@@ -9,6 +9,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Modules.OverviewTours;
 
     class CreateTourScreenViewModel : NavigationScreen
     {
@@ -29,7 +30,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
         public async Task Back()
         {
-            await NavigationHost.NavigateBackOneStep(new System.Threading.CancellationToken());
+            await NavigationHost.NavigateToScreen<ToursOverviewScreenViewModel>(new CancellationToken());
         }
 
         public override Task OnPageNavigatedTo(CancellationToken cancellationToken)

@@ -39,25 +39,6 @@ namespace TourPlannerFrontEnd.Infrastructure
             // This method enables switching between views. Every time you want to go from one page to another call this method
             await NavigateToScreen<ToursOverviewScreenViewModel>(cancellationToken);
         }
-
-        protected override Task ChangeActiveItemAsync(NavigationScreen newItem, bool closePrevious, CancellationToken cancellationToken)
-        {
-            screenStack.Push(newItem);
-            return base.ChangeActiveItemAsync(newItem, closePrevious, cancellationToken);
-        }
-
-        public async Task NavigateBackOneStep(CancellationToken cancellationToken)
-        {
-            // current view needs to be skipped
-            screenStack.Pop();
-
-            NavigationScreen screen = screenStack.Pop();
-            if (screen != null)
-            {
-                await ActivateItemAsync(screen, cancellationToken);
-            }
-        }
-
         public async Task NavigateToScreen<T>(CancellationToken cancellationToken) where T : Screen
         {
             NavigationScreen screen = screens.FirstOrDefault(s => s is T);
@@ -77,7 +58,6 @@ namespace TourPlannerFrontEnd.Infrastructure
             return screens;
         }
 
-        private Stack<NavigationScreen> screenStack = new();
         private List<NavigationScreen> screens = new();
     }
 }
