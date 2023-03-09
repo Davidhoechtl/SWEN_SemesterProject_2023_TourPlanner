@@ -41,6 +41,9 @@
 
             <Label Content="State: "/>
             <TextBox x:Name="StartState"/>
+            
+            <Label Content="Country: "/>
+            <TextBox x:Name="StartCountry"/>
         </StackPanel>
 
         <Label Content="Start Location: " Grid.Row="5"/>
@@ -56,6 +59,9 @@
 
             <Label Content="State: "/>
             <TextBox x:Name="EndState"/>
+            
+            <Label Content="Country: "/>
+            <TextBox x:Name="EndCountry"/>
         </StackPanel>
     </Grid>
 </UserControl>

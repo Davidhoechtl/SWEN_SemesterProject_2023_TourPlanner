@@ -17,11 +17,12 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         public string StartCity => this.Model?.Start?.City;
         public int? StartPostCode => this.Model?.Start?.PostCode;
         public string StartState => this.Model?.Start?.State;    
+        public string StartCountry => this.Model?.Start?.Country;    
         
         public string EndStreet => this.Model?.Destination?.Street;
         public string EndCity => this.Model?.Destination?.City;
         public int? EndPostCode => this.Model?.Destination?.PostCode;
         public string EndState => this.Model?.Destination?.State;
-
+        public string EndCountry => this.Model?.Destination?.Country;
     }
 }

@@ -9,10 +9,10 @@ using TourPlanner.EntityFramework.DataAccess;
 
 #nullable disable
 
-namespace TourPlanner.EntityFramework.DataAccess.Migrations
+namespace TourPlanner.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(TourPlannerDbContext))]
-    [Migration("20230228143750_InitialCreate")]
+    [Migration("20230309113813_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,6 +38,11 @@ namespace TourPlanner.EntityFramework.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("city");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("country");
 
                     b.Property<int>("PostCode")
                         .HasColumnType("integer")

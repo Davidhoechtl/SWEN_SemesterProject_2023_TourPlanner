@@ -12,6 +12,7 @@ CREATE TABLE locations (
     city text NOT NULL,
     post_code integer NOT NULL,
     state text NOT NULL,
+    country text NOT NULL,
     CONSTRAINT pk_locations PRIMARY KEY (id)
 );
 
@@ -32,7 +33,7 @@ CREATE UNIQUE INDEX ix_tours_location_destination_id ON tours (location_destinat
 CREATE UNIQUE INDEX ix_tours_location_start_id ON tours (location_start_id);
 
 INSERT INTO "__EFMigrationsHistory" (migration_id, product_version)
-VALUES ('20230228143750_InitialCreate', '7.0.3');
+VALUES ('20230309113813_InitialCreate', '7.0.3');
 
 COMMIT;
 

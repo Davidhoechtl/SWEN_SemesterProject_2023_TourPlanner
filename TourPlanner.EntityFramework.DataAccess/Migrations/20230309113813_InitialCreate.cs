@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace TourPlanner.EntityFramework.DataAccess.Migrations
+namespace TourPlanner.DataAccess.EntityFramework.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -21,7 +21,8 @@ namespace TourPlanner.EntityFramework.DataAccess.Migrations
                     street = table.Column<string>(type: "text", nullable: false),
                     city = table.Column<string>(type: "text", nullable: false),
                     post_code = table.Column<int>(type: "integer", nullable: false),
-                    state = table.Column<string>(type: "text", nullable: false)
+                    state = table.Column<string>(type: "text", nullable: false),
+                    country = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

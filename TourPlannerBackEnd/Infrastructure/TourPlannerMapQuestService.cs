@@ -29,6 +29,7 @@ namespace TourPlannerBackEnd.Infrastructure
                 {
                     Location location = new()
                     {
+                        Country = mapQuestLocation.adminArea1,
                         State = mapQuestLocation.adminArea4,
                         City = mapQuestLocation.adminArea5,
                         PostCode = int.Parse(mapQuestLocation.postalCode),

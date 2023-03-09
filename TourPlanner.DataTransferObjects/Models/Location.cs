@@ -20,5 +20,8 @@ namespace TourPlanner.DataTransferObjects.Models
 
         [Required]
         public string State { get; set; }
+
+        [Required]
+        public string Country { get; set; }
     }
 }
