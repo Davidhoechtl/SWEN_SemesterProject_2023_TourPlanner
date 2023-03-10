@@ -14,6 +14,7 @@ namespace TourPlanner.EntityFramework.DataAccess
     public class TourPlannerDbContext : DbContext
     {
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Route> Routes { get; set; }
         public DbSet<Tour> Tours { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,6 +28,14 @@ namespace TourPlanner.EntityFramework.DataAccess
                 .Property(l => l.Id)
                 .UseIdentityAlwaysColumn();
 
+            modelBuilder.Entity<Route>()
+                .Property(l => l.Id)
+                .UseIdentityAlwaysColumn();
+
+            modelBuilder.Entity<Tour>()
+                .Property(t => t.Id)
+                .UseIdentityAlwaysColumn();
+ 
             modelBuilder.Entity<Tour>()
                 .HasOne(t => t.Start)
                 .WithOne();
@@ -36,8 +45,8 @@ namespace TourPlanner.EntityFramework.DataAccess
                 .WithOne();
 
             modelBuilder.Entity<Tour>()
-                .Property(t => t.Id)
-                .UseIdentityAlwaysColumn();
+                .HasOne(t => t.Route)
+                .WithOne();
         }
     }
 }

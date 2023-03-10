@@ -14,6 +14,7 @@ namespace TourPlanner.DataTransferObjects.Models
         public int Id { get; set; }
         public int LocationStartId { get; set; }
         public int LocationDestinationId { get; set; }
+        public int RouteId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -30,5 +31,8 @@ namespace TourPlanner.DataTransferObjects.Models
 
         [ForeignKey(nameof(LocationDestinationId))]
         public Location Destination { get; set; }
+
+        [ForeignKey(nameof(RouteId))]
+        public Route Route { get; set; }
     }
 }

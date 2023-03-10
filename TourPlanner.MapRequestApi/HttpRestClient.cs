@@ -50,6 +50,10 @@ namespace TourPlanner.MapQuestApi
             return await client.GetAsync(url);
         }
 
+        public async Task<HttpResponseMessage> PostAsync(string url, HttpContent content)
+        {
+            return await client.PostAsync(url, content);
+        }
 
         HttpClient client;
     }
