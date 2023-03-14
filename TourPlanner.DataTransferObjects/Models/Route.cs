@@ -16,7 +16,7 @@ namespace TourPlanner.DataTransferObjects.Models
         [Required]
         public string TravellingType { get; set; }
         [Required]
-        public int EstimatedTimeInSeconds { get; set; }
+        public double EstimatedTimeInSeconds { get; set; }
         [Required]
         public double DistanceInKm { get; set; }
     }

@@ -16,12 +16,12 @@ CREATE TABLE locations (
     CONSTRAINT pk_locations PRIMARY KEY (id)
 );
 
-CREATE TABLE routs (
+CREATE TABLE routes (
     id integer GENERATED ALWAYS AS IDENTITY,
     travelling_type text NOT NULL,
-    estimated_time_in_minutes integer NOT NULL,
-    distance_in_km integer NOT NULL,
-    CONSTRAINT pk_routs PRIMARY KEY (id)
+    estimated_time_in_seconds double precision NOT NULL,
+    distance_in_km double precision NOT NULL,
+    CONSTRAINT pk_routes PRIMARY KEY (id)
 );
 
 CREATE TABLE tours (
@@ -35,7 +35,7 @@ CREATE TABLE tours (
     CONSTRAINT pk_tours PRIMARY KEY (id),
     CONSTRAINT fk_tours_locations_location_destination_id FOREIGN KEY (location_destination_id) REFERENCES locations (id) ON DELETE CASCADE,
     CONSTRAINT fk_tours_locations_location_start_id FOREIGN KEY (location_start_id) REFERENCES locations (id) ON DELETE CASCADE,
-    CONSTRAINT fk_tours_routs_route_id FOREIGN KEY (route_id) REFERENCES routs (id) ON DELETE CASCADE
+    CONSTRAINT fk_tours_routes_route_id FOREIGN KEY (route_id) REFERENCES routes (id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX ix_tours_location_destination_id ON tours (location_destination_id);
@@ -45,7 +45,7 @@ CREATE UNIQUE INDEX ix_tours_location_start_id ON tours (location_start_id);
 CREATE UNIQUE INDEX ix_tours_route_id ON tours (route_id);
 
 INSERT INTO "__EFMigrationsHistory" (migration_id, product_version)
-VALUES ('20230314104302_InitialCreate', '7.0.3');
+VALUES ('20230314113141_InitialCreate', '7.0.3');
 
 COMMIT;
 

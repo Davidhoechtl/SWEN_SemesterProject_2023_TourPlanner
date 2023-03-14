@@ -70,13 +70,13 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DistanceInKm")
-                        .HasColumnType("integer")
+                    b.Property<double>("DistanceInKm")
+                        .HasColumnType("double precision")
                         .HasColumnName("distance_in_km");
 
-                    b.Property<int>("EstimatedTimeInMinutes")
-                        .HasColumnType("integer")
-                        .HasColumnName("estimated_time_in_minutes");
+                    b.Property<double>("EstimatedTimeInSeconds")
+                        .HasColumnType("double precision")
+                        .HasColumnName("estimated_time_in_seconds");
 
                     b.Property<string>("TravellingType")
                         .IsRequired()
@@ -84,9 +84,9 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .HasColumnName("travelling_type");
 
                     b.HasKey("Id")
-                        .HasName("pk_routs");
+                        .HasName("pk_routes");
 
-                    b.ToTable("routs", (string)null);
+                    b.ToTable("routes", (string)null);
                 });
 
             modelBuilder.Entity("TourPlanner.DataTransferObjects.Models.Tour", b =>
@@ -163,7 +163,7 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .HasForeignKey("TourPlanner.DataTransferObjects.Models.Tour", "RouteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_tours_routs_route_id");
+                        .HasConstraintName("fk_tours_routes_route_id");
 
                     b.Navigation("Destination");
 

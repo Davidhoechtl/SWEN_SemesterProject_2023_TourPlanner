@@ -24,5 +24,20 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         public int? EndPostCode => this.Model?.Destination?.PostCode;
         public string EndState => this.Model?.Destination?.State;
         public string EndCountry => this.Model?.Destination?.Country;
+
+        public string RouteTime => GetRouteTimeInMinutes();
+        public string RouteDistance => this.Model?.Route?.DistanceInKm.ToString() ?? "error";
+
+        private string GetRouteTimeInMinutes()
+        {
+            if(this.Model?.Route?.EstimatedTimeInSeconds != null)
+            {
+                double minutes = this.Model.Route.EstimatedTimeInSeconds / 60;
+                double roundedMinutes = Math.Round(minutes, 1);
+                return roundedMinutes.ToString();
+            }
+
+            return "error";
+        }  
     }
 }

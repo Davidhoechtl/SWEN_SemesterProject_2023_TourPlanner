@@ -13,6 +13,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -62,6 +64,15 @@
             
             <Label Content="Country: "/>
             <TextBox x:Name="EndCountry"/>
+        </StackPanel>
+
+        <Label Content="Route information" Grid.Row="7"/>
+        <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="1">
+            <Label Content="Travel time in minutes: "/>
+            <TextBox x:Name="RouteTime"/>
+            
+            <Label Content="Travel distance in kilometers: "/>
+            <TextBox x:Name="RouteDistance"/>
         </StackPanel>
     </Grid>
 </UserControl>

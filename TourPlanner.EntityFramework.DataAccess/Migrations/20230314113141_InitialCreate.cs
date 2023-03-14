@@ -30,18 +30,18 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "routs",
+                name: "routes",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     travelling_type = table.Column<string>(type: "text", nullable: false),
-                    estimated_time_in_minutes = table.Column<int>(type: "integer", nullable: false),
-                    distance_in_km = table.Column<int>(type: "integer", nullable: false)
+                    estimated_time_in_seconds = table.Column<double>(type: "double precision", nullable: false),
+                    distance_in_km = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_routs", x => x.id);
+                    table.PrimaryKey("pk_routes", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,9 +73,9 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_tours_routs_route_id",
+                        name: "fk_tours_routes_route_id",
                         column: x => x.route_id,
-                        principalTable: "routs",
+                        principalTable: "routes",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -109,7 +109,7 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                 name: "locations");
 
             migrationBuilder.DropTable(
-                name: "routs");
+                name: "routes");
         }
     }
 }
