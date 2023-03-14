@@ -40,6 +40,7 @@ namespace TourPlannerBackEnd.Repositories
             return dbContext.Tours
                 .Include(t => t.Start)
                 .Include(t => t.Destination)
+                .Include(t => t.Route)
                 .ToList();
         }
     }

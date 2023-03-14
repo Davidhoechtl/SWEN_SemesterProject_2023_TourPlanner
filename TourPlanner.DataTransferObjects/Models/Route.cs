@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.DataTransferObjects.Models
 {
-    [Table("routs")]
+    [Table("routes")]
     public class Route
     {
         public int Id { get; set; }
@@ -16,8 +16,8 @@ namespace TourPlanner.DataTransferObjects.Models
         [Required]
         public string TravellingType { get; set; }
         [Required]
-        public int EstimatedTimeInMinutes { get; set; }
+        public int EstimatedTimeInSeconds { get; set; }
         [Required]
-        public int DistanceInKm { get; set; }
+        public double DistanceInKm { get; set; }
     }
 }

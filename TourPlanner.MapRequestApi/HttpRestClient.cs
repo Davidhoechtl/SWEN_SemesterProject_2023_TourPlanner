@@ -13,7 +13,7 @@ namespace TourPlanner.MapQuestApi
 
     internal class HttpRestClient : IFluentUriBuilder
     {
-        private const string RootURL = "http://www.mapquestapi.com/";
+        public const string RootURL = "http://www.mapquestapi.com/";
 
         public HttpRestClient()
         {

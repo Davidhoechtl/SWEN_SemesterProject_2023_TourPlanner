@@ -9,6 +9,6 @@ namespace TourPlanner.MapQuestApi.Domain
     internal class RouteRequestParameter
     {
         public string[] locations { get; set; }
-        public RouteOptions options { get; set; }
+        public RouteOptions options { get; set; } = new();
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.MapQuestApi.Domain
 {
-    internal class RouteOptions
+    public class RouteOptions
     {
-        public string unit { get; set; }
+        public string unit { get; set; } = "k";
         public string routeType  {get; set; }
     }
 }

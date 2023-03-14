@@ -92,8 +92,6 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         public async Task Save()
         {
             // api get route
-
-
             if (this.Model != null)
             {
                 //Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
@@ -117,12 +115,22 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                     return;
                 }
 
+                this.Model.Route = await mapQuestService.GetRouteFromLocations(
+                    Start,
+                    Destination,
+                    SelectedTravellingType
+                );
+                if(this.Model.Route == null)
+                {
+                    MessageBox.Show("Error: Route could not be found");
+                }
+
                 await Task.Run(() =>
                 {
                     tourRepository.InsertTour(this.Model);
                 });
 
-                MessageBox.Show($"Erfolgreich gespeichert");
+                MessageBox.Show($"Successfully saved!");
             }
         }
 

@@ -30,6 +30,21 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "routs",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    travelling_type = table.Column<string>(type: "text", nullable: false),
+                    estimated_time_in_minutes = table.Column<int>(type: "integer", nullable: false),
+                    distance_in_km = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_routs", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tours",
                 columns: table => new
                 {
@@ -37,6 +52,7 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     location_start_id = table.Column<int>(type: "integer", nullable: false),
                     location_destination_id = table.Column<int>(type: "integer", nullable: false),
+                    route_id = table.Column<int>(type: "integer", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     travelling_type = table.Column<string>(type: "text", nullable: false),
                     start_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -56,6 +72,12 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         principalTable: "locations",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_tours_routs_route_id",
+                        column: x => x.route_id,
+                        principalTable: "routs",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -69,6 +91,12 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                 table: "tours",
                 column: "location_start_id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_tours_route_id",
+                table: "tours",
+                column: "route_id",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -79,6 +107,9 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
 
             migrationBuilder.DropTable(
                 name: "locations");
+
+            migrationBuilder.DropTable(
+                name: "routs");
         }
     }
 }

@@ -12,7 +12,7 @@ using TourPlanner.EntityFramework.DataAccess;
 namespace TourPlanner.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(TourPlannerDbContext))]
-    [Migration("20230309113813_InitialCreate")]
+    [Migration("20230314104302_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -64,6 +64,34 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                     b.ToTable("locations", (string)null);
                 });
 
+            modelBuilder.Entity("TourPlanner.DataTransferObjects.Models.Route", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DistanceInKm")
+                        .HasColumnType("integer")
+                        .HasColumnName("distance_in_km");
+
+                    b.Property<int>("EstimatedTimeInMinutes")
+                        .HasColumnType("integer")
+                        .HasColumnName("estimated_time_in_minutes");
+
+                    b.Property<string>("TravellingType")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("travelling_type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_routs");
+
+                    b.ToTable("routs", (string)null);
+                });
+
             modelBuilder.Entity("TourPlanner.DataTransferObjects.Models.Tour", b =>
                 {
                     b.Property<int>("Id")
@@ -86,6 +114,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
+                    b.Property<int>("RouteId")
+                        .HasColumnType("integer")
+                        .HasColumnName("route_id");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("start_date");
@@ -106,6 +138,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_tours_location_start_id");
 
+                    b.HasIndex("RouteId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_tours_route_id");
+
                     b.ToTable("tours", (string)null);
                 });
 
@@ -125,7 +161,16 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_tours_locations_location_start_id");
 
+                    b.HasOne("TourPlanner.DataTransferObjects.Models.Route", "Route")
+                        .WithOne()
+                        .HasForeignKey("TourPlanner.DataTransferObjects.Models.Tour", "RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_tours_routs_route_id");
+
                     b.Navigation("Destination");
+
+                    b.Navigation("Route");
 
                     b.Navigation("Start");
                 });

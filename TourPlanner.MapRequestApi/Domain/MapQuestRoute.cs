@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.MapQuestApi.Domain
 {
-    internal class MapQuestRoute
+    public class MapQuestRoute
     {
         public int time { get; set; }
-        public int distance { get; set; }
+        public double distance { get; set; }
     }
 }
