@@ -78,6 +78,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("estimated_time_in_seconds");
 
+                    b.Property<byte[]>("MapImage")
+                        .HasColumnType("bytea")
+                        .HasColumnName("map_image");
+
                     b.Property<string>("TravellingType")
                         .IsRequired()
                         .HasColumnType("text")

@@ -19,6 +19,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Label Content="Tour name: "/>
@@ -74,5 +75,7 @@
             <Label Content="Travel distance in kilometers: "/>
             <TextBox x:Name="RouteDistance"/>
         </StackPanel>
+
+        <Image Width="600" Height="400" Source="{Binding MapImageSource}" Grid.RowSpan="6" Grid.Column="2"></Image>
     </Grid>
 </UserControl>

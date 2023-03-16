@@ -12,7 +12,7 @@ using TourPlanner.EntityFramework.DataAccess;
 namespace TourPlanner.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(TourPlannerDbContext))]
-    [Migration("20230314113141_InitialCreate")]
+    [Migration("20230316093841_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -80,6 +80,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                     b.Property<double>("EstimatedTimeInSeconds")
                         .HasColumnType("double precision")
                         .HasColumnName("estimated_time_in_seconds");
+
+                    b.Property<byte[]>("MapImage")
+                        .HasColumnType("bytea")
+                        .HasColumnName("map_image");
 
                     b.Property<string>("TravellingType")
                         .IsRequired()

@@ -21,6 +21,7 @@ CREATE TABLE routes (
     travelling_type text NOT NULL,
     estimated_time_in_seconds double precision NOT NULL,
     distance_in_km double precision NOT NULL,
+    map_image bytea NULL,
     CONSTRAINT pk_routes PRIMARY KEY (id)
 );
 
@@ -45,7 +46,7 @@ CREATE UNIQUE INDEX ix_tours_location_start_id ON tours (location_start_id);
 CREATE UNIQUE INDEX ix_tours_route_id ON tours (route_id);
 
 INSERT INTO "__EFMigrationsHistory" (migration_id, product_version)
-VALUES ('20230314113141_InitialCreate', '7.0.3');
+VALUES ('20230316093841_InitialCreate', '7.0.3');
 
 COMMIT;
 

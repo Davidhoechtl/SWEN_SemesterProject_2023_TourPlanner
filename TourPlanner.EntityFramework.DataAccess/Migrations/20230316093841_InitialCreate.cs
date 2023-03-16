@@ -37,7 +37,8 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     travelling_type = table.Column<string>(type: "text", nullable: false),
                     estimated_time_in_seconds = table.Column<double>(type: "double precision", nullable: false),
-                    distance_in_km = table.Column<double>(type: "double precision", nullable: false)
+                    distance_in_km = table.Column<double>(type: "double precision", nullable: false),
+                    map_image = table.Column<byte[]>(type: "bytea", nullable: true)
                 },
                 constraints: table =>
                 {

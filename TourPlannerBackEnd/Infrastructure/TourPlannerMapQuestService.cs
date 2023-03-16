@@ -17,6 +17,7 @@ namespace TourPlannerBackEnd.Infrastructure
             string apiKey = apiKeyLoader.Load();
             this.mapQuestApiService = new MapQuestGeocodingApiService(apiKey);
             this.mapQuestDirectionApiService = new MapQuestDirectionsApiService(apiKey);
+            this.mapQuestStaticMapApiService = new MapQuestStaticMapApiService(apiKey);
         }
 
         public async Task<Location> GetLocationFromSingleLineAddress(string singleLineAddress)
@@ -71,7 +72,14 @@ namespace TourPlannerBackEnd.Infrastructure
             return null;
         }
 
+        public async Task<byte[]> GetRouteImage(string start, string end, int width, int height)
+        {
+            byte[] bytes = await mapQuestStaticMapApiService.GetTourImage(start, end, width, height);
+            return bytes;
+        }
+
         private readonly MapQuestGeocodingApiService mapQuestApiService;
         private readonly MapQuestDirectionsApiService mapQuestDirectionApiService;
+        private readonly MapQuestStaticMapApiService mapQuestStaticMapApiService;
     }
 }

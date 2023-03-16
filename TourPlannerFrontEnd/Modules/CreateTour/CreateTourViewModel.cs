@@ -120,6 +120,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                     Destination,
                     SelectedTravellingType
                 );
+
+                this.Model.Route.MapImage = await mapQuestService.GetRouteImage(Start, Destination, 600, 400);
+
                 if(this.Model.Route == null)
                 {
                     MessageBox.Show("Error: Route could not be found");

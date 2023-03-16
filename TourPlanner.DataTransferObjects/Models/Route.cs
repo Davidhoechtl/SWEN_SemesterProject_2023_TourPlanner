@@ -19,5 +19,7 @@ namespace TourPlanner.DataTransferObjects.Models
         public double EstimatedTimeInSeconds { get; set; }
         [Required]
         public double DistanceInKm { get; set; }
+
+        public byte[] MapImage { get; set; }
     }
 }
