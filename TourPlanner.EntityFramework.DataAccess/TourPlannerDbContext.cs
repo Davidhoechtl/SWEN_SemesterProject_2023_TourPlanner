@@ -14,7 +14,7 @@ namespace TourPlanner.EntityFramework.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
-                .UseNpgsql("Host=localhost;Database=TourPlanner;Username=postgres;Password=dividi1212")
+                .UseNpgsql("Host=localhost;Database=TourPlanner;Username=postgres;Password=test")
                 .UseSnakeCaseNamingConvention();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
