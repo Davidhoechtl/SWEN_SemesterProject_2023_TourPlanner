@@ -146,6 +146,49 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                     b.ToTable("tours", (string)null);
                 });
 
+            modelBuilder.Entity("TourPlanner.DataTransferObjects.Models.TourLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("comment");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("date");
+
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("integer")
+                        .HasColumnName("difficulty");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer")
+                        .HasColumnName("rating");
+
+                    b.Property<double>("TakenTimeInSeconds")
+                        .HasColumnType("double precision")
+                        .HasColumnName("taken_time_in_seconds");
+
+                    b.Property<int>("TourId")
+                        .HasColumnType("integer")
+                        .HasColumnName("tour_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_tour_logs");
+
+                    b.HasIndex("TourId")
+                        .HasDatabaseName("ix_tour_logs_tour_id");
+
+                    b.ToTable("tourLogs");
+                });
+
             modelBuilder.Entity("TourPlanner.DataTransferObjects.Models.Tour", b =>
                 {
                     b.HasOne("TourPlanner.DataTransferObjects.Models.Location", "Destination")
@@ -174,6 +217,23 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                     b.Navigation("Route");
 
                     b.Navigation("Start");
+                });
+
+            modelBuilder.Entity("TourPlanner.DataTransferObjects.Models.TourLog", b =>
+                {
+                    b.HasOne("TourPlanner.DataTransferObjects.Models.Tour", "Tour")
+                        .WithMany("TourLogs")
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_tour_logs_tours_tour_id");
+
+                    b.Navigation("Tour");
+                });
+
+            modelBuilder.Entity("TourPlanner.DataTransferObjects.Models.Tour", b =>
+                {
+                    b.Navigation("TourLogs");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TourPlannerBackEnd;
 using TourPlannerFrontEnd.Infrastructure;
 using TourPlannerFrontEnd.Modules.CreateTour;
+using TourPlannerFrontEnd.Modules.CreateTourLog;
 using TourPlannerFrontEnd.Modules.OverviewTours;
 
 namespace TourPlannerFrontEnd
@@ -45,6 +46,7 @@ namespace TourPlannerFrontEnd
             // other options are navigatonMessages via Eventaggregator to louse couple those two types
             builder.RegisterTypes(
                     typeof(CreateTourScreenViewModel),
+                    typeof(CreateTourLogScreenViewModel),
                     typeof(ToursOverviewScreenViewModel)
                 )
               .As<NavigationScreen>()

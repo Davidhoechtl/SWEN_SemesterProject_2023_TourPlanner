@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TourPlanner.DataTransferObjects.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     [Table("tours")]
     public class Tour
     {
@@ -34,5 +30,7 @@ namespace TourPlanner.DataTransferObjects.Models
 
         [ForeignKey(nameof(RouteId))]
         public Route Route { get; set; }
+
+        public List<TourLog> TourLogs { get; set; }
     }
 }

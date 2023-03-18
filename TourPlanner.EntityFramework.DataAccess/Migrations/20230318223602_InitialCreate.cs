@@ -81,6 +81,35 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "tourLogs",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    comment = table.Column<string>(type: "text", nullable: false),
+                    difficulty = table.Column<int>(type: "integer", nullable: false),
+                    taken_time_in_seconds = table.Column<double>(type: "double precision", nullable: false),
+                    rating = table.Column<int>(type: "integer", nullable: false),
+                    tour_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_tour_logs", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_tour_logs_tours_tour_id",
+                        column: x => x.tour_id,
+                        principalTable: "tours",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_tour_logs_tour_id",
+                table: "tourLogs",
+                column: "tour_id");
+
             migrationBuilder.CreateIndex(
                 name: "ix_tours_location_destination_id",
                 table: "tours",
@@ -103,6 +132,9 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "tourLogs");
+
             migrationBuilder.DropTable(
                 name: "tours");
 

@@ -11,6 +11,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.Extensions;
     using TourPlannerFrontEnd.Modules.CreateTour;
+    using TourPlannerFrontEnd.Modules.CreateTourLog;
 
     internal class ToursOverviewScreenViewModel : NavigationScreen
     {
@@ -23,9 +24,12 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             set
             {
                 selectedTour = value;
-                NotifyOfPropertyChange(nameof(selectedTour));
+                NotifyOfPropertyChange(nameof(SelectedTour));
+                NotifyOfPropertyChange(nameof(IsCreateTourLogVisible));
             }
         }
+
+        public bool IsCreateTourLogVisible => SelectedTour != null;
 
         public ToursOverviewScreenViewModel(TourRepository tourRepository)
         {
@@ -36,6 +40,10 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         public async Task CreateTour()
         {
             await NavigationHost.NavigateToScreen<CreateTourScreenViewModel>(new System.Threading.CancellationToken());
+        }
+        public async Task CreateTourLog()
+        {
+            await NavigationHost.NavigateToScreen<CreateTourLogScreenViewModel>(new System.Threading.CancellationToken());
         }
 
         private async Task<IEnumerable<Tour>> GetToursAsync(CancellationToken cancellationToken)
