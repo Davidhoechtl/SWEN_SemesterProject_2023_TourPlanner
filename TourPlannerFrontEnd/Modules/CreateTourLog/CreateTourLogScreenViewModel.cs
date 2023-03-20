@@ -11,13 +11,13 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
 
     internal class CreateTourLogScreenViewModel : NavigationScreen
     {
-        public TourLogViewModel TourLogViewModel { get; set; }
+        public CreateTourLogViewModel TourLogViewModel { get; set; }
 
         public INavigationHost NavigationHost { get; set; }
 
         public CreateTourLogScreenViewModel()
         {
-            TourLogViewModel = new TourLogViewModel();
+            TourLogViewModel = new CreateTourLogViewModel();
             DisplayName = "Create Tour Log";
         }
 

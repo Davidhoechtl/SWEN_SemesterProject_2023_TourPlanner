@@ -2,10 +2,11 @@
 namespace TourPlannerFrontEnd.Modules.RateTour
 {
     using System;
+    using System.Threading.Tasks;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerFrontEnd.Infrastructure;
 
-    internal class TourLogViewModel : ViewModel<TourLog>
+    internal class CreateTourLogViewModel : ViewModel<TourLog>
     {
         public DateTime Date
         {
@@ -55,6 +56,14 @@ namespace TourPlannerFrontEnd.Modules.RateTour
                 this.Model.Rating = value;
                 NotifyOfPropertyChange(nameof(Rating));
             }
+        }
+
+        public async Task Save()
+        {
+            await Task.Run(() =>
+            {
+
+            });
         }
     }
 }

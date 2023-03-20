@@ -18,9 +18,9 @@ namespace TourPlannerFrontEnd.Modules.RateTour
     /// <summary>
     /// Interaction logic for TourLogView.xaml
     /// </summary>
-    public partial class TourLogView : UserControl
+    public partial class CreateTourLogView : UserControl
     {
-        public TourLogView()
+        public CreateTourLogView()
         {
             InitializeComponent();
         }
