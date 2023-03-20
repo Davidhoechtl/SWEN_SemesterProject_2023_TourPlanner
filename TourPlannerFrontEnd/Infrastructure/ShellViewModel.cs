@@ -53,6 +53,20 @@ namespace TourPlannerFrontEnd.Infrastructure
             }
         }
 
+        public async Task NavigateToScreen<T>(CancellationToken cancellationToken, object dataContext) where T : Screen
+        {
+            NavigationScreen screen = screens.FirstOrDefault(s => s is T);
+            if (screen != null)
+            {
+                await screen.OnPageNavigatedTo(cancellationToken, dataContext);
+                await ActivateItemAsync(screen, cancellationToken);
+            }
+            else
+            {
+                throw new Exception("The page with type " + typeof(T).Name + " is not recognized in the children of the conductor");
+            }
+        }
+
         public override IEnumerable<NavigationScreen> GetChildren()
         {
             return screens;

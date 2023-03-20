@@ -43,7 +43,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         }
         public async Task CreateTourLog()
         {
-            await NavigationHost.NavigateToScreen<CreateTourLogScreenViewModel>(new System.Threading.CancellationToken());
+            await NavigationHost.NavigateToScreen<CreateTourLogScreenViewModel>(new System.Threading.CancellationToken(), SelectedTour.Model);
         }
 
         private async Task<IEnumerable<Tour>> GetToursAsync(CancellationToken cancellationToken)

@@ -3,7 +3,9 @@ namespace TourPlannerFrontEnd.Modules.RateTour
 {
     using System;
     using System.Threading.Tasks;
+    using System.Windows;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
 
     internal class CreateTourLogViewModel : ViewModel<TourLog>
@@ -58,12 +60,21 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             }
         }
 
+        public CreateTourLogViewModel(TourLogRepository tourLogRepository)
+        {
+            this.tourLogRepository = tourLogRepository;
+        }
+
         public async Task Save()
         {
             await Task.Run(() =>
             {
-
+                tourLogRepository.SaveTourLog(this.Model);
             });
+
+            MessageBox.Show("Saved successful");
         }
+
+        private readonly TourLogRepository tourLogRepository;
     }
 }

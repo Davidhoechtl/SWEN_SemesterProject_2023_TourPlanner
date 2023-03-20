@@ -5,6 +5,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
     using System.Threading;
     using System.Threading.Tasks;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Modules.OverviewTours;
     using TourPlannerFrontEnd.Modules.RateTour;
@@ -15,9 +16,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
 
         public INavigationHost NavigationHost { get; set; }
 
-        public CreateTourLogScreenViewModel()
+        public CreateTourLogScreenViewModel(TourLogRepository tourLogRepository)
         {
-            TourLogViewModel = new CreateTourLogViewModel();
+            TourLogViewModel = new CreateTourLogViewModel(tourLogRepository);
             DisplayName = "Create Tour Log";
         }
 
@@ -26,10 +27,26 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
             await NavigationHost.NavigateToScreen<ToursOverviewScreenViewModel>(new CancellationToken());
         }
 
+        public override Task OnPageNavigatedTo(CancellationToken cancellationToken, object dataContext)
+        {
+            if(dataContext is Tour tour)
+            {
+                TourLogViewModel.Model = new TourLog()
+                {
+                    TourId = tour.Id
+                };
+                return Task.CompletedTask;
+            }
+            else
+            {
+                throw new System.Exception($"The datacontext for {nameof(CreateTourLogScreenViewModel)} is not a Tour");
+            }
+        }
+
+        // ToDo base method should be virtual
         public override Task OnPageNavigatedTo(CancellationToken cancellationToken)
         {
-            TourLogViewModel.Model = new TourLog();
-            return Task.CompletedTask;
+            throw new System.NotImplementedException();
         }
     }
 }

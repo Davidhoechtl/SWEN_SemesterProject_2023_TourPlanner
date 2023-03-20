@@ -9,5 +9,6 @@ namespace TourPlannerFrontEnd.Infrastructure
     internal interface INavigationHost
     {
         Task NavigateToScreen<T>(CancellationToken cancellationToken) where T : Screen;
+        Task NavigateToScreen<T>(CancellationToken cancellationToken, object dataContext) where T : Screen;
     }
 }
