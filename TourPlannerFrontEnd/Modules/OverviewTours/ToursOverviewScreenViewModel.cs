@@ -71,6 +71,11 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         public override async Task OnPageNavigatedTo(CancellationToken cancellationToken)
         {
+            this.SearchBar = new SearchBarViewModel(tourRepository);
+            this.SearchBar.Model = new TourSearchResult();
+            this.SearchBar.OnSearch = OnSearch;
+            NotifyOfPropertyChange(nameof(SearchBar));
+
             IEnumerable<Tour> allTours = await GetToursAsync(cancellationToken);
             Tours = allTours.SelectViewModels<Tour, TourDetailViewModel>().ToList();
             SelectedTour = Tours.FirstOrDefault();
