@@ -41,6 +41,7 @@ namespace TourPlannerBackEnd.Repositories
                 .Include(t => t.Start)
                 .Include(t => t.Destination)
                 .Include(t => t.Route)
+                .Include(t => t.TourLogs)
                 .ToList();
         }
     }

@@ -2,6 +2,7 @@
 namespace TourPlannerFrontEnd.Modules.OverviewTours
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Windows.Controls;
     using System.Windows.Media;
@@ -33,6 +34,8 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         public string RouteDistance => this.Model?.Route?.DistanceInKm.ToString() ?? "error";
 
         public ImageSource MapImageSource { get; set; }
+
+        public List<TourLog> TourLogs => this.Model?.TourLogs;
 
         private string GetRouteTimeInMinutes()
         {
