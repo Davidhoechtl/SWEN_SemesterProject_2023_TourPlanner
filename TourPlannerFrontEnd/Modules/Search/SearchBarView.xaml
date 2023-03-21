@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourPlannerFrontEnd.Modules.Search"
+             xmlns:customControls="clr-namespace:TourPlannerFrontEnd.Infrastructure.CustomControls"
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal">
-        <TextBox x:Name="SearchText" Width="1000px"/>
+        <customControls:WatermarkTextBox x:Name="SearchTexttest" WatermarkText="Search for tours" WatermarkBrush="Gray" Width="1000px"/>
         <Button x:Name="Search" Content="Search"/>
     </StackPanel>
 </UserControl>
