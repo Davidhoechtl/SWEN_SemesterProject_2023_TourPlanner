@@ -19,6 +19,13 @@ namespace TourPlannerBackEnd.Repositories
             this.dbContext = dbContext;
         }
 
+        public List<Tour> GetToursBySearchText(string searchText)
+        {
+            return dbContext.Tours
+                .Where(t => t.Name.ToLower() == searchText.ToLower())
+                .ToList();
+        }
+
         public void InsertTour(Tour tour)
         {
             //string insertStatement = "INSERT INTO tour (name, start, destination, travellingType) VALUES (@name, @start, @destination, @travellingType)";

@@ -12,6 +12,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using TourPlannerFrontEnd.Infrastructure.Extensions;
     using TourPlannerFrontEnd.Modules.CreateTour;
     using TourPlannerFrontEnd.Modules.CreateTourLog;
+    using TourPlannerFrontEnd.Modules.Search;
 
     internal class ToursOverviewScreenViewModel : NavigationScreen
     {
@@ -29,11 +30,17 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             }
         }
 
+        public SearchBarViewModel SearchBar { get; set; }
+
         public bool IsCreateTourLogVisible => SelectedTour != null;
 
         public ToursOverviewScreenViewModel(TourRepository tourRepository)
         {
             this.tourRepository = tourRepository;
+            this.SearchBar = new SearchBarViewModel(tourRepository);
+            this.SearchBar.Model = new TourSearchResult();
+            this.SearchBar.OnSearch = OnSearch;
+
             DisplayName = "Tour Overview";
         }
 
@@ -52,6 +59,14 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             {
                 return tourRepository.GetAllTours();
             }, cancellationToken);
+        }
+
+        private void OnSearch(TourSearchResult searchResult)
+        {
+            Tours = searchResult.FoundTours.SelectViewModels<Tour, TourDetailViewModel>().ToList();
+            SelectedTour = Tours.FirstOrDefault();
+            NotifyOfPropertyChange(nameof(Tours));
+            NotifyOfPropertyChange(nameof(SelectedTour));
         }
 
         public override async Task OnPageNavigatedTo(CancellationToken cancellationToken)
