@@ -36,7 +36,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <ContentControl x:Name="SelectedTour" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
+        <ContentControl x:Name="SelectedTour" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" MaxHeight="700px"/>
         <Button x:Name="CreateTourLog" Content="Create Tour Log" Grid.Row="1" Grid.Column="2" Visibility="{Binding IsCreateTourLogVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
     </Grid>
 </UserControl>
