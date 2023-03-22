@@ -38,7 +38,7 @@ namespace TourPlannerBackEnd.Infrastructure.TourExport
                 csvBuilder.AppendLine( ParseObject(tour.Route.DistanceInKm));
             }
 
-            string fileName = DateTime.Now.ToLongTimeString() + ".csv";
+            string fileName = DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss") + ".csv";
             using(StreamWriter writer = new StreamWriter(Path.Combine(path, fileName)))
             {
                 writer.Write(csvBuilder.ToString());

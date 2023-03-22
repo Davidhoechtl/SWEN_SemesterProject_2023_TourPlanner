@@ -10,6 +10,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using System.Threading.Tasks;
     using System.Windows;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlannerBackEnd.Infrastructure.TourExport;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.Extensions;
@@ -37,9 +38,11 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         public bool IsCreateTourLogVisible => SelectedTour != null;
 
-        public ToursOverviewScreenViewModel(TourRepository tourRepository)
+        public ToursOverviewScreenViewModel(TourRepository tourRepository, IExportService exportService)
         {
             this.tourRepository = tourRepository;
+            this.exportService = exportService;
+
             this.SearchBar = new SearchBarViewModel(tourRepository);
             this.SearchBar.Model = new TourSearchResult();
             this.SearchBar.OnSearch = OnSearch;
@@ -52,21 +55,25 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             await NavigationHost.NavigateToScreen<CreateTourScreenViewModel>(new System.Threading.CancellationToken());
         }
 
-        public async Task ExportTours()
+        public void ExportTours()
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = "C:\\Users";
+            dialog.InitialDirectory = "C:\\";
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                MessageBox.Show("You selected: " + dialog.FileName);
+                exportService.Export(Tours.Select(t => t.Model), dialog.FileName);
+            }
+            else
+            {
+                MessageBox.Show("Export was cancelled");
             }
         }
 
         public async Task ImportTours()
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = "C:\\Users";
+            dialog.InitialDirectory = "C:\\";
             dialog.IsFolderPicker = false;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -112,5 +119,6 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         private TourDetailViewModel selectedTour;
         private readonly TourRepository tourRepository;
+        private readonly IExportService exportService;
     }
 }
