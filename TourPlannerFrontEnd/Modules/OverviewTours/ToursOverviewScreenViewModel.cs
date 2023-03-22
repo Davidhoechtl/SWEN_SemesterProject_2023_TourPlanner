@@ -2,10 +2,13 @@
 namespace TourPlannerFrontEnd.Modules.OverviewTours
 {
     using Caliburn.Micro;
+    using Microsoft.Win32;
+    using Microsoft.WindowsAPICodePack.Dialogs;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
@@ -48,6 +51,29 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         {
             await NavigationHost.NavigateToScreen<CreateTourScreenViewModel>(new System.Threading.CancellationToken());
         }
+
+        public async Task ExportTours()
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                MessageBox.Show("You selected: " + dialog.FileName);
+            }
+        }
+
+        public async Task ImportTours()
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = false;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                MessageBox.Show("You selected: " + dialog.FileName);
+            }
+        }
+
         public async Task CreateTourLog()
         {
             await NavigationHost.NavigateToScreen<CreateTourLogScreenViewModel>(new System.Threading.CancellationToken(), SelectedTour.Model);

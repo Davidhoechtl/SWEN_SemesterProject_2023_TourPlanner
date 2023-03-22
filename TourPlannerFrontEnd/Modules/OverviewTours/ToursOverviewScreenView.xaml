@@ -12,15 +12,15 @@
         <converters:BoolVisibleCollapsedConverter x:Key="BoolVisibleCollapsedConverter"/>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid ShowGridLines="True">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -28,15 +28,24 @@
         <Label x:Name="DisplayName" FontSize="40"/>
         <ContentControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"/>
 
-        <Button x:Name="CreateTour" Content="Create Tour" Grid.Row="1"/>
-        <DataGrid x:Name="Tours" SelectedItem="SelectedTour" Grid.Row="2" Width="300" Height="500" VerticalAlignment="Stretch" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+        <StackPanel Grid.Row="1">
+            <Button x:Name="CreateTour" Content="Create Tour" Height="50px"/>
+            <Button x:Name="ExportTours" Content="Export Tours" Height="50px"/>
+            <Button x:Name="ImportTours" Content="Import Tours" Height="50px"/>
+        </StackPanel>
+
+        <DataGrid x:Name="Tours" SelectedItem="SelectedTour" Grid.Row="2" Width="300" Height="800" VerticalAlignment="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
                 <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <ContentControl x:Name="SelectedTour" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" MaxHeight="700px"/>
-        <Button x:Name="CreateTourLog" Content="Create Tour Log" Grid.Row="1" Grid.Column="2" Visibility="{Binding IsCreateTourLogVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+        <ScrollViewer Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <ContentControl x:Name="SelectedTour"/>
+                <Button x:Name="CreateTourLog" Content="Create Tour Log" Height="50px" VerticalAlignment="Top" Visibility="{Binding IsCreateTourLogVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>
