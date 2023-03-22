@@ -14,8 +14,6 @@ namespace TourPlannerBackEnd.Infrastructure.TourExport
         /// Tourname, TravellingType,Startdate,StartStreet,Startcity,StartPostalCode,StartState,StartCountry,
         /// EndStreet,Endcity,EndPostalCode,EndState,EndCountry,EstimatedTimeInSeconds,DistanceInKm
         /// </summary>
-        /// <param name="tours"></param>
-        /// <exception cref="NotImplementedException"></exception>
         public void Export(IEnumerable<Tour> tours, string path)
         {
             StringBuilder csvBuilder= new StringBuilder();
