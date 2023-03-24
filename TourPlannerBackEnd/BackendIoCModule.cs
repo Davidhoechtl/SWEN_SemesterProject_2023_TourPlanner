@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TourPlanner.EntityFramework.DataAccess;
 using TourPlannerBackEnd.Infrastructure;
 using TourPlannerBackEnd.Infrastructure.TourExport;
+using TourPlannerBackEnd.Infrastructure.TourImport;
 using TourPlannerBackEnd.Repositories;
 
 namespace TourPlannerBackEnd
@@ -30,7 +31,8 @@ namespace TourPlannerBackEnd
             builder.RegisterTypes(
                 typeof(ApiKeyLoader),
                 typeof(TourPlannerMapQuestService),
-                typeof(TourCsvExportService)
+                typeof(TourCsvExportService),
+                typeof(TourCsvImportService)
             )
             .SingleInstance()
             .AsImplementedInterfaces()

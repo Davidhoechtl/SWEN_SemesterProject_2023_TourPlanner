@@ -23,5 +23,10 @@ namespace TourPlanner.DataTransferObjects.Models
 
         [Required]
         public string Country { get; set; }
+
+        public string GetSingleLineString()
+        {
+            return $"{Street}, {State}";
+        }
     }
 }

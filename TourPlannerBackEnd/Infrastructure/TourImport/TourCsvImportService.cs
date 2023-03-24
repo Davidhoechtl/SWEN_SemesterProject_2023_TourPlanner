@@ -13,19 +13,61 @@ namespace TourPlannerBackEnd.Infrastructure.TourImport
         /// Tourname, TravellingType,Startdate,StartStreet,Startcity,StartPostalCode,StartState,StartCountry,
         /// EndStreet,Endcity,EndPostalCode,EndState,EndCountry,EstimatedTimeInSeconds,DistanceInKm
         /// </summary>
-        public Task<List<Tour>> Import(string filename)
+        public List<Tour> Import(string filename)
         {
             ValidateFileName(filename);
 
             using (StreamReader reader = new StreamReader(filename))
             {
-                //while(reader.ReadLine() != null)
-                //{
-                //    string line = reader.ReadLine();
-                //}
-            }
+                List<Tour> tours = new List<Tour>();
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
 
-            return null;
+                    tours.Add(ConvertTourFromLine(line));
+                }
+
+                return tours;
+            }
+        }
+
+        private Tour ConvertTourFromLine(string line)
+        {
+            string[] lineData = line.Split(';');
+
+            Tour tour = new Tour()
+            {
+                Name = ParseObject<string>(lineData[0]),
+                TravellingType = ParseObject<string>(lineData[1]),
+                StartDate = ParseObject<DateTime>(lineData[2]),
+
+                Start = new Location()
+                {
+                    Street = ParseObject<string>(lineData[3]),
+                    City = ParseObject<string>(lineData[4]),
+                    PostCode = ParseObject<int>(lineData[5]),
+                    State = ParseObject<string>(lineData[6]),
+                    Country = ParseObject<string>(lineData[7])
+                },
+
+                Destination = new Location()
+                {
+                    Street = ParseObject<string>(lineData[8]),
+                    City = ParseObject<string>(lineData[9]),
+                    PostCode = ParseObject<int>(lineData[10]),
+                    State = ParseObject<string>(lineData[11]),
+                    Country = ParseObject<string>(lineData[12])
+                },
+
+                Route = new Route()
+                {
+                    TravellingType = ParseObject<string>(lineData[1]),
+                    EstimatedTimeInSeconds = ParseObject<double>(lineData[13]),
+                    DistanceInKm = ParseObject<double>(lineData[14])
+                }
+            };
+
+            return tour;
         }
 
         private void ValidateFileName(string filename)
@@ -34,33 +76,35 @@ namespace TourPlannerBackEnd.Infrastructure.TourImport
             {
                 throw new ArgumentException("The filename ist empty or null");
             }
-            else if (Path.GetExtension(filename) != "csv")
+            else if (Path.GetExtension(filename) != ".csv")
             {
                 throw new ArgumentException($"The filename has an invalid extension for the {nameof(TourCsvImportService)} it should be csv");
             }
         }
 
-        private object ParseObject(string str)
+        private T ParseObject<T>(string str)
         {
-            if (str is null)
+            Type convertType = typeof(T);
+
+            if (str == "-")
             {
-                return "-";
+                return default(T);
             }
-            else if (double.TryParse(str, out double parsedDouble))
+            else if (convertType == typeof(DateTime))
             {
-                return parsedDouble;
+                return (T)(object)DateTime.Parse(str);
             }
-            else if (int.TryParse(str, out int parsedInt))
+            else if (convertType == typeof(int))
             {
-                return parsedInt;
+                return (T)(object)int.Parse(str);
             }
-            else if (DateTime.TryParse(str, out DateTime parsedDateTime))
+            else if (convertType == typeof(double))
             {
-                return parsedDateTime;
+                return (T)(object)double.Parse(str);
             }
             else
             {
-                throw new ArgumentException($"Dont know what to do wiht {str}");
+                return (T)(object)str;
             }
         }
     }

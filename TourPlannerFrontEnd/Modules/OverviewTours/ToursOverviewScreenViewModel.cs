@@ -10,7 +10,9 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using System.Threading.Tasks;
     using System.Windows;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Infrastructure.TourExport;
+    using TourPlannerBackEnd.Infrastructure.TourImport;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.Extensions;
@@ -38,10 +40,16 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         public bool IsCreateTourLogVisible => SelectedTour != null;
 
-        public ToursOverviewScreenViewModel(TourRepository tourRepository, IExportService exportService)
+        public ToursOverviewScreenViewModel(
+            TourRepository tourRepository,
+            TourPlannerMapQuestService mapQuestService,
+            IExportService exportService,
+            IImportService importService)
         {
             this.tourRepository = tourRepository;
+            this.mapQuestService = mapQuestService;
             this.exportService = exportService;
+            this.importService = importService;
 
             this.SearchBar = new SearchBarViewModel(tourRepository);
             this.SearchBar.Model = new TourSearchResult();
@@ -63,6 +71,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 exportService.Export(Tours.Select(t => t.Model), dialog.FileName);
+                MessageBox.Show("Export was successful");
             }
             else
             {
@@ -77,7 +86,26 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             dialog.IsFolderPicker = false;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                MessageBox.Show("You selected: " + dialog.FileName);
+                List<Tour> tours = importService.Import(dialog.FileName);
+                await Task.Run(async () =>
+                {
+                    foreach (Tour tour in tours)
+                    {
+                        byte[] routeImage = await mapQuestService.GetRouteImage(
+                            tour.Start.GetSingleLineString(),
+                            tour.Destination.GetSingleLineString(),
+                            width: 600,
+                            height: 400
+                        );
+
+                        tour.Route.MapImage = routeImage;
+
+                        tourRepository.InsertTour(tour);
+                    }
+                });
+
+                MessageBox.Show("Import was successful");
+                Refresh();
             }
         }
 
@@ -119,6 +147,8 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         private TourDetailViewModel selectedTour;
         private readonly TourRepository tourRepository;
+        private readonly TourPlannerMapQuestService mapQuestService;
         private readonly IExportService exportService;
+        private readonly IImportService importService;
     }
 }
