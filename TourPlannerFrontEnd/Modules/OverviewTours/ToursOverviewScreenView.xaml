@@ -44,7 +44,11 @@
         <ScrollViewer Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
             <StackPanel Orientation="Horizontal">
                 <ContentControl x:Name="SelectedTour"/>
-                <Button x:Name="CreateTourLog" Content="Create Tour Log" Height="50px" VerticalAlignment="Top" Visibility="{Binding IsCreateTourLogVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                <StackPanel>
+                    <Button x:Name="CreateTourLog" Content="Create Tour Log" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                    <Button x:Name="GenerateTourReport" Content="Generate Tour Report" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                    <Button x:Name="GenerateTourSummarizeReport" Content="Generate Tour Summary" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

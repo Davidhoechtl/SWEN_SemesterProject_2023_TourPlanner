@@ -1,18 +1,14 @@
-﻿using Autofac;
-using Infrastructure.Reporting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TourPlanner.EntityFramework.DataAccess;
-using TourPlannerBackEnd.Infrastructure;
-using TourPlannerBackEnd.Infrastructure.TourExport;
-using TourPlannerBackEnd.Infrastructure.TourImport;
-using TourPlannerBackEnd.Repositories;
-
+﻿
 namespace TourPlannerBackEnd
 {
+    using Autofac;
+    using TourPlanner.EntityFramework.DataAccess;
+    using TourPlannerBackEnd.Infrastructure;
+    using TourPlannerBackEnd.Infrastructure.Reporting;
+    using TourPlannerBackEnd.Infrastructure.TourExport;
+    using TourPlannerBackEnd.Infrastructure.TourImport;
+    using TourPlannerBackEnd.Repositories;
+
     public class BackendIoCModule : Autofac.Module
     {
         public BackendIoCModule(ContainerBuilder builder)

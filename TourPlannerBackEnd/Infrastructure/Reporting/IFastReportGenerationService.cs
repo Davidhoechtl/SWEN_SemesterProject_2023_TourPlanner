@@ -1,5 +1,5 @@
 ﻿
-namespace Infrastructure.Reporting
+namespace TourPlannerBackEnd.Infrastructure.Reporting
 {
     using TourPlanner.DataTransferObjects.Models;
     public interface IFastReportGenerationService

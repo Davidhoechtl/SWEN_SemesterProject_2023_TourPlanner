@@ -1,8 +1,6 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.OverviewTours
 {
-    using Caliburn.Micro;
-    using Microsoft.Win32;
     using Microsoft.WindowsAPICodePack.Dialogs;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,6 +9,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using System.Windows;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Infrastructure;
+    using TourPlannerBackEnd.Infrastructure.Reporting;
     using TourPlannerBackEnd.Infrastructure.TourExport;
     using TourPlannerBackEnd.Infrastructure.TourImport;
     using TourPlannerBackEnd.Repositories;
@@ -32,24 +31,26 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             {
                 selectedTour = value;
                 NotifyOfPropertyChange(nameof(SelectedTour));
-                NotifyOfPropertyChange(nameof(IsCreateTourLogVisible));
+                NotifyOfPropertyChange(nameof(TourDetailSpecificActionsVisible));
             }
         }
 
         public SearchBarViewModel SearchBar { get; set; }
 
-        public bool IsCreateTourLogVisible => SelectedTour != null;
+        public bool TourDetailSpecificActionsVisible => SelectedTour != null;
 
         public ToursOverviewScreenViewModel(
             TourRepository tourRepository,
             TourPlannerMapQuestService mapQuestService,
             IExportService exportService,
-            IImportService importService)
+            IImportService importService,
+            IFastReportGenerationService reportGenerationService)
         {
             this.tourRepository = tourRepository;
             this.mapQuestService = mapQuestService;
             this.exportService = exportService;
             this.importService = importService;
+            this.reportGenerationService = reportGenerationService;
 
             this.SearchBar = new SearchBarViewModel(tourRepository);
             this.SearchBar.Model = new TourSearchResult();
@@ -109,6 +110,30 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             }
         }
 
+        public async Task GenerateTourReport()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedTour != null)
+                {
+                    reportGenerationService.GenerateTourReport(SelectedTour.Model);
+                }
+            });
+        }
+
+        public async Task GenerateTourSummarizeReport()
+        {
+            await Task.Run(() =>
+            {
+                if (SelectedTour != null)
+                {
+                    MessageBox.Show("Not implemented yet.");
+                    //reportGenerationService.GenerateSummarizeReport(SelectedTour.Model);
+                }
+            });
+        }
+
+
         public async Task CreateTourLog()
         {
             await NavigationHost.NavigateToScreen<CreateTourLogScreenViewModel>(new System.Threading.CancellationToken(), SelectedTour.Model);
@@ -150,5 +175,6 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         private readonly TourPlannerMapQuestService mapQuestService;
         private readonly IExportService exportService;
         private readonly IImportService importService;
+        private readonly IFastReportGenerationService reportGenerationService;
     }
 }

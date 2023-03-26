@@ -1,5 +1,5 @@
 ﻿
-namespace Infrastructure.Reporting
+namespace TourPlannerBackEnd.Infrastructure.Reporting
 {
     using FastReport;
     using FastReport.Export.Image;
@@ -10,7 +10,7 @@ namespace Infrastructure.Reporting
 
     public class FastReportGenerationService : IFastReportGenerationService
     {
-        private string InFolder = Path.Combine(Environment.CurrentDirectory, "Reporting");
+        private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
 
         public void GenerateSummarizeReport(Tour tour)
         {
@@ -19,6 +19,9 @@ namespace Infrastructure.Reporting
 
         public void GenerateTourReport(Tour tour)
         {
+            List<Tour> businessObject = new List<Tour> { tour };
+            string assemblyTest = businessObject.GetType().Assembly.FullName;
+
             Report report = new Report();
             report.Load(Path.Combine(InFolder, "TourReport.frx"));
             report.RegisterData(new List<Tour>() { tour }, "Tours");
@@ -29,6 +32,8 @@ namespace Infrastructure.Reporting
             ImageExport image = new ImageExport();
             image.ImageFormat = ImageExportFormat.Jpeg;
             report.Export(image, "C:\\Testreport.jgp");
+
+            report.Dispose();
         }
     }
 }

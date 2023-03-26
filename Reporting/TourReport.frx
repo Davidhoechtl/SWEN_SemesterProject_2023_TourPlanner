@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report ReportInfo.Created="03/26/2023 12:18:47" ReportInfo.Modified="03/26/2023 12:18:47" ReportInfo.CreatorVersion="1.0.0.0">
   <Dictionary>
-    <BusinessObjectDataSource Name="Tours" ReferenceName="Tours" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.Tour, TourPlanner.DataTransferObjects.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+    <BusinessObjectDataSource Name="Tours" ReferenceName="Tours" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.Tour, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
       <Column Name="Name" DataType="System.String"/>
     </BusinessObjectDataSource>
   </Dictionary>
@@ -10,7 +10,7 @@
       <TextObject Name="Text2" Width="718.2" Height="28.35" Text="Tourinformation" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </ReportTitleBand>
     <DataBand Name="Data1" Top="41.8" Width="718.2" Height="103.95" DataSource="Tours">
-      <TextObject Name="Tourname" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text1" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </DataBand>
   </ReportPage>
 </Report>
