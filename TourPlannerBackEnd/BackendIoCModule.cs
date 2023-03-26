@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Infrastructure.Reporting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace TourPlannerBackEnd
                 typeof(ApiKeyLoader),
                 typeof(TourPlannerMapQuestService),
                 typeof(TourCsvExportService),
-                typeof(TourCsvImportService)
+                typeof(TourCsvImportService),
+                typeof(FastReportGenerationService)
             )
             .SingleInstance()
             .AsImplementedInterfaces()
