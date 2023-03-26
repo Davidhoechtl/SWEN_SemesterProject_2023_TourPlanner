@@ -3,6 +3,28 @@
   <Dictionary>
     <BusinessObjectDataSource Name="Tours" ReferenceName="Tours" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.Tour, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
       <Column Name="Name" DataType="System.String"/>
+      <Column Name="TravellingType" DataType="System.String"/>
+      <Column Name="StartDate" DataType="System.DateTime"/>
+	  
+	  <BusinessObjectDataSource Name="Start" ReferenceName="Start" DataType="[TourPlanner.DataTransferObjects.Models.Location, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]" Enabled="true">
+		<Column Name="Street" DataType="System.String"/>
+		<Column Name="City" DataType="System.String"/>
+		<Column Name="PostCode" DataType="System.int"/>
+		<Column Name="Country" DataType="System.String"/>
+	  </BusinessObjectDataSource>
+	  
+	  <BusinessObjectDataSource Name="Destination" ReferenceName="Destination" DataType="[TourPlanner.DataTransferObjects.Models.Location, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]" Enabled="true">
+		<Column Name="Street" DataType="System.String"/>
+		<Column Name="City" DataType="System.String"/>
+		<Column Name="PostCode" DataType="System.int"/>
+		<Column Name="Country" DataType="System.String"/>
+	  </BusinessObjectDataSource>
+	  
+	  <BusinessObjectDataSource Name="Route" ReferenceName="Route" DataType="[TourPlanner.DataTransferObjects.Models.Route, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]" Enabled="true">
+		<Column Name="EstimatedTimeInSeconds" DataType="System.double"/>
+		<Column Name="DistanceInKm" DataType="System.double"/>
+	  </BusinessObjectDataSource>
+
     </BusinessObjectDataSource>
   </Dictionary>
   <ReportPage Name="Page1">
@@ -10,7 +32,19 @@
       <TextObject Name="Text2" Width="718.2" Height="28.35" Text="Tourinformation" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </ReportTitleBand>
     <DataBand Name="Data1" Top="41.8" Width="718.2" Height="103.95" DataSource="Tours">
-      <TextObject Name="Text1" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text1" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>  
+      <TextObject Name="Text2" Top="30.05" Width="245.7" Height="18.9" Text="[Tours.TravellingType]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="40.05" Width="245.7" Height="18.9" Text="[Tours.StartDate]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="50.05" Width="245.7" Height="18.9" Text="[Start.Street]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="60.05" Width="245.7" Height="18.9" Text="[Start.City]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="70.05" Width="245.7" Height="18.9" Text="[Start.PostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="80.05" Width="245.7" Height="18.9" Text="[Start.Country]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="90.05" Width="245.7" Height="18.9" Text="[Destination.Street]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="100.05" Width="245.7" Height="18.9" Text="[Destination.City]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="110.05" Width="245.7" Height="18.9" Text="[Destination.PostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="120.05" Width="245.7" Height="18.9" Text="[Destination.Country]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="130.05" Width="245.7" Height="18.9" Text="[Route.EstimatedTimeInSeconds]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="140.05" Width="245.7" Height="18.9" Text="[Route.DistanceInKm]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
     </DataBand>
   </ReportPage>
 </Report>
