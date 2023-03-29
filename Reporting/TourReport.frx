@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report ReportInfo.Created="03/26/2023 12:18:47" ReportInfo.Modified="03/26/2023 12:18:47" ReportInfo.CreatorVersion="1.0.0.0">
   <Dictionary>
-    <BusinessObjectDataSource Name="Tours" ReferenceName="Tours" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.Tour, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+    <BusinessObjectDataSource Name="Tours" ReferenceName="Tours" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.Reporting.TourReportDataContext, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
       <Column Name="Name" DataType="System.String"/>
       <Column Name="TravellingType" DataType="System.String"/>
-      <Column Name="StartDate" DataType="System.DateTime"/>
-	  
-	  <BusinessObjectDataSource Name="Start" ReferenceName="Start" DataType="[TourPlanner.DataTransferObjects.Models.Location, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]" Enabled="true">
-		<Column Name="Street" DataType="System.String"/>
-		<Column Name="City" DataType="System.String"/>
-		<Column Name="PostCode" DataType="System.int"/>
-		<Column Name="Country" DataType="System.String"/>
-	  </BusinessObjectDataSource>
-	  
-	  <BusinessObjectDataSource Name="Destination" ReferenceName="Destination" DataType="[TourPlanner.DataTransferObjects.Models.Location, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]" Enabled="true">
-		<Column Name="Street" DataType="System.String"/>
-		<Column Name="City" DataType="System.String"/>
-		<Column Name="PostCode" DataType="System.int"/>
-		<Column Name="Country" DataType="System.String"/>
-	  </BusinessObjectDataSource>
-	  
-	  <BusinessObjectDataSource Name="Route" ReferenceName="Route" DataType="[TourPlanner.DataTransferObjects.Models.Route, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]" Enabled="true">
-		<Column Name="EstimatedTimeInSeconds" DataType="System.double"/>
-		<Column Name="DistanceInKm" DataType="System.double"/>
-	  </BusinessObjectDataSource>
-
+	  <Column Name="StartStreet" DataType="System.String"/>
+	  <Column Name="StartCity" DataType="System.String"/>
+	  <Column Name="StartPostCode" DataType="System.int"/>
+	  <Column Name="StartCountry" DataType="System.String"/>
+	  <Column Name="DestinationStreet" DataType="System.String"/>
+	  <Column Name="DestinationCity" DataType="System.String"/>
+	  <Column Name="DestinationPostCode" DataType="System.int"/>
+	  <Column Name="DestinationCountry" DataType="System.String"/>
+	  <Column Name="EstimatedTimeInSeconds" DataType="System.double"/>
+	  <Column Name="DistanceInKm" DataType="System.double"/>
     </BusinessObjectDataSource>
   </Dictionary>
   <ReportPage Name="Page1">
@@ -33,18 +22,20 @@
     </ReportTitleBand>
     <DataBand Name="Data1" Top="41.8" Width="718.2" Height="103.95" DataSource="Tours">
       <TextObject Name="Text1" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>  
-      <TextObject Name="Text2" Top="30.05" Width="245.7" Height="18.9" Text="[Tours.TravellingType]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="40.05" Width="245.7" Height="18.9" Text="[Tours.StartDate]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="50.05" Width="245.7" Height="18.9" Text="[Start.Street]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="60.05" Width="245.7" Height="18.9" Text="[Start.City]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="70.05" Width="245.7" Height="18.9" Text="[Start.PostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="80.05" Width="245.7" Height="18.9" Text="[Start.Country]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="90.05" Width="245.7" Height="18.9" Text="[Destination.Street]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="100.05" Width="245.7" Height="18.9" Text="[Destination.City]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="110.05" Width="245.7" Height="18.9" Text="[Destination.PostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="120.05" Width="245.7" Height="18.9" Text="[Destination.Country]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="130.05" Width="245.7" Height="18.9" Text="[Route.EstimatedTimeInSeconds]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text2" Top="140.05" Width="245.7" Height="18.9" Text="[Route.DistanceInKm]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Top="40.05" Width="245.7" Height="18.9" Text="[Tours.TravellingType]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      
+	  <TextObject Name="Text30" Top="60.05" Width="100" Height="18.9" Text="Start date: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  <TextObject Name="Text3" Top="60.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.StartDate]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  <TextObject Name="Text4" Top="80.05" Width="245.7" Height="18.9" Text="[Tours.StartStreet]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  <TextObject Name="Text5" Top="100.05" Width="245.7" Height="18.9" Text="[Tours.StartCity]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  <TextObject Name="Text6" Top="120.05" Width="245.7" Height="18.9" Text="[Tours.StartPostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  <TextObject Name="Text7" Top="140.05" Width="245.7" Height="18.9" Text="[Tours.StartCountry]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Top="160.05" Width="245.7" Height="18.9" Text="[Tours.DestinationStreet]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Top="180.05" Width="245.7" Height="18.9" Text="[Tours.DestinationCity]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Top="200.05" Width="245.7" Height="18.9" Text="[Tours.DestinationPostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Top="220.05" Width="245.7" Height="18.9" Text="[Tours.DestinationCountry]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Top="240.05" Width="245.7" Height="18.9" Text="[Tours.EstimatedTimeInMinutes]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Top="260.05" Width="245.7" Height="18.9" Text="[Tours.DistanceInKm]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
     </DataBand>
   </ReportPage>
 </Report>

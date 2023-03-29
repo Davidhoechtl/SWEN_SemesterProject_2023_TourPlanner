@@ -7,10 +7,12 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
     using System.Collections.Generic;
     using System.Text;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlanner.DataTransferObjects.Models.Reporting;
 
     public class FastReportGenerationService : IFastReportGenerationService
     {
-        private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
+        //private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
+        private string InFolder = @"C:\Studium\SWENSemesterProject_TourPlanner\Reporting";
 
         public void GenerateSummarizeReport(Tour tour)
         {
@@ -19,19 +21,19 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
 
         public void GenerateTourReport(Tour tour)
         {
-            List<Tour> businessObject = new List<Tour> { tour };
-            string assemblyTest = businessObject.GetType().Assembly.FullName;
+            List<TourReportDataContext> businessObject = new List<TourReportDataContext> { new TourReportDataContext(tour) };
+            //string assemblyTest = businessObject.GetType().Assembly.FullName;
 
             Report report = new Report();
             report.Load(Path.Combine(InFolder, "TourReport.frx"));
-            report.RegisterData(new List<Tour>() { tour }, "Tours");
+            report.RegisterData(businessObject, "Tours");
             report.Prepare();
 
             report.SavePrepared("C:\\Testreport.fpx");
 
             ImageExport image = new ImageExport();
             image.ImageFormat = ImageExportFormat.Jpeg;
-            report.Export(image, "C:\\Testreport.jgp");
+            report.Export(image, "C:\\Testreport.jpg");
 
             report.Dispose();
         }
