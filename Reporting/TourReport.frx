@@ -14,6 +14,14 @@
 	  <Column Name="DestinationCountry" DataType="System.String"/>
 	  <Column Name="EstimatedTimeInSeconds" DataType="System.double"/>
 	  <Column Name="DistanceInKm" DataType="System.double"/>
+	  
+	  <BusinessObjectDataSource Name="TourLogs" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.TourLog, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+		  <Column Name="Date" DataType="System.DateTime"/>
+		  <Column Name="Comment" DataType="System.String"/>
+		  <Column Name="TakenTimeInSeconds" DataType="System.double"/>
+		  <Column Name="Difficulty" DataType="System.int"/>
+		  <Column Name="Rating" DataType="System.int"/>
+      </BusinessObjectDataSource>
     </BusinessObjectDataSource>
   </Dictionary>
   <ReportPage Name="Page1">
@@ -56,6 +64,17 @@
 	  
 	  <TextObject Name="Text130" Top="260.05" Width="100" Height="18.9" Text="Distance in kilometer: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
 	  <TextObject Name="Text13" Top="260.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.DistanceInKm]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  
+
     </DataBand>
+	
+	  <DataBand Name="Data2" Top="400" Width="760.2" Height="20" DataSource="TourLogs">
+		<TextObject Name="Text14" Width="150" Height="18.9" Text="[Tours.TourLogs.Date]"/>
+		<TextObject Name="Text16" Left="155" Width="150" Height="18.9" Text="[Tours.TourLogs.Comment]"/>
+		<TextObject Name="Text17" Left="305" Width="150" Height="18.9" Text="[Tours.TourLogs.TakenTimeInSeconds]"/>
+		<TextObject Name="Text18" Left="460" Width="150" Height="18.9" Text="[Tours.TourLogs.Difficulty]"/>
+		<TextObject Name="Text19" Left="610" Width="150" Height="18.9" Text="[Tours.TourLogs.Rating]"/>
+	  </DataBand>
+
   </ReportPage>
 </Report>

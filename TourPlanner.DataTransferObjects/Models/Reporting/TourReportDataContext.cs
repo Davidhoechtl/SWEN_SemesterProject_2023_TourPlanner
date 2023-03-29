@@ -25,6 +25,8 @@ namespace TourPlanner.DataTransferObjects.Models.Reporting
         public double EstimatedTimeInMinutes { get; set; }
         public double DistanceInKm { get; set; }
 
+        public List<TourLog> TourLogs { get; set; }
+
         public TourReportDataContext(Tour tour)
         {
             this.Name = tour.Name;
@@ -40,6 +42,8 @@ namespace TourPlanner.DataTransferObjects.Models.Reporting
             this.DestinationCountry = tour.Destination.Country;
             this.EstimatedTimeInMinutes = tour.Route.EstimatedTimeInSeconds;
             this.DistanceInKm = tour.Route.DistanceInKm;
+
+            this.TourLogs = tour.TourLogs;
         }
     }
 }
