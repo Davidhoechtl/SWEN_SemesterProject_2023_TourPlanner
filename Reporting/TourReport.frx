@@ -18,24 +18,44 @@
   </Dictionary>
   <ReportPage Name="Page1">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
-      <TextObject Name="Text2" Width="718.2" Height="28.35" Text="Tourinformation" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text2" Width="718.2" Height="30" Text="Tourinformation" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </ReportTitleBand>
-    <DataBand Name="Data1" Top="41.8" Width="718.2" Height="103.95" DataSource="Tours">
-      <TextObject Name="Text1" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>  
-      <TextObject Name="Text2" Top="40.05" Width="245.7" Height="18.9" Text="[Tours.TravellingType]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    <DataBand Name="Data1" Top="44" Width="718.2" Height="103.95" DataSource="Tours">
+      <TextObject Name="Text1" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Top" Font="Arial, 12pt, style=Bold"/>  
+      <TextObject Name="Text2" Top="39.05" Width="245.7" Height="18.9" Text="[Tours.TravellingType]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       
 	  <TextObject Name="Text30" Top="60.05" Width="100" Height="18.9" Text="Start date: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
 	  <TextObject Name="Text3" Top="60.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.StartDate]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-	  <TextObject Name="Text4" Top="80.05" Width="245.7" Height="18.9" Text="[Tours.StartStreet]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-	  <TextObject Name="Text5" Top="100.05" Width="245.7" Height="18.9" Text="[Tours.StartCity]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-	  <TextObject Name="Text6" Top="120.05" Width="245.7" Height="18.9" Text="[Tours.StartPostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-	  <TextObject Name="Text7" Top="140.05" Width="245.7" Height="18.9" Text="[Tours.StartCountry]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text8" Top="160.05" Width="245.7" Height="18.9" Text="[Tours.DestinationStreet]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text9" Top="180.05" Width="245.7" Height="18.9" Text="[Tours.DestinationCity]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text10" Top="200.05" Width="245.7" Height="18.9" Text="[Tours.DestinationPostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text11" Top="220.05" Width="245.7" Height="18.9" Text="[Tours.DestinationCountry]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text12" Top="240.05" Width="245.7" Height="18.9" Text="[Tours.EstimatedTimeInMinutes]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <TextObject Name="Text13" Top="260.05" Width="245.7" Height="18.9" Text="[Tours.DistanceInKm]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+
+	  <TextObject Name="Text40" Top="80.05" Width="100" Height="18.9" Text="Start street: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	 <TextObject Name="Text4" Top="80.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.StartStreet]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+
+	  <TextObject Name="Text50" Top="100.05" Width="100" Height="18.9" Text="Start city: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text5" Top="100.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.StartCity]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  
+	  <TextObject Name="Text60" Top="120.05" Width="100" Height="18.9" Text="Start post code: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text6" Top="120.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.StartPostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  
+	  <TextObject Name="Text70" Top="140.05" Width="100" Height="18.9" Text="Start country: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text7" Top="140.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.StartCountry]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      
+	  <TextObject Name="Text80" Top="160.05" Width="100" Height="18.9" Text="Destination street: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text8" Top="160.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.DestinationStreet]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      
+	  <TextObject Name="Text90" Top="180.05" Width="100" Height="18.9" Text="Destination city: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text9" Top="180.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.DestinationCity]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      
+	  <TextObject Name="Text100" Top="200.05" Width="100" Height="18.9" Text="Destination post code: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text10" Top="200.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.DestinationPostCode]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      
+	  <TextObject Name="Text110" Top="220.05" Width="100" Height="18.9" Text="Destination country: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text11" Top="220.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.DestinationCountry]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      
+	  <TextObject Name="Text120" Top="240.05" Width="100" Height="18.9" Text="Estimated time in minutes: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text12" Top="240.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.EstimatedTimeInMinutes]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+	  
+	  <TextObject Name="Text130" Top="260.05" Width="100" Height="18.9" Text="Distance in kilometer: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text13" Top="260.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.DistanceInKm]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
     </DataBand>
   </ReportPage>
 </Report>
