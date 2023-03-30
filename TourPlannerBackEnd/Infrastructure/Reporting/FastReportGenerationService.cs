@@ -11,8 +11,8 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
 
     public class FastReportGenerationService : IFastReportGenerationService
     {
-        //private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
-        private string InFolder = @"C:\Studium\SWENSemesterProject_TourPlanner\Reporting";
+        private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
+        //private string InFolder = @"C:\Studium\SWENSemesterProject_TourPlanner\Reporting";
 
         public void GenerateSummarizeReport(IEnumerable<Tour> tours)
         {

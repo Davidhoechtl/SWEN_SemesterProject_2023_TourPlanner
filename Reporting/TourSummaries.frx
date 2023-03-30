@@ -24,7 +24,7 @@
 		<TextObject Name="Text20" Top="40" Width="100" Height="18.9" Text="Date of summary creation: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
 		<TextObject Name="Text2" Top="40" Left="110" Width="245.7" Height="18.9" Text="[Tours.CreationDate]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
 
-		<DataBand Name="Data2" Width="760.2" Height="200" DataSource="TourSummary">
+		<DataBand Name="Data2" Width="760.2" Height="200" DataSource="TourSummaries">
 			<TextObject Name="Text101" Top="20" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.TourSummaries.TourName]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>  
 
 			<TextObject Name="Text120" Top="60" Width="150" Height="18.9" Text="Tour logs count: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
@@ -33,8 +33,8 @@
 			<TextObject Name="Text130" Top="80" Width="150" Height="18.9" Text="Average time in minutes: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
 			<TextObject Name="Text13" Top="80" Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.AverageTimeInMinutes]"/>
 			
-			<TextObject Name="Text140" Top="100"Width="150" Height="18.9" Text="Average difficutly: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-			<TextObject Name="Text14" Top="100"Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.AverageDifficutly]"/>
+			<TextObject Name="Text140" Top="100" Width="150" Height="18.9" Text="Average difficutly: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+			<TextObject Name="Text14" Top="100" Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.AverageDifficutly]"/>
 			
 			<TextObject Name="Text150" Top="120" Width="150" Height="18.9" Text="Average rating: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
 			<TextObject Name="Text15" Top="120" Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.AverageRating]"/>
