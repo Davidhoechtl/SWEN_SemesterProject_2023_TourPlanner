@@ -26,9 +26,9 @@
   </Dictionary>
   <ReportPage Name="Page1">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
-      <TextObject Name="Text2" Width="718.2" Height="30" Text="Tourinformation" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text2" Width="718.2" Height="30" Text="Tourinformation" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt, style=Bold"/>
     </ReportTitleBand>
-    <DataBand Name="Data1" Top="44" Width="718.2" Height="103.95" DataSource="Tours">
+    <DataBand Name="Data1" Top="44" Width="718.2" Height="380.95" DataSource="Tours">
       <TextObject Name="Text1" Top="18.9" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.Name]" VertAlign="Top" Font="Arial, 12pt, style=Bold"/>  
       <TextObject Name="Text2" Top="39.05" Width="245.7" Height="18.9" Text="[Tours.TravellingType]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       
@@ -65,16 +65,20 @@
 	  <TextObject Name="Text130" Top="260.05" Width="100" Height="18.9" Text="Distance in kilometer: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
 	  <TextObject Name="Text13" Top="260.05" Left="110" Width="245.7" Height="18.9" Text="[Tours.DistanceInKm]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
 	  
+	  <TextObject Name="Text200" Top="300.05" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="Tour Logs" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>  
+	  <TextObject Name="Text201" Top="345" Width="150" Height="18.9" Text="Date" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text202" Top="345" Left="155" Width="150" Height="18.9" Text="Comment" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text203" Top="345" Left="305" Width="150" Height="18.9" Text="Taken time in minutes" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text204" Top="345" Left="460" Width="150" Height="18.9" Text="Difficulty" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
+	  <TextObject Name="Text205" Top="345" Left="610" Width="150" Height="18.9" Text="Rating" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
 
-    </DataBand>
-	
-	  <DataBand Name="Data2" Top="400" Width="760.2" Height="20" DataSource="TourLogs">
+	  <DataBand Name="Data2" Width="760.2" Height="25" DataSource="TourLogs">
 		<TextObject Name="Text14" Width="150" Height="18.9" Text="[Tours.TourLogs.Date]"/>
 		<TextObject Name="Text16" Left="155" Width="150" Height="18.9" Text="[Tours.TourLogs.Comment]"/>
 		<TextObject Name="Text17" Left="305" Width="150" Height="18.9" Text="[Tours.TourLogs.TakenTimeInSeconds]"/>
 		<TextObject Name="Text18" Left="460" Width="150" Height="18.9" Text="[Tours.TourLogs.Difficulty]"/>
 		<TextObject Name="Text19" Left="610" Width="150" Height="18.9" Text="[Tours.TourLogs.Rating]"/>
 	  </DataBand>
-
+    </DataBand>
   </ReportPage>
 </Report>
