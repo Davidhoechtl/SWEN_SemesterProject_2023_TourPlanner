@@ -14,9 +14,20 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
         //private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
         private string InFolder = @"C:\Studium\SWENSemesterProject_TourPlanner\Reporting";
 
-        public void GenerateSummarizeReport(Tour tour)
+        public void GenerateSummarizeReport(IEnumerable<Tour> tours)
         {
-            throw new NotImplementedException();
+            List<TourReportSummarizeContext> bussinesObject = new List<TourReportSummarizeContext>() { new TourReportSummarizeContext(tours) };
+
+            Report report = new Report();
+            report.Load(Path.Combine(InFolder, "TourSummaries.frx"));
+            report.RegisterData(bussinesObject, "Tours");
+            report.Prepare();
+
+            ImageExport image = new ImageExport();
+            image.ImageFormat = ImageExportFormat.Jpeg;
+            report.Export(image, "C:\\TestSummary.jpg");
+
+            report.Dispose();
         }
 
         public void GenerateTourReport(Tour tour)

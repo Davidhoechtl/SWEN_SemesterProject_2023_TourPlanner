@@ -127,8 +127,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             {
                 if (SelectedTour != null)
                 {
-                    MessageBox.Show("Not implemented yet.");
-                    //reportGenerationService.GenerateSummarizeReport(SelectedTour.Model);
+                    reportGenerationService.GenerateSummarizeReport(Tours.Select(vw => vw.Model));
                 }
             });
         }

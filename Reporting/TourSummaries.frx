@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report ReportInfo.Created="03/26/2023 12:18:47" ReportInfo.Modified="03/26/2023 12:18:47" ReportInfo.CreatorVersion="1.0.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Tours" ReferenceName="Tours" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.Reporting.TourReportSummarizeContext, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+      <Column Name="TourCount" DataType="System.int"/>
+      <Column Name="CreationDate" DataType="System.DateTime"/>
+	  <BusinessObjectDataSource Name="TourSummaries" DataType="System.Collections.Generic.List`1[[TourPlanner.DataTransferObjects.Models.TourReportSingleSummarizeItem, TourPlanner.DataTransferObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+		  <Column Name="TourName" DataType="System.string"/>
+		  <Column Name="TourLogsCount" DataType="System.int"/>
+		  <Column Name="AverageTimeInMinutes" DataType="System.double"/>
+		  <Column Name="AverageDifficutly" DataType="System.double"/>
+		  <Column Name="AverageRating" DataType="System.double"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text2" Width="718.2" Height="30" Text="Tour Summaries" HorzAlign="Center" VertAlign="Center" Font="Arial, 14pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="44" Width="718.2" Height="60" DataSource="Tours">
+		<TextObject Name="Text10" Top="20" Width="100" Height="18.9" Text="Count of summarized Tours: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+		<TextObject Name="Text1" Top="20" Left="110" Width="387.45" Height="18.9" Text="[Tours.TourCount]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>  
+
+		<TextObject Name="Text20" Top="40" Width="100" Height="18.9" Text="Date of summary creation: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+		<TextObject Name="Text2" Top="40" Left="110" Width="245.7" Height="18.9" Text="[Tours.CreationDate]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+
+		<DataBand Name="Data2" Width="760.2" Height="200" DataSource="TourSummary">
+			<TextObject Name="Text101" Top="20" Width="387.45" Height="37.8" Fill.Color="SandyBrown" Text="[Tours.TourSummaries.TourName]" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>  
+
+			<TextObject Name="Text120" Top="60" Width="150" Height="18.9" Text="Tour logs count: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+			<TextObject Name="Text12" Top="60" Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.TourLogsCount]"/>
+			
+			<TextObject Name="Text130" Top="80" Width="150" Height="18.9" Text="Average time in minutes: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+			<TextObject Name="Text13" Top="80" Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.AverageTimeInMinutes]"/>
+			
+			<TextObject Name="Text140" Top="100"Width="150" Height="18.9" Text="Average difficutly: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+			<TextObject Name="Text14" Top="100"Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.AverageDifficutly]"/>
+			
+			<TextObject Name="Text150" Top="120" Width="150" Height="18.9" Text="Average rating: " VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+			<TextObject Name="Text15" Top="120" Left="155" Width="150" Height="18.9" Text="[Tours.TourSummaries.AverageRating]"/>
+		</DataBand>
+    </DataBand>
+  </ReportPage>
+</Report>
