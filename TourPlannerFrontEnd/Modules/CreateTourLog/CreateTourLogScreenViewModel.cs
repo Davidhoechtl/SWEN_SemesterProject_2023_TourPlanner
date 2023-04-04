@@ -5,6 +5,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
     using System.Threading;
     using System.Threading.Tasks;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Modules.OverviewTours;
@@ -16,9 +17,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
 
         public INavigationHost NavigationHost { get; set; }
 
-        public CreateTourLogScreenViewModel(TourLogRepository tourLogRepository)
+        public CreateTourLogScreenViewModel(TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService)
         {
-            TourLogViewModel = new CreateTourLogViewModel(tourLogRepository);
+            TourLogViewModel = new CreateTourLogViewModel(tourLogRepository, tourAutoPropertyService);
             DisplayName = "Create Tour Log";
         }
 

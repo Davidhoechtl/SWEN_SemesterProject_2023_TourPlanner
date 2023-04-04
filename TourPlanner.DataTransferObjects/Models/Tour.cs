@@ -21,7 +21,9 @@ namespace TourPlanner.DataTransferObjects.Models
         [Required]
         public DateTime StartDate { get; set; } = DateTime.Today;
 
-
+        public int Popularity { get; set; }
+        public int ChildFriendliness { get; set; }
+        
         [ForeignKey(nameof(LocationStartId))]
         public Location Start { get; set; }
 

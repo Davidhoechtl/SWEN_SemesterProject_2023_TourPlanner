@@ -102,6 +102,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ChildFriendliness")
+                        .HasColumnType("integer")
+                        .HasColumnName("child_friendliness");
+
                     b.Property<int>("LocationDestinationId")
                         .HasColumnType("integer")
                         .HasColumnName("location_destination_id");
@@ -114,6 +118,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
+
+                    b.Property<int>("Popularity")
+                        .HasColumnType("integer")
+                        .HasColumnName("popularity");
 
                     b.Property<int>("RouteId")
                         .HasColumnType("integer")

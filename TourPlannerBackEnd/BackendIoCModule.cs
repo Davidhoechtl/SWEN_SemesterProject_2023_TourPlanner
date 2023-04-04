@@ -5,6 +5,7 @@ namespace TourPlannerBackEnd
     using TourPlanner.EntityFramework.DataAccess;
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Infrastructure.Reporting;
+    using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Infrastructure.TourExport;
     using TourPlannerBackEnd.Infrastructure.TourImport;
     using TourPlannerBackEnd.Repositories;
@@ -30,7 +31,8 @@ namespace TourPlannerBackEnd
                 typeof(TourPlannerMapQuestService),
                 typeof(TourCsvExportService),
                 typeof(TourCsvImportService),
-                typeof(FastReportGenerationService)
+                typeof(FastReportGenerationService),
+                typeof(TourAutoPropertyService)
             )
             .SingleInstance()
             .AsImplementedInterfaces()

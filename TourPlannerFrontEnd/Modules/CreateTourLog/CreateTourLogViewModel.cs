@@ -5,6 +5,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
     using System.Threading.Tasks;
     using System.Windows;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
 
@@ -60,21 +61,27 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             }
         }
 
-        public CreateTourLogViewModel(TourLogRepository tourLogRepository)
+        public CreateTourLogViewModel(TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService)
         {
             this.tourLogRepository = tourLogRepository;
+            this.tourAutoPropertyService = tourAutoPropertyService;
         }
 
         public async Task Save()
         {
             await Task.Run(() =>
             {
+                // saves tour log into the database
                 tourLogRepository.SaveTourLog(this.Model);
+
+                // updates auto calculated properties of tour
+                tourAutoPropertyService.RecalculateTourProperties(this.Model.TourId);
             });
 
             MessageBox.Show("Saved successful");
         }
 
         private readonly TourLogRepository tourLogRepository;
+        private readonly TourAutoPropertyService tourAutoPropertyService;
     }
 }

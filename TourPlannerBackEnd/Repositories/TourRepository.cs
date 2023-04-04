@@ -19,10 +19,25 @@ namespace TourPlannerBackEnd.Repositories
             this.dbContext = dbContext;
         }
 
+        public Tour GetTourById(int id)
+        {
+            return dbContext.Tours
+                .Where(t => t.Id == id)
+                .Include(t => t.Start)
+                .Include(t => t.Destination)
+                .Include(t => t.Route)
+                .Include(t => t.TourLogs)
+                .FirstOrDefault();
+        }
+
         public List<Tour> GetToursBySearchText(string searchText)
         {
             return dbContext.Tours
                 .Where(t => t.Name.ToLower() == searchText.ToLower())
+                .Include(t => t.Start)
+                .Include(t => t.Destination)
+                .Include(t => t.Route)
+                .Include(t => t.TourLogs)
                 .ToList();
         }
 
@@ -39,6 +54,12 @@ namespace TourPlannerBackEnd.Repositories
             //);
 
             dbContext.Tours.Add(tour);
+            dbContext.SaveChanges();
+        }
+
+        public void UpdateTour(Tour tour)
+        {
+            dbContext.Tours.Update(tour);
             dbContext.SaveChanges();
         }
 
