@@ -64,6 +64,31 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             await NavigationHost.NavigateToScreen<CreateTourScreenViewModel>(new System.Threading.CancellationToken());
         }
 
+        public async Task UpdateTour()
+        {
+            if (SelectedTour.Model != null)
+            {
+                await Task.Run(() =>
+                {
+                    tourRepository.UpdateTour(SelectedTour.Model);
+                });
+
+                await ReloadTours(new CancellationToken());
+            }
+        }
+
+        public async Task DeleteTour()
+        {
+            if (SelectedTour.Model != null)
+            {
+                await Task.Run(() =>
+                {
+                    tourRepository.DeleteTour(SelectedTour.Model.Id);
+                });
+                await ReloadTours(new CancellationToken());
+            }
+        }
+
         public void ExportTours()
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
@@ -161,6 +186,11 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             this.SearchBar.OnSearch = OnSearch;
             NotifyOfPropertyChange(nameof(SearchBar));
 
+            await ReloadTours(cancellationToken);
+        }
+
+        private async Task ReloadTours(CancellationToken cancellationToken)
+        {
             IEnumerable<Tour> allTours = await GetToursAsync(cancellationToken);
             Tours = allTours.SelectViewModels<Tour, TourDetailViewModel>().ToList();
             SelectedTour = Tours.FirstOrDefault();

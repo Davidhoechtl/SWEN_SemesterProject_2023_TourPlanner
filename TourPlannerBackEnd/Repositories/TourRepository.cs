@@ -43,16 +43,6 @@ namespace TourPlannerBackEnd.Repositories
 
         public void InsertTour(Tour tour)
         {
-            //string insertStatement = "INSERT INTO tour (name, start, destination, travellingType) VALUES (@name, @start, @destination, @travellingType)";
-            ////unitOfWork.
-
-            //unitOfWork.ExecuteNonQuery(insertStatement,
-            //    new NpgsqlParameter("name", tour.Name),
-            //    new NpgsqlParameter("start", tour.Start.Street),
-            //    new NpgsqlParameter("destination", tour.Destination.Street),
-            //    new NpgsqlParameter("travellingType", tour.TravellingType.ToString())
-            //);
-
             dbContext.Tours.Add(tour);
             dbContext.SaveChanges();
         }
@@ -61,6 +51,18 @@ namespace TourPlannerBackEnd.Repositories
         {
             dbContext.Tours.Update(tour);
             dbContext.SaveChanges();
+        }
+
+        public void DeleteTour(int tourId) 
+        {
+            int deltaRows = dbContext.Tours
+                .Where(t => t.Id == tourId)
+                .ExecuteDelete();
+
+            if(deltaRows == 0)
+            {
+                throw new Exception("Delete command didnt delete any rows");
+            }
         }
 
         public List<Tour> GetAllTours()

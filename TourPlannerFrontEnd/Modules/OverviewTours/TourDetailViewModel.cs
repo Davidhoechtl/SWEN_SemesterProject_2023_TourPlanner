@@ -12,9 +12,31 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
     internal class TourDetailViewModel : ViewModel<Tour>
     {
-        public string TourName => this.Model?.Name;
+        public string TourName
+        {
+            get => this.Model?.Name;
+            set
+            {
+                if(this.Model != null)
+                {
+                    this.Model.Name = value;
+                    NotifyOfPropertyChange(nameof(TourName));
+                }
+            }
+        }
 
-        public DateTime StartDate => this.Model?.StartDate ?? DateTime.MinValue;
+        public DateTime StartDate
+        {
+            get => this.Model?.StartDate ?? DateTime.MinValue;
+            set
+            {
+                if (this.Model != null)
+                {
+                    this.Model.StartDate = value;
+                    NotifyOfPropertyChange(nameof(StartDate));
+                }
+            }
+        }
 
         public string TravellingType => this.Model?.TravellingType;
 
