@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,7 +10,7 @@ namespace TourPlannerFrontEnd.Infrastructure.Extensions
 {
     internal static class LinqExtensions
     {
-        public static IEnumerable<T2> SelectViewModels<T, T2>(this IEnumerable<T> models)
+        public static IEnumerable<T2> SelectViewModels<T, T2>(this IEnumerable<T> models, Action<T2> additionalInitializationSteps = null)
             where T : class
             where T2 : ViewModel<T>
         {
@@ -17,6 +18,7 @@ namespace TourPlannerFrontEnd.Infrastructure.Extensions
             foreach (T model in models)
             {
                 T2 viewModel = (T2)Activator.CreateInstance(typeof(T2));
+                additionalInitializationSteps?.Invoke(viewModel);
                 viewModel.Model = model;
                 viewModels.Add(viewModel);
             }

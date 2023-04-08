@@ -1,6 +1,7 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.OverviewTours
 {
+    using Caliburn.Micro;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -8,7 +9,11 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using TourPlanner.DataTransferObjects.Models;
+    using TourPlannerBackEnd.Infrastructure.Services;
+    using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Modules.RateTour;
+    using TourPlannerFrontEnd.Modules.TourLogs;
 
     internal class TourDetailViewModel : ViewModel<Tour>
     {
@@ -17,7 +22,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             get => this.Model?.Name;
             set
             {
-                if(this.Model != null)
+                if (this.Model != null)
                 {
                     this.Model.Name = value;
                     NotifyOfPropertyChange(nameof(TourName));
@@ -57,7 +62,17 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         public ImageSource MapImageSource { get; set; }
 
-        public List<TourLog> TourLogs => this.Model?.TourLogs;
+        public TourLogsViewModel TourLogs { get; private set; }
+        //public List<TourLog> TourLogs => this.Model?.TourLogs;
+
+        public void Setup(
+            TourLogRepository tourLogRepository, 
+            INavigationHost navigationHost, 
+            IEventAggregator eventAggregator, 
+            TourAutoPropertyService tourAutoPropertyService)
+        {
+            TourLogs = new TourLogsViewModel(tourLogRepository, tourAutoPropertyService, navigationHost, eventAggregator);
+        }
 
         private string GetRouteTimeInMinutes()
         {
@@ -67,7 +82,6 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                 double roundedMinutes = Math.Round(minutes, 1);
                 return roundedMinutes.ToString();
             }
-
             return "error";
         }
 
@@ -78,11 +92,12 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                 MapImageSource = ByteToImage(this.Model.Route.MapImage);
             }
 
+            TourLogs.Model = this.Model;
+
             base.OnModelChanged();
         }
 
-
-        public static ImageSource ByteToImage(byte[] imageData)
+        private static ImageSource ByteToImage(byte[] imageData)
         {
             BitmapImage biImg = new BitmapImage();
             MemoryStream ms = new MemoryStream(imageData);

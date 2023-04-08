@@ -50,7 +50,8 @@ namespace TourPlannerBackEnd
 
         private void RegisterDataAccess(ContainerBuilder builder)
         {
-            builder.RegisterType<TourPlannerDbContext>();
+            builder.RegisterType<TourPlannerDbContext>()
+                .SingleInstance();
         }
 
         private readonly ContainerBuilder builder;

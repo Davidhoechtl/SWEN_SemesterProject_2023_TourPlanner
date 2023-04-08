@@ -1,6 +1,7 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.OverviewTours
 {
+    using Caliburn.Micro;
     using Microsoft.WindowsAPICodePack.Dialogs;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,16 +11,18 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Infrastructure.Reporting;
+    using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Infrastructure.TourExport;
     using TourPlannerBackEnd.Infrastructure.TourImport;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.Extensions;
+    using TourPlannerFrontEnd.Infrastructure.Messages;
     using TourPlannerFrontEnd.Modules.CreateTour;
     using TourPlannerFrontEnd.Modules.CreateTourLog;
     using TourPlannerFrontEnd.Modules.Search;
 
-    internal class ToursOverviewScreenViewModel : NavigationScreen
+    internal class ToursOverviewScreenViewModel : NavigationScreen, IHandle<RefreshToursMessage>
     {
         public INavigationHost NavigationHost { get; set; }
 
@@ -41,20 +44,28 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         public ToursOverviewScreenViewModel(
             TourRepository tourRepository,
+            TourLogRepository tourLogRepository,
             TourPlannerMapQuestService mapQuestService,
+            TourAutoPropertyService tourAutoPropertyService,
             IExportService exportService,
             IImportService importService,
-            IFastReportGenerationService reportGenerationService)
+            IFastReportGenerationService reportGenerationService,
+            IEventAggregator eventAggregator)
         {
             this.tourRepository = tourRepository;
+            this.tourLogRepository = tourLogRepository;
             this.mapQuestService = mapQuestService;
+            this.tourAutoPropertyService = tourAutoPropertyService;
             this.exportService = exportService;
             this.importService = importService;
             this.reportGenerationService = reportGenerationService;
+            this.eventAggregator = eventAggregator;
 
             this.SearchBar = new SearchBarViewModel(tourRepository);
             this.SearchBar.Model = new TourSearchResult();
             this.SearchBar.OnSearch = OnSearch;
+
+            eventAggregator.SubscribeOnUIThread(this);
 
             DisplayName = "Tour Overview";
         }
@@ -157,12 +168,6 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             });
         }
 
-
-        public async Task CreateTourLog()
-        {
-            await NavigationHost.NavigateToScreen<CreateTourLogScreenViewModel>(new System.Threading.CancellationToken(), SelectedTour.Model);
-        }
-
         private async Task<IEnumerable<Tour>> GetToursAsync(CancellationToken cancellationToken)
         {
             return await Task.Run(() =>
@@ -173,7 +178,10 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         private void OnSearch(TourSearchResult searchResult)
         {
-            Tours = searchResult.FoundTours.SelectViewModels<Tour, TourDetailViewModel>().ToList();
+            Tours = searchResult.FoundTours.SelectViewModels<Tour, TourDetailViewModel>(viewModel =>
+            {
+                viewModel.Setup(tourLogRepository, NavigationHost, eventAggregator, tourAutoPropertyService);
+            }).ToList();
             SelectedTour = Tours.FirstOrDefault();
             NotifyOfPropertyChange(nameof(Tours));
             NotifyOfPropertyChange(nameof(SelectedTour));
@@ -192,18 +200,29 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         private async Task ReloadTours(CancellationToken cancellationToken)
         {
             IEnumerable<Tour> allTours = await GetToursAsync(cancellationToken);
-            Tours = allTours.SelectViewModels<Tour, TourDetailViewModel>().ToList();
+            Tours = allTours.SelectViewModels<Tour, TourDetailViewModel>(viewModel =>
+            {
+                viewModel.Setup(tourLogRepository, NavigationHost, eventAggregator, tourAutoPropertyService);
+            }).ToList();
             SelectedTour = Tours.FirstOrDefault();
 
             NotifyOfPropertyChange(nameof(Tours));
             NotifyOfPropertyChange(nameof(SelectedTour));
         }
 
+        public async Task HandleAsync(RefreshToursMessage message, CancellationToken cancellationToken)
+        {
+            await ReloadTours(cancellationToken);
+        }
+
         private TourDetailViewModel selectedTour;
         private readonly TourRepository tourRepository;
+        private readonly TourLogRepository tourLogRepository;
         private readonly TourPlannerMapQuestService mapQuestService;
+        private readonly TourAutoPropertyService tourAutoPropertyService;
         private readonly IExportService exportService;
         private readonly IImportService importService;
         private readonly IFastReportGenerationService reportGenerationService;
+        private readonly IEventAggregator eventAggregator;
     }
 }

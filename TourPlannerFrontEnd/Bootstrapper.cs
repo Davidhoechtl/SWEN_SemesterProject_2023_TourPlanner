@@ -10,6 +10,7 @@ using TourPlannerFrontEnd.Infrastructure;
 using TourPlannerFrontEnd.Modules.CreateTour;
 using TourPlannerFrontEnd.Modules.CreateTourLog;
 using TourPlannerFrontEnd.Modules.OverviewTours;
+using TourPlannerFrontEnd.Modules.TourLogs;
 
 namespace TourPlannerFrontEnd
 {
