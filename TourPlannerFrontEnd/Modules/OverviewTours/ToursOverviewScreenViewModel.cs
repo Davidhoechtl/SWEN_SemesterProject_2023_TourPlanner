@@ -70,6 +70,20 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             DisplayName = "Tour Overview";
         }
 
+        public override async Task OnPageNavigatedTo(CancellationToken cancellationToken)
+        {
+            this.SearchBar = new SearchBarViewModel(tourRepository);
+            this.SearchBar.Model = new TourSearchResult();
+            this.SearchBar.OnSearch = OnSearch;
+            NotifyOfPropertyChange(nameof(SearchBar));
+
+            await ReloadTours(cancellationToken);
+        }
+        public async Task HandleAsync(RefreshToursMessage message, CancellationToken cancellationToken)
+        {
+            await ReloadTours(cancellationToken);
+        }
+
         public async Task CreateTour()
         {
             await NavigationHost.NavigateToScreen<CreateTourScreenViewModel>(new System.Threading.CancellationToken());
@@ -178,41 +192,28 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
 
         private void OnSearch(TourSearchResult searchResult)
         {
-            Tours = searchResult.FoundTours.SelectViewModels<Tour, TourDetailViewModel>(viewModel =>
-            {
-                viewModel.Setup(tourLogRepository, NavigationHost, eventAggregator, tourAutoPropertyService);
-            }).ToList();
-            SelectedTour = Tours.FirstOrDefault();
-            NotifyOfPropertyChange(nameof(Tours));
-            NotifyOfPropertyChange(nameof(SelectedTour));
+            ConvertToursToViewModelsAndSelectFirst(searchResult.FoundTours);
         }
 
-        public override async Task OnPageNavigatedTo(CancellationToken cancellationToken)
-        {
-            this.SearchBar = new SearchBarViewModel(tourRepository);
-            this.SearchBar.Model = new TourSearchResult();
-            this.SearchBar.OnSearch = OnSearch;
-            NotifyOfPropertyChange(nameof(SearchBar));
-
-            await ReloadTours(cancellationToken);
-        }
 
         private async Task ReloadTours(CancellationToken cancellationToken)
         {
             IEnumerable<Tour> allTours = await GetToursAsync(cancellationToken);
-            Tours = allTours.SelectViewModels<Tour, TourDetailViewModel>(viewModel =>
+            ConvertToursToViewModelsAndSelectFirst(allTours);
+
+        }
+
+        private void ConvertToursToViewModelsAndSelectFirst(IEnumerable<Tour> tours)
+        {
+            Tours = tours.SelectViewModels<Tour, TourDetailViewModel>(viewModel =>
             {
                 viewModel.Setup(tourLogRepository, NavigationHost, eventAggregator, tourAutoPropertyService);
             }).ToList();
+
             SelectedTour = Tours.FirstOrDefault();
 
             NotifyOfPropertyChange(nameof(Tours));
             NotifyOfPropertyChange(nameof(SelectedTour));
-        }
-
-        public async Task HandleAsync(RefreshToursMessage message, CancellationToken cancellationToken)
-        {
-            await ReloadTours(cancellationToken);
         }
 
         private TourDetailViewModel selectedTour;
