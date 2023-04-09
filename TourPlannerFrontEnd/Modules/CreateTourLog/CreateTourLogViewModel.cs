@@ -9,7 +9,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
 
-    internal class CreateTourLogViewModel : ViewModel<TourLog>
+    internal class CreateTourLogViewModel : ValidatingViewModel<TourLog>
     {
         public DateTime Date
         {
@@ -79,6 +79,26 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             });
 
             MessageBox.Show("Saved successful");
+        }
+
+        public override string Validate(string columnName)
+        {
+            if (columnName.Equals(nameof(Comment)))
+            {
+                if(string.IsNullOrEmpty(this.Comment))
+                {
+                    return "Comment must not be null or empty";
+                }
+            }
+            else if (columnName.Equals(nameof(Date)))
+            {
+                if(Date <= DateTime.Now)
+                {
+                    return "Date must be in the future";
+                }
+            }
+
+            return null;
         }
 
         private readonly TourLogRepository tourLogRepository;
