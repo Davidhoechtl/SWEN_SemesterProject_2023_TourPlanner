@@ -70,16 +70,24 @@ namespace TourPlannerFrontEnd.Modules.RateTour
 
         public async Task Save()
         {
-            await Task.Run(() =>
+            string error = Validators.HasError();
+            if (!string.IsNullOrEmpty(error))
             {
-                // saves tour log into the database
-                tourLogRepository.SaveTourLog(this.Model);
+                MessageBox.Show(error);
+            }
+            else
+            {
+                await Task.Run(() =>
+                {
+                    // saves tour log into the database
+                    tourLogRepository.SaveTourLog(this.Model);
 
-                // updates auto calculated properties of tour
-                tourAutoPropertyService.RecalculateTourProperties(this.Model.TourId);
-            });
+                    // updates auto calculated properties of tour
+                    tourAutoPropertyService.RecalculateTourProperties(this.Model.TourId);
+                });
 
-            MessageBox.Show("Saved successful");
+                MessageBox.Show("Saved successful");
+            }
         }
 
         public override ValidatorCollection SetupValidation()
@@ -106,7 +114,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             });
             validators.Add(nameof(TakenTimeInMinutes), () =>
             {
-                if(TakenTimeInMinutes <= 0)
+                if (TakenTimeInMinutes <= 0)
                 {
                     return "Taken Time in Minutes must be greater than 0";
                 }

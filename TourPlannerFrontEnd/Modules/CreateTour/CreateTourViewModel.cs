@@ -10,8 +10,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Infrastructure.Validation;
 
-    internal class CreateTourViewModel : ViewModel<Tour>
+    internal class CreateTourViewModel : ValidatingViewModel<Tour>
     {
         public string Name
         {
@@ -91,18 +92,16 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         /// </summary>
         public async Task Save()
         {
-            // api get route
-            if (this.Model != null)
+            string error = Validators.HasError();
+            if (!string.IsNullOrEmpty(error))
             {
-                //Location start = await mapQuestApiService.GetLocationFromAddressLine(Start);
-                //Location destination = await mapQuestApiService.GetLocationFromAddressLine(Destination);
-
-                //this.Model.Start = new Location() { Street = Start, City = string.Empty, PostCode=2131, State = string.Empty};
-                //this.Model.Destination = new Location() { Street = Destination, City = string.Empty, PostCode = 2131, State = string.Empty };
-
+                MessageBox.Show(error);
+            }
+            else if (this.Model != null)
+            {
                 this.Model.TravellingType = SelectedTravellingType;
                 this.Model.Start = await mapQuestService.GetLocationFromSingleLineAddress(Start);
-                if(this.Model.Start == null)
+                if (this.Model.Start == null)
                 {
                     MessageBox.Show("Error: Startlocation is invalid");
                     return;
@@ -123,7 +122,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
                 this.Model.Route.MapImage = await mapQuestService.GetRouteImage(Start, Destination, 600, 400);
 
-                if(this.Model.Route == null)
+                if (this.Model.Route == null)
                 {
                     MessageBox.Show("Error: Route could not be found");
                 }
@@ -142,6 +141,65 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             startLocationData = null;
             destinationLocationData = null;
             Refresh();
+        }
+
+        public override ValidatorCollection SetupValidation()
+        {
+            ValidatorCollection validators = new ValidatorCollection();
+
+            validators.Add(nameof(Name), () =>
+            {
+                if (string.IsNullOrEmpty(Name))
+                {
+                    return "Name of Tour must be set.";
+                }
+                return string.Empty;
+            });
+
+            validators.Add(nameof(Start), () =>
+            {
+                if (string.IsNullOrEmpty(Start))
+                {
+                    return "Start of Tour must be set.";
+                }
+                return string.Empty;
+            });
+
+            validators.Add(nameof(Destination), () =>
+            {
+                if (string.IsNullOrEmpty(Destination))
+                {
+                    return "Destination of Tour must be set.";
+                }
+                return string.Empty;
+            });
+
+            validators.Add(nameof(SelectedTravellingType), () =>
+            {
+                if (string.IsNullOrEmpty(SelectedTravellingType))
+                {
+                    return "TravellingType of Tour must be set.";
+                }
+                return string.Empty;
+            });
+
+            validators.Add(nameof(StartDate), () =>
+            {
+                if (StartDate.HasValue)
+                {
+                    if (StartDate < DateTime.Now)
+                    {
+                        return "Start date must be in the future.";
+                    }
+                }
+                else
+                {
+                    return "Start date must be set.";
+                }
+                return string.Empty;
+            });
+
+            return validators;
         }
 
         private string startLocationData;
