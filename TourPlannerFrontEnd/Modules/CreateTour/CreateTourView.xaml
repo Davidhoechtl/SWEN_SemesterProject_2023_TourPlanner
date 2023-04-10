@@ -22,19 +22,19 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Name:"/>
-        <TextBox x:Name="Name" MinWidth="100" Grid.Column="1"/>
+        <TextBox x:Name="Name" Style="{StaticResource ValidatingTextBox}" MinWidth="100" Grid.Column="1"/>
 
         <Label Content="Startdatum:" Grid.Row="1"/>
-        <DatePicker x:Name="StartDate" MinWidth="100" Grid.Row="1" Grid.Column="1"/>
+        <DatePicker x:Name="StartDate" Style="{StaticResource ValidatingDatePicker}" MinWidth="100" Grid.Row="1" Grid.Column="1"/>
 
         <Label Content="From:" Grid.Row="2"/>
-        <TextBox x:Name="Start" MinWidth="100" Grid.Row="2" Grid.Column="1"/>
+        <TextBox x:Name="Start" Style="{StaticResource ValidatingTextBox}" MinWidth="100" Grid.Row="2" Grid.Column="1"/>
 
         <Label Content="To:" Grid.Row="3"/>
-        <TextBox x:Name="Destination" MinWidth="100" Grid.Row="3" Grid.Column="1"/>
+        <TextBox x:Name="Destination" Style="{StaticResource ValidatingTextBox}" MinWidth="100" Grid.Row="3" Grid.Column="1"/>
 
         <Label Content="Travelling type:" Grid.Row="4"/>
-        <ComboBox x:Name="TravellingTypes" SelectedItem="SelectedTravellingType" MinWidth="100" Grid.Row="4" Grid.Column="1"/>
+        <ComboBox x:Name="TravellingTypes" Style="{StaticResource ValidatingComboBox}" SelectedItem="SelectedTravellingType" MinWidth="100" Grid.Row="4" Grid.Column="1"/>
 
         <Button x:Name="Save" Content="Save" Grid.Row="5"/>
     </Grid>
