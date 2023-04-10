@@ -5,6 +5,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Web;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
@@ -12,10 +13,11 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Infrastructure.Validation;
     using TourPlannerFrontEnd.Modules.RateTour;
     using TourPlannerFrontEnd.Modules.TourLogs;
 
-    internal class TourDetailViewModel : ViewModel<Tour>
+    internal class TourDetailViewModel : ValidatingViewModel<Tour>
     {
         public string TourName
         {
@@ -108,6 +110,21 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             ImageSource imgSrc = biImg as ImageSource;
 
             return imgSrc;
+        }
+
+        public override ValidatorCollection SetupValidation()
+        {
+            ValidatorCollection validators = new ValidatorCollection();
+            validators.Add(nameof(TourName), () =>
+            {
+                if (string.IsNullOrEmpty(TourName))
+                {
+                    return "Tour name must be set.";
+                }
+                return string.Empty;
+            });
+
+            return validators;
         }
     }
 }

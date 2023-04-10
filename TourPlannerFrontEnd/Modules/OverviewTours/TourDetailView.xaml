@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Tour name: "/>
-        <TextBox x:Name="TourName" Grid.Column="1"/>
+        <TextBox x:Name="TourName" Style="{StaticResource ValidatingTextBox}" Grid.Column="1"/>
 
         <Label Content="Start date: " Grid.Row="1"/>
         <DatePicker x:Name="StartDate" Grid.Row="1" Grid.Column="1"/>
