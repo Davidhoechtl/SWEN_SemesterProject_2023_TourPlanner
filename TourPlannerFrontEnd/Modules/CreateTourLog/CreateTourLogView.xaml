@@ -30,7 +30,7 @@
         <TextBox x:Name="Comment" Text="{Binding Comment, ValidatesOnDataErrors=True}" Style="{StaticResource ValidatingTextBox}" Grid.Row="1" Grid.Column="1"/>
 
         <Label Content="Taken time in minutes:" Grid.Row="2"/>
-        <TextBox x:Name="TakenTimeInMinutes" Grid.Row="2" Grid.Column="1"/>
+        <TextBox x:Name="TakenTimeInMinutes" Text="{Binding TakenTimeInMinutes, ValidatesOnDataErrors=True}" Style="{StaticResource ValidatingTextBox}" Grid.Row="2" Grid.Column="1"/>
 
         <Label Content="Difficulty:" Grid.Row="3"/>
         <Slider x:Name="Difficulty" Minimum="1" Maximum="10" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Grid.Row="3" Grid.Column="1"/>

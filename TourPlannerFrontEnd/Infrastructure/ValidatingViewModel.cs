@@ -2,14 +2,22 @@
 namespace TourPlannerFrontEnd.Infrastructure
 {
     using System.ComponentModel;
+    using TourPlannerFrontEnd.Infrastructure.Validation;
 
     internal abstract class ValidatingViewModel<T> : ViewModel<T>, IDataErrorInfo
         where T : class
     {
-        public string this[string columnName] => Validate(columnName);
+        public ValidatorCollection Validators { get; set; }
+
+        public string this[string columnName] => Validators.Validate(columnName);
 
         public string Error => null;
 
-        public abstract string Validate(string columnName);
+        public ValidatingViewModel()
+        {
+            Validators = SetupValidation();
+        }
+
+        public abstract ValidatorCollection SetupValidation();
     }
 }

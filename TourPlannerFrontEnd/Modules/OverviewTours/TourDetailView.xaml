@@ -78,15 +78,6 @@
 
         <Image Width="600" Height="400" Source="{Binding MapImageSource}" Grid.RowSpan="6" Grid.Column="2"></Image>
 
-        <!--<DataGrid x:Name="TourLogs" Grid.Row="6" Grid.Column="2" Width="600" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding Path=Date}"/>
-                <DataGridTextColumn Header="TakenTimeInSeconds" Binding="{Binding Path=TakenTimeInSeconds}"/>
-                <DataGridTextColumn Header="Difficulty" Binding="{Binding Path=Difficulty}"/>
-                <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>-->
-
         <ContentControl x:Name="TourLogs" Grid.Row="6" Grid.Column="2" Width="600"/>
     </Grid>
 </UserControl>

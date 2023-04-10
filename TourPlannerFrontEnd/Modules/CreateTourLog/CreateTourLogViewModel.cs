@@ -8,6 +8,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
     using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Infrastructure.Validation;
 
     internal class CreateTourLogViewModel : ValidatingViewModel<TourLog>
     {
@@ -81,24 +82,39 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             MessageBox.Show("Saved successful");
         }
 
-        public override string Validate(string columnName)
+        public override ValidatorCollection SetupValidation()
         {
-            if (columnName.Equals(nameof(Comment)))
+            ValidatorCollection validators = new ValidatorCollection();
+
+            validators.Add(nameof(Date), () =>
             {
-                if(string.IsNullOrEmpty(this.Comment))
-                {
-                    return "Comment must not be null or empty";
-                }
-            }
-            else if (columnName.Equals(nameof(Date)))
-            {
-                if(Date <= DateTime.Now)
+                if (Date <= DateTime.Now)
                 {
                     return "Date must be in the future";
                 }
-            }
 
-            return null;
+                return string.Empty;
+            });
+            validators.Add(nameof(Comment), () =>
+            {
+                if (string.IsNullOrEmpty(this.Comment))
+                {
+                    return "Comment must not be null or empty";
+                }
+
+                return string.Empty;
+            });
+            validators.Add(nameof(TakenTimeInMinutes), () =>
+            {
+                if(TakenTimeInMinutes <= 0)
+                {
+                    return "Taken Time in Minutes must be greater than 0";
+                }
+
+                return string.Empty;
+            });
+
+            return validators;
         }
 
         private readonly TourLogRepository tourLogRepository;
