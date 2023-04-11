@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TourPlanner.DataTransferObjects.Models;
 using TourPlannerBackEnd.Infrastructure.Services;
 using TourPlannerBackEnd.Repositories;
 using TourPlannerFrontEnd.Infrastructure;
+using TourPlannerFrontEnd.Infrastructure.Extensions;
 using TourPlannerFrontEnd.Infrastructure.Messages;
 using TourPlannerFrontEnd.Modules.CreateTourLog;
 
@@ -15,23 +17,21 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
 {
     internal class TourLogsViewModel : ViewModel<Tour>
     {
-        public TourLog SelectedTourLog { get; set; }
-        public List<TourLog> TourLogs
+        public TourLogValidationViewModel SelectedTourLog { get; set; }
+        public List<TourLogValidationViewModel> TourLogs
         {
-            get => this.Model.TourLogs;
+            get => tourLogs;
             set
             {
-                if (this.Model != null)
-                {
-                    this.Model.TourLogs = value;
-                }
+                tourLogs = value;
+                NotifyOfPropertyChange(nameof(TourLogs));
             }
         }
 
         public TourLogsViewModel(
             TourLogRepository tourLogRepository,
             TourAutoPropertyService tourAutoPropertyService,
-            INavigationHost navigationHost, 
+            INavigationHost navigationHost,
             IEventAggregator eventAggregator)
         {
             this.tourLogRepository = tourLogRepository;
@@ -49,12 +49,20 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
         {
             if (SelectedTourLog != null)
             {
-                await Task.Run(() =>
+                string error = SelectedTourLog.Validators.HasError();
+                if (!string.IsNullOrEmpty(error))
                 {
-                    tourLogRepository.UpdateTourLog(SelectedTourLog);
-                    tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
-                });
-                await eventAggregator.PublishOnUIThreadAsync(new RefreshToursMessage());
+                    MessageBox.Show(error);
+                }
+                else
+                {
+                    await Task.Run(() =>
+                    {
+                        tourLogRepository.UpdateTourLog(SelectedTourLog.Model);
+                        tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
+                    });
+                    await eventAggregator.PublishOnUIThreadAsync(new RefreshToursMessage());
+                }
             }
         }
 
@@ -62,14 +70,36 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
         {
             if (SelectedTourLog != null)
             {
-                await Task.Run(() =>
+                string error = SelectedTourLog.Validators.HasError();
+                if (!string.IsNullOrEmpty(error))
                 {
-                    tourLogRepository.DeleteTourLog(this.SelectedTourLog);
-                    tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
-                });
-                await eventAggregator.PublishOnUIThreadAsync(new RefreshToursMessage());
+                    MessageBox.Show(error);
+                }
+                else
+                {
+                    await Task.Run(() =>
+                    {
+                        tourLogRepository.DeleteTourLog(this.SelectedTourLog.Model);
+                        tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
+                    });
+                    await eventAggregator.PublishOnUIThreadAsync(new RefreshToursMessage());
+                }
             }
         }
+
+        protected override void OnModelChanged()
+        {
+            if (this.Model != null)
+            {
+                tourLogs = this.Model.TourLogs
+                    .SelectViewModels<TourLog, TourLogValidationViewModel>()
+                    .ToList();
+            }
+
+            base.OnModelChanged();
+        }
+
+        private List<TourLogValidationViewModel> tourLogs;
 
         private readonly TourLogRepository tourLogRepository;
         private readonly TourAutoPropertyService tourAutoPropertyService;
