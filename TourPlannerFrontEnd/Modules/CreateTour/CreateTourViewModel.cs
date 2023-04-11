@@ -187,7 +187,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             {
                 if (StartDate.HasValue)
                 {
-                    if (StartDate < DateTime.Now)
+                    if (StartDate < DateTime.Today)
                     {
                         return "Start date must be in the future.";
                     }

@@ -96,7 +96,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
 
             validators.Add(nameof(Date), () =>
             {
-                if (Date <= DateTime.Now)
+                if (Date < DateTime.Today)
                 {
                     return "Date must be in the future";
                 }
