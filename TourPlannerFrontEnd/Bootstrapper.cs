@@ -32,6 +32,8 @@ namespace TourPlannerFrontEnd
         {
             ContainerBuilder builder = new ContainerBuilder();
 
+            NLog.LogManager.LoadConfiguration("Tourplanner.nlog.config").Setup();
+
             BackendIoCModule backendIoCModule = new(builder);
             backendIoCModule.Load();
 
@@ -60,6 +62,7 @@ namespace TourPlannerFrontEnd
                 .SingleInstance();
 
             Container = builder.Build();
+            Log.Info("Service Container has build successfully!");
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
@@ -80,7 +83,6 @@ namespace TourPlannerFrontEnd
                 if (Container.IsRegisteredWithKey(key, service))
                     return Container.ResolveKeyed(key, service);
             }
-
             var msgFormat = "Could not locate any instances of contract {0}.";
             var msg = string.Format(msgFormat, key ?? service.Name);
             throw new Exception(msg);
@@ -92,5 +94,6 @@ namespace TourPlannerFrontEnd
         }
 
         private static IContainer Container;
+        private static NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }
 }
