@@ -1,6 +1,7 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.RateTour
 {
+    using NLog;
     using System;
     using System.Threading.Tasks;
     using System.Windows;
@@ -8,6 +9,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
     using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Infrastructure.Helper;
     using TourPlannerFrontEnd.Infrastructure.Validation;
 
     internal class CreateTourLogViewModel : ValidatingViewModel<TourLog>
@@ -77,17 +79,20 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             }
             else
             {
-                await Task.Run(() =>
-                {
-                    // saves tour log into the database
-                    tourLogRepository.SaveTourLog(this.Model);
+                await ShowAsyncOperation.RunAndShowMessage(() =>
+                    {
+                        // saves tour log into the database
+                        tourLogRepository.SaveTourLog(this.Model);
 
-                    // updates auto calculated properties of tour
-                    tourAutoPropertyService.RecalculateTourProperties(this.Model.TourId);
-                });
-
-                MessageBox.Show("Saved successful");
-            }
+                        // updates auto calculated properties of tour
+                        tourAutoPropertyService.RecalculateTourProperties(this.Model.TourId);
+                        throw new Exception("Test");
+                    }, 
+                    successMsg: "Saved succesful.",
+                    errorMsg: "Operation failed",
+                    Log
+                );
+             }
         }
 
         public override ValidatorCollection SetupValidation()
@@ -127,5 +132,6 @@ namespace TourPlannerFrontEnd.Modules.RateTour
 
         private readonly TourLogRepository tourLogRepository;
         private readonly TourAutoPropertyService tourAutoPropertyService;
+        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
     }
 }

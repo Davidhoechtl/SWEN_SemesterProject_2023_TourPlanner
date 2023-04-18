@@ -1,6 +1,7 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.CreateTour
 {
+    using Caliburn.Micro;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -100,27 +101,38 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             else if (this.Model != null)
             {
                 this.Model.TravellingType = SelectedTravellingType;
-                this.Model.Start = await mapQuestService.GetLocationFromSingleLineAddress(Start);
-                if (this.Model.Start == null)
+
+                try
                 {
-                    MessageBox.Show("Error: Startlocation is invalid");
+                    this.Model.Start = await mapQuestService.GetLocationFromSingleLineAddress(Start);
+                    if (this.Model.Start == null)
+                    {
+                        MessageBox.Show("Error: Startlocation is invalid");
+                        return;
+                    }
+
+                    this.Model.Destination = await mapQuestService.GetLocationFromSingleLineAddress(Destination);
+                    if (this.Model.Destination == null)
+                    {
+                        MessageBox.Show("Error: Destination location is invalid");
+                        return;
+                    }
+
+                    this.Model.Route = await mapQuestService.GetRouteFromLocations(
+                        Start,
+                        Destination,
+                        SelectedTravellingType
+                    );
+
+                    this.Model.Route.MapImage = await mapQuestService.GetRouteImage(Start, Destination, 600, 400);
+                }
+                catch (Exception ex)
+                {
+                    string errorMsg = "Error with the mapquest api request (maybe invalid input).";
+                    Log.Error(ex, errorMsg);
+                    MessageBox.Show(errorMsg);
                     return;
                 }
-
-                this.Model.Destination = await mapQuestService.GetLocationFromSingleLineAddress(Destination);
-                if (this.Model.Destination == null)
-                {
-                    MessageBox.Show("Error: Destination location is invalid");
-                    return;
-                }
-
-                this.Model.Route = await mapQuestService.GetRouteFromLocations(
-                    Start,
-                    Destination,
-                    SelectedTravellingType
-                );
-
-                this.Model.Route.MapImage = await mapQuestService.GetRouteImage(Start, Destination, 600, 400);
 
                 if (this.Model.Route == null)
                 {
@@ -209,5 +221,6 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         private readonly string[] travellingTypes;
         private readonly TourRepository tourRepository;
         private readonly TourPlannerMapQuestService mapQuestService;
+        private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }
 }
