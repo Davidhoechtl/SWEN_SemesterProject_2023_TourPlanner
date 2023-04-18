@@ -23,6 +23,7 @@ namespace TourPlanner.DataTransferObjects.Models
 
         public int Popularity { get; set; }
         public int ChildFriendliness { get; set; }
+        public double? CaloriesCount { get; set; }
         
         [ForeignKey(nameof(LocationStartId))]
         public Location Start { get; set; }
