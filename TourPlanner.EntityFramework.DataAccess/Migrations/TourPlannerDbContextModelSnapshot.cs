@@ -102,6 +102,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
+                    b.Property<double?>("CaloriesCount")
+                        .HasColumnType("double precision")
+                        .HasColumnName("calories_count");
+
                     b.Property<int>("ChildFriendliness")
                         .HasColumnType("integer")
                         .HasColumnName("child_friendliness");

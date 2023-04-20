@@ -58,7 +58,8 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                     travelling_type = table.Column<string>(type: "text", nullable: false),
                     start_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     popularity = table.Column<int>(type: "integer", nullable: false),
-                    child_friendliness = table.Column<int>(type: "integer", nullable: false)
+                    child_friendliness = table.Column<int>(type: "integer", nullable: false),
+                    calories_count = table.Column<double>(type: "double precision", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -35,6 +35,7 @@ CREATE TABLE tours (
     start_date timestamp with time zone NOT NULL,
     popularity integer NOT NULL,
     child_friendliness integer NOT NULL,
+    calories_count double precision NULL,
     CONSTRAINT pk_tours PRIMARY KEY (id),
     CONSTRAINT fk_tours_locations_location_destination_id FOREIGN KEY (location_destination_id) REFERENCES locations (id) ON DELETE CASCADE,
     CONSTRAINT fk_tours_locations_location_start_id FOREIGN KEY (location_start_id) REFERENCES locations (id) ON DELETE CASCADE,
@@ -62,7 +63,7 @@ CREATE UNIQUE INDEX ix_tours_location_start_id ON tours (location_start_id);
 CREATE UNIQUE INDEX ix_tours_route_id ON tours (route_id);
 
 INSERT INTO "__EFMigrationsHistory" (migration_id, product_version)
-VALUES ('20230404173429_InitialCreate', '7.0.3');
+VALUES ('20230420082509_InitialCreate', '7.0.3');
 
 COMMIT;
 

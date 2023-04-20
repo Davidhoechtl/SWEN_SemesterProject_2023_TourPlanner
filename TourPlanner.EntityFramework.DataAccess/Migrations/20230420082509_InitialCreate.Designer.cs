@@ -12,7 +12,7 @@ using TourPlanner.EntityFramework.DataAccess;
 namespace TourPlanner.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(TourPlannerDbContext))]
-    [Migration("20230404173429_InitialCreate")]
+    [Migration("20230420082509_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -104,6 +104,10 @@ namespace TourPlanner.DataAccess.EntityFramework.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
+
+                    b.Property<double?>("CaloriesCount")
+                        .HasColumnType("double precision")
+                        .HasColumnName("calories_count");
 
                     b.Property<int>("ChildFriendliness")
                         .HasColumnType("integer")
