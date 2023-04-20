@@ -211,6 +211,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             else
             {
                 MessageBox.Show("Failed to load tours");
+                return new List<Tour>();
             }
         }
 
