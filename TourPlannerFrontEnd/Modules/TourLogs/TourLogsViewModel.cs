@@ -10,6 +10,7 @@ using TourPlannerBackEnd.Infrastructure.Services;
 using TourPlannerBackEnd.Repositories;
 using TourPlannerFrontEnd.Infrastructure;
 using TourPlannerFrontEnd.Infrastructure.Extensions;
+using TourPlannerFrontEnd.Infrastructure.Helper;
 using TourPlannerFrontEnd.Infrastructure.Messages;
 using TourPlannerFrontEnd.Modules.CreateTourLog;
 
@@ -56,11 +57,14 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
                 }
                 else
                 {
-                    await Task.Run(() =>
-                    {
-                        tourLogRepository.UpdateTourLog(SelectedTourLog.Model);
-                        tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
-                    });
+                    await ShowAsyncOperation.Run(() =>
+                        {
+                            tourLogRepository.UpdateTourLog(SelectedTourLog.Model);
+                            tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
+                        },
+                        Log
+                    );
+
                     await eventAggregator.PublishOnUIThreadAsync(new RefreshToursMessage());
                 }
             }
@@ -77,11 +81,14 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
                 }
                 else
                 {
-                    await Task.Run(() =>
-                    {
-                        tourLogRepository.DeleteTourLog(this.SelectedTourLog.Model);
-                        tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
-                    });
+                    await ShowAsyncOperation.Run(() =>
+                        {
+                            tourLogRepository.DeleteTourLog(this.SelectedTourLog.Model);
+                            tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
+                        },
+                        Log
+                    );
+
                     await eventAggregator.PublishOnUIThreadAsync(new RefreshToursMessage());
                 }
             }
@@ -105,5 +112,6 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
         private readonly TourAutoPropertyService tourAutoPropertyService;
         private readonly INavigationHost navigationHost;
         private readonly IEventAggregator eventAggregator;
+        private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }
 }

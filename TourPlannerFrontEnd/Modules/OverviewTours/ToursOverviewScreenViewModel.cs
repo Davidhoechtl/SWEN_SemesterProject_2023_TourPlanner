@@ -17,6 +17,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.Extensions;
+    using TourPlannerFrontEnd.Infrastructure.Helper;
     using TourPlannerFrontEnd.Infrastructure.Messages;
     using TourPlannerFrontEnd.Modules.CreateTour;
     using TourPlannerFrontEnd.Modules.CreateTourLog;
@@ -93,10 +94,12 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         {
             if (SelectedTour.Model != null)
             {
-                await Task.Run(() =>
-                {
-                    tourRepository.UpdateTour(SelectedTour.Model);
-                });
+                await ShowAsyncOperation.Run(() =>
+                    {
+                        tourRepository.UpdateTour(SelectedTour.Model);
+                    },
+                    Log
+                );
 
                 await ReloadTours(new CancellationToken());
             }
@@ -106,10 +109,12 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         {
             if (SelectedTour.Model != null)
             {
-                await Task.Run(() =>
-                {
-                    tourRepository.DeleteTour(SelectedTour.Model.Id);
-                });
+                await ShowAsyncOperation.Run(() =>
+                    {
+                        tourRepository.DeleteTour(SelectedTour.Model.Id);
+                    },
+                    Log
+                );
                 await ReloadTours(new CancellationToken());
             }
         }
@@ -138,56 +143,75 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 List<Tour> tours = importService.Import(dialog.FileName);
-                await Task.Run(async () =>
-                {
-                    foreach (Tour tour in tours)
+                await ShowAsyncOperation.RunAndShowMessage( () =>
                     {
-                        byte[] routeImage = await mapQuestService.GetRouteImage(
-                            tour.Start.GetSingleLineString(),
-                            tour.Destination.GetSingleLineString(),
-                            width: 600,
-                            height: 400
-                        );
+                        foreach (Tour tour in tours)
+                        {
+                            byte[] routeImage = mapQuestService.GetRouteImage(
+                                tour.Start.GetSingleLineString(),
+                                tour.Destination.GetSingleLineString(),
+                                width: 600,
+                                height: 400
+                            ).Result;
 
-                        tour.Route.MapImage = routeImage;
+                            tour.Route.MapImage = routeImage;
 
-                        tourRepository.InsertTour(tour);
-                    }
-                });
+                            tourRepository.InsertTour(tour);
+                        }
+                    },
+                    successMsg: "Import was successful.",
+                    errorMsg: "Import failed.",
+                    Log
+                );
 
-                MessageBox.Show("Import was successful");
                 Refresh();
             }
         }
 
         public async Task GenerateTourReport()
         {
-            await Task.Run(() =>
-            {
-                if (SelectedTour != null)
+            await ShowAsyncOperation.Run(() =>
                 {
-                    reportGenerationService.GenerateTourReport(SelectedTour.Model);
-                }
-            });
+                    if (SelectedTour != null)
+                    {
+                        reportGenerationService.GenerateTourReport(SelectedTour.Model);
+                    }
+                },
+                Log
+            );
         }
 
         public async Task GenerateTourSummarizeReport()
         {
-            await Task.Run(() =>
-            {
-                if (SelectedTour != null)
+            await ShowAsyncOperation.Run(() =>
                 {
-                    reportGenerationService.GenerateSummarizeReport(Tours.Select(vw => vw.Model));
-                }
-            });
+                    if (SelectedTour != null)
+                    {
+                        reportGenerationService.GenerateSummarizeReport(Tours.Select(vw => vw.Model));
+                    }
+                },
+                Log
+            );
         }
 
         private async Task<IEnumerable<Tour>> GetToursAsync(CancellationToken cancellationToken)
         {
-            return await Task.Run(() =>
+            List<Tour> tours = new();
+            bool success =  await ShowAsyncOperation.Run(() =>
+                {
+                    tours = tourRepository.GetAllTours();
+                },
+                Log
+            );
+
+            if (success)
             {
-                return tourRepository.GetAllTours();
-            }, cancellationToken);
+                return tours;
+            }
+            else
+            {
+                MessageBox.Show("Failed to load tours");
+            }
         }
 
         private void OnSearch(TourSearchResult searchResult)
@@ -225,5 +249,6 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         private readonly IImportService importService;
         private readonly IFastReportGenerationService reportGenerationService;
         private readonly IEventAggregator eventAggregator;
+        private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }
 }
