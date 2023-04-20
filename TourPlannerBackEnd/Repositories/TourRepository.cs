@@ -30,10 +30,13 @@ namespace TourPlannerBackEnd.Repositories
                 .FirstOrDefault();
         }
 
-        public List<Tour> GetToursBySearchText(string searchText)
+        public List<Tour> GetToursBySearchText(
+            Func<Tour, string, Dictionary<string, string>, bool> matchFunction, 
+            string searchText, 
+            Dictionary<string, string> searchParameters)
         {
             return dbContext.Tours
-                .Where(t => t.Name.ToLower() == searchText.ToLower())
+                .Where(t => matchFunction(t, searchText, searchParameters) )
                 .Include(t => t.Start)
                 .Include(t => t.Destination)
                 .Include(t => t.Route)
