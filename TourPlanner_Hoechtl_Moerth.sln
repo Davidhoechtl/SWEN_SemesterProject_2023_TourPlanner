@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataAccess.Enti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataTransferObjects", "TourPlanner.DataTransferObjects\TourPlanner.DataTransferObjects.csproj", "{C43F2D0C-3B24-4F05-888D-6DBB930AF8E4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{C45D6246-B689-4BED-A54F-F102024E90DC}"
+	ProjectSection(SolutionItems) = preProject
+		AppConfiguration.json = AppConfiguration.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

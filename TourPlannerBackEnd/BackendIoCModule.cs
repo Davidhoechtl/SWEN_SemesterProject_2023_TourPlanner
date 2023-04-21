@@ -2,6 +2,7 @@
 namespace TourPlannerBackEnd
 {
     using Autofac;
+    using TourPlanner.DataTransferObjects.Models;
     using TourPlanner.EntityFramework.DataAccess;
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Infrastructure.Reporting;
@@ -19,6 +20,12 @@ namespace TourPlannerBackEnd
 
         public void Load()
         {
+            ApplicationConfigLoader configLoader = new ApplicationConfigLoader();
+            builder.Register<ApplicationConfiguration>((context, param) =>
+            {
+                return configLoader.Load();
+            });
+
             RegisterInfrastructure(builder);
             RegisterDataAccess(builder);
             RegisterRepositories(builder);
@@ -27,7 +34,7 @@ namespace TourPlannerBackEnd
         private void RegisterInfrastructure(ContainerBuilder builder)
         {
             builder.RegisterTypes(
-                typeof(ApiKeyLoader),
+                typeof(ApplicationConfigLoader),
                 typeof(TourPlannerMapQuestService),
                 typeof(TourCsvExportService),
                 typeof(TourCsvImportService),

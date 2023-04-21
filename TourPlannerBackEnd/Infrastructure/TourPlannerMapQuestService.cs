@@ -12,12 +12,11 @@ namespace TourPlannerBackEnd.Infrastructure
     /// </summary>
     public class TourPlannerMapQuestService
     {
-        public TourPlannerMapQuestService(ApiKeyLoader apiKeyLoader)
+        public TourPlannerMapQuestService(ApplicationConfiguration config)
         {
-            string apiKey = apiKeyLoader.Load();
-            this.mapQuestApiService = new MapQuestGeocodingApiService(apiKey);
-            this.mapQuestDirectionApiService = new MapQuestDirectionsApiService(apiKey);
-            this.mapQuestStaticMapApiService = new MapQuestStaticMapApiService(apiKey);
+            this.mapQuestApiService = new MapQuestGeocodingApiService(config.ApiKey);
+            this.mapQuestDirectionApiService = new MapQuestDirectionsApiService(config.ApiKey);
+            this.mapQuestStaticMapApiService = new MapQuestStaticMapApiService(config.ApiKey);
         }
 
         public async Task<Location> GetLocationFromSingleLineAddress(string singleLineAddress)

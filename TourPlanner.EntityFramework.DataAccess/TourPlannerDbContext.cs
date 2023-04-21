@@ -12,9 +12,14 @@ namespace TourPlanner.EntityFramework.DataAccess
         public DbSet<Tour> Tours { get; set; }
         public DbSet<TourLog> TourLogs { get; set; }
 
+        public TourPlannerDbContext(ApplicationConfiguration config)
+        {
+            this.config = config;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
-                .UseNpgsql("Host=localhost;Database=TourPlanner;Username=postgres;Password=test;Include Error Detail=true;")
+                .UseNpgsql(config.DataBaseConnectionString)
                 .UseSnakeCaseNamingConvention();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,5 +57,7 @@ namespace TourPlanner.EntityFramework.DataAccess
                 .HasOne(t => t.Route)
                 .WithOne();
         }
+
+        private readonly ApplicationConfiguration config;
     }
 }

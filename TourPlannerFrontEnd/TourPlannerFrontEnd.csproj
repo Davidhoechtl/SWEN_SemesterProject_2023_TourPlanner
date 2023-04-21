@@ -27,4 +27,10 @@
     </None>
   </ItemGroup>
 
+	<ItemGroup>
+		<ContentWithTargetPath Include="..\AppConfiguration.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</ContentWithTargetPath>
+	</ItemGroup>
 </Project>
