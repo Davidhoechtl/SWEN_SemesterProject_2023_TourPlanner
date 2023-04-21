@@ -31,16 +31,13 @@ namespace TourPlannerBackEnd.Repositories
         }
 
         public List<Tour> GetToursBySearchText(
-            Func<Tour, string, Dictionary<string, string>, bool> matchFunction, 
-            string searchText, 
+            Func<Tour, string, Dictionary<string, string>, bool> matchFunction,
+            string searchText,
             Dictionary<string, string> searchParameters)
         {
-            return dbContext.Tours
-                .Where(t => matchFunction(t, searchText, searchParameters) )
-                .Include(t => t.Start)
-                .Include(t => t.Destination)
-                .Include(t => t.Route)
-                .Include(t => t.TourLogs)
+            IEnumerable<Tour> allTours = GetAllTours();
+            return allTours
+                .Where(tour => matchFunction(tour, searchText, searchParameters))
                 .ToList();
         }
 
@@ -56,13 +53,13 @@ namespace TourPlannerBackEnd.Repositories
             dbContext.SaveChanges();
         }
 
-        public void DeleteTour(int tourId) 
+        public void DeleteTour(int tourId)
         {
             int deltaRows = dbContext.Tours
                 .Where(t => t.Id == tourId)
                 .ExecuteDelete();
 
-            if(deltaRows == 0)
+            if (deltaRows == 0)
             {
                 throw new Exception("Delete command didnt delete any rows");
             }
