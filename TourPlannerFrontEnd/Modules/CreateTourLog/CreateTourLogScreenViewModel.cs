@@ -8,10 +8,11 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
     using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Infrastructure.ViewContainers;
     using TourPlannerFrontEnd.Modules.OverviewTours;
     using TourPlannerFrontEnd.Modules.RateTour;
 
-    internal class CreateTourLogScreenViewModel : NavigationScreen
+    internal class CreateTourLogScreenViewModel : NavigationScreen, IBusyIndicatorContainer
     {
         public CreateTourLogViewModel TourLogViewModel { get; set; }
 
@@ -46,6 +47,16 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
 
         // ToDo base method should be virtual
         public override Task OnPageNavigatedTo(CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetBusy(string msg)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetNotBusy()
         {
             throw new System.NotImplementedException();
         }
