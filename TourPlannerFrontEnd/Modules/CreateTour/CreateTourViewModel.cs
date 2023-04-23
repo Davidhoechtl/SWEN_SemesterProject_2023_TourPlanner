@@ -1,7 +1,6 @@
 ﻿
 namespace TourPlannerFrontEnd.Modules.CreateTour
 {
-    using Caliburn.Micro;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,7 +10,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Infrastructure.Helper;
     using TourPlannerFrontEnd.Infrastructure.Validation;
+    using TourPlannerFrontEnd.Infrastructure.ViewContainers;
 
     internal class CreateTourViewModel : ValidatingViewModel<Tour>
     {
@@ -81,11 +82,12 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(TourRepository tourRepository, TourPlannerMapQuestService mapQuestService)
+        public CreateTourViewModel(TourRepository tourRepository, TourPlannerMapQuestService mapQuestService, IBusyIndicatorContainer busyIndicatorContainer)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
             this.tourRepository = tourRepository;
             this.mapQuestService = mapQuestService;
+            this.busyIndicatorContainer = busyIndicatorContainer;
         }
 
         /// <summary>
@@ -100,51 +102,26 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
             else if (this.Model != null)
             {
-                this.Model.TravellingType = SelectedTravellingType;
-
-                try
-                {
-                    this.Model.Start = await mapQuestService.GetLocationFromSingleLineAddress(Start);
-                    if (this.Model.Start == null)
+                await ShowAsyncOperation.RunAndShowMessage(() =>
                     {
-                        MessageBox.Show("Error: Startlocation is invalid");
-                        return;
-                    }
+                        this.Model.TravellingType = SelectedTravellingType;
+                        this.Model.Start = mapQuestService.GetLocationFromSingleLineAddress(Start).Result;
+                        this.Model.Destination = mapQuestService.GetLocationFromSingleLineAddress(Destination).Result;
+                        this.Model.Route = mapQuestService.GetRouteFromLocations(
+                            Start,
+                            Destination,
+                            SelectedTravellingType
+                        ).Result;
 
-                    this.Model.Destination = await mapQuestService.GetLocationFromSingleLineAddress(Destination);
-                    if (this.Model.Destination == null)
-                    {
-                        MessageBox.Show("Error: Destination location is invalid");
-                        return;
-                    }
+                        this.Model.Route.MapImage = mapQuestService.GetRouteImage(Start, Destination, 600, 400).Result;
 
-                    this.Model.Route = await mapQuestService.GetRouteFromLocations(
-                        Start,
-                        Destination,
-                        SelectedTravellingType
-                    );
-
-                    this.Model.Route.MapImage = await mapQuestService.GetRouteImage(Start, Destination, 600, 400);
-                }
-                catch (Exception ex)
-                {
-                    string errorMsg = "Error with the mapquest api request (maybe invalid input).";
-                    Log.Error(ex, errorMsg);
-                    MessageBox.Show(errorMsg);
-                    return;
-                }
-
-                if (this.Model.Route == null)
-                {
-                    MessageBox.Show("Error: Route could not be found");
-                }
-
-                await Task.Run(() =>
-                {
-                    tourRepository.InsertTour(this.Model);
-                });
-
-                MessageBox.Show($"Successfully saved!");
+                        tourRepository.InsertTour(this.Model);
+                    },
+                    successMsg:"Successfully saved!",
+                    errorMsg: "Save operation failed.",
+                    Log,
+                    busyIndicatorContainer
+                );
             }
         }
 
@@ -221,6 +198,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         private readonly string[] travellingTypes;
         private readonly TourRepository tourRepository;
         private readonly TourPlannerMapQuestService mapQuestService;
+        private readonly IBusyIndicatorContainer busyIndicatorContainer;
         private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }
 }

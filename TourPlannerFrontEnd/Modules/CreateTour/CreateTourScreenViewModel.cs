@@ -9,19 +9,40 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
+    using TourPlannerFrontEnd.Infrastructure.ViewContainers;
     using TourPlannerFrontEnd.Modules.OverviewTours;
 
-    class CreateTourScreenViewModel : NavigationScreen
+    class CreateTourScreenViewModel : NavigationScreen, IBusyIndicatorContainer
     {
         public CreateTourViewModel CreateTourViewModel { get; init; }
 
         public INavigationHost NavigationHost { get; set; }
 
+        public bool IsBusy 
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                NotifyOfPropertyChange(nameof(IsBusy));
+            }
+        }
+
+        public string BusyText 
+        {
+            get => busyText; 
+            set
+            {
+                busyText = value;
+                NotifyOfPropertyChange(nameof(BusyText));
+            }
+        }
+
         public CreateTourScreenViewModel(
             TourRepository tourRepository,
             TourPlannerMapQuestService mapQuestService)
         {
-            CreateTourViewModel = new CreateTourViewModel(tourRepository, mapQuestService);
+            CreateTourViewModel = new CreateTourViewModel(tourRepository, mapQuestService, this);
             DisplayName = "Create Tour";
         }
 
@@ -37,5 +58,20 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             CreateTourViewModel.Model = new Tour();
             return Task.CompletedTask;
         }
+
+        public void SetBusy(string msg)
+        {
+            IsBusy = true;
+            BusyText = msg;
+        }
+
+        public void SetNotBusy()
+        {
+            IsBusy = false;
+            busyText = string.Empty;
+        }
+
+        private bool isBusy;
+        private string busyText;
     }
 }
