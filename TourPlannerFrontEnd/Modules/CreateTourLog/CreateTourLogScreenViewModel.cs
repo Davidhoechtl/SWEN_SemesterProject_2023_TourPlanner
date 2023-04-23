@@ -18,9 +18,29 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
 
         public INavigationHost NavigationHost { get; set; }
 
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                NotifyOfPropertyChange(nameof(IsBusy));
+            }
+        }
+
+        public string BusyText
+        {
+            get => busyText;
+            set
+            {
+                busyText = value;
+                NotifyOfPropertyChange(nameof(BusyText));
+            }
+        }
+
         public CreateTourLogScreenViewModel(TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService)
         {
-            TourLogViewModel = new CreateTourLogViewModel(tourLogRepository, tourAutoPropertyService);
+            TourLogViewModel = new CreateTourLogViewModel(tourLogRepository, tourAutoPropertyService, this);
             DisplayName = "Create Tour Log";
         }
 
@@ -53,12 +73,17 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
 
         public void SetBusy(string msg)
         {
-            throw new System.NotImplementedException();
+            IsBusy = true;
+            BusyText = msg;
         }
 
         public void SetNotBusy()
         {
-            throw new System.NotImplementedException();
+            IsBusy = false;
+            busyText = string.Empty;
         }
+
+        private bool isBusy;
+        private string busyText;
     }
 }

@@ -11,6 +11,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.Helper;
     using TourPlannerFrontEnd.Infrastructure.Validation;
+    using TourPlannerFrontEnd.Infrastructure.ViewContainers;
 
     internal class CreateTourLogViewModel : ValidatingViewModel<TourLog>
     {
@@ -64,10 +65,11 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             }
         }
 
-        public CreateTourLogViewModel(TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService)
+        public CreateTourLogViewModel(TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService, IBusyIndicatorContainer busyIndicator)
         {
             this.tourLogRepository = tourLogRepository;
             this.tourAutoPropertyService = tourAutoPropertyService;
+            this.busyIndicator = busyIndicator;
         }
 
         public async Task Save()
@@ -90,7 +92,8 @@ namespace TourPlannerFrontEnd.Modules.RateTour
                     }, 
                     successMsg: "Saved succesful.",
                     errorMsg: "Operation failed",
-                    Log
+                    Log,
+                    busyIndicator
                 );
              }
         }
@@ -132,6 +135,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
 
         private readonly TourLogRepository tourLogRepository;
         private readonly TourAutoPropertyService tourAutoPropertyService;
+        private readonly IBusyIndicatorContainer busyIndicator;
         private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
     }
 }

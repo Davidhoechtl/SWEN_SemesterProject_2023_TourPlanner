@@ -8,6 +8,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Input;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Infrastructure;
     using TourPlannerBackEnd.Infrastructure.Reporting;
@@ -19,11 +20,12 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
     using TourPlannerFrontEnd.Infrastructure.Extensions;
     using TourPlannerFrontEnd.Infrastructure.Helper;
     using TourPlannerFrontEnd.Infrastructure.Messages;
+    using TourPlannerFrontEnd.Infrastructure.ViewContainers;
     using TourPlannerFrontEnd.Modules.CreateTour;
     using TourPlannerFrontEnd.Modules.CreateTourLog;
     using TourPlannerFrontEnd.Modules.Search;
 
-    internal class ToursOverviewScreenViewModel : NavigationScreen, IHandle<RefreshToursMessage>
+    internal class ToursOverviewScreenViewModel : NavigationScreen, IHandle<RefreshToursMessage>, IBusyIndicatorContainer
     {
         public INavigationHost NavigationHost { get; set; }
 
@@ -42,6 +44,26 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         public SearchBarViewModel SearchBar { get; set; }
 
         public bool TourDetailSpecificActionsVisible => SelectedTour != null;
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                NotifyOfPropertyChange(nameof(IsBusy));
+            }
+        }
+
+        public string BusyText
+        {
+            get => busyText;
+            set
+            {
+                busyText = value;
+                NotifyOfPropertyChange(nameof(BusyText));
+            }
+        }
 
         public ToursOverviewScreenViewModel(
             TourRepository tourRepository,
@@ -98,7 +120,8 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                     {
                         tourRepository.UpdateTour(SelectedTour.Model);
                     },
-                    Log
+                    Log,
+                    this
                 );
 
                 await ReloadTours(new CancellationToken());
@@ -113,21 +136,29 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                     {
                         tourRepository.DeleteTour(SelectedTour.Model.Id);
                     },
-                    Log
+                    Log,
+                    this
                 );
                 await ReloadTours(new CancellationToken());
             }
         }
 
-        public void ExportTours()
+        public async Task ExportTours()
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = "C:\\";
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                exportService.Export(Tours.Select(t => t.Model), dialog.FileName);
-                MessageBox.Show("Export was successful");
+                await ShowAsyncOperation.RunAndShowMessage(() =>
+                    {
+                        exportService.Export(Tours.Select(t => t.Model), dialog.FileName);
+                    },
+                    successMsg: "Export was successful.",
+                    errorMsg: "Export failed.",
+                    Log,
+                    this
+                );
             }
             else
             {
@@ -161,10 +192,11 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                     },
                     successMsg: "Import was successful.",
                     errorMsg: "Import failed.",
-                    Log
+                    Log,
+                    this
                 );
 
-                Refresh();
+                await ReloadTours(new CancellationToken());
             }
         }
 
@@ -177,7 +209,8 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                         reportGenerationService.GenerateTourReport(SelectedTour.Model);
                     }
                 },
-                Log
+                Log,
+                this
             );
         }
 
@@ -190,7 +223,8 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                         reportGenerationService.GenerateSummarizeReport(Tours.Select(vw => vw.Model));
                     }
                 },
-                Log
+                Log,
+                this
             );
         }
 
@@ -201,7 +235,8 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
                 {
                     tours = tourRepository.GetAllTours();
                 },
-                Log
+                Log,
+                this
             );
 
             if (success)
@@ -225,7 +260,6 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         {
             IEnumerable<Tour> allTours = await GetToursAsync(cancellationToken);
             ConvertToursToViewModelsAndSelectFirst(allTours);
-
         }
 
         private void ConvertToursToViewModelsAndSelectFirst(IEnumerable<Tour> tours)
@@ -240,6 +274,21 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             NotifyOfPropertyChange(nameof(Tours));
             NotifyOfPropertyChange(nameof(SelectedTour));
         }
+
+        public void SetBusy(string msg)
+        {
+            IsBusy = true;
+            BusyText = msg;
+        }
+
+        public void SetNotBusy()
+        {
+            IsBusy = false;
+            busyText = string.Empty;
+        }
+
+        private bool isBusy;
+        private string busyText;
 
         private TourDetailViewModel selectedTour;
         private readonly TourRepository tourRepository;

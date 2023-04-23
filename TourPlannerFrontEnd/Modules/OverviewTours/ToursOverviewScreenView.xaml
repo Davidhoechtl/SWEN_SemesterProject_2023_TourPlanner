@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourPlannerFrontEnd.Modules.OverviewTours"
              xmlns:converters="clr-namespace:TourPlannerFrontEnd.Infrastructure.Converter"
+             xmlns:busyIndicator="https://github.com/moh3ngolshani/BusyIndicator"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -12,48 +13,56 @@
         <converters:BoolVisibleCollapsedConverter x:Key="BoolVisibleCollapsedConverter"/>
     </UserControl.Resources>
 
-    <Grid ShowGridLines="True">
+    <busyIndicator:BusyMask x:Name="BusyIndicator" 
+                            IsBusy="{Binding IsBusy, Mode=TwoWay}"
+                            IndicatorType="Cupertino" 
+                            BusyContent="{Binding BusyText, Mode=TwoWay}" 
+                            BusyContentMargin="0,20,0,0" 
+                            IsBusyAtStartup="False">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+        <Grid ShowGridLines="True">
 
-        <Label x:Name="DisplayName" FontSize="40"/>
-        <ContentControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1">
-            <Button x:Name="ExportTours" Content="Export Tours" Height="50px"/>
-            <Button x:Name="ImportTours" Content="Import Tours" Height="50px"/>
-            <DockPanel>
-                <Button x:Name="CreateTour" Content="Create Tour"/>
-                <Button x:Name="UpdateTour" Content="Update Tour"/>
-                <Button x:Name="DeleteTour" Content="Delete Tour"/>
-            </DockPanel>
-        </StackPanel>
+            <Label x:Name="DisplayName" FontSize="40"/>
+            <ContentControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"/>
 
-        <DataGrid x:Name="Tours" SelectedItem="SelectedTour" Grid.Row="2" Width="300" Height="800" VerticalAlignment="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
-                <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <ScrollViewer Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <ContentControl x:Name="SelectedTour"/>
-                <StackPanel>
-                    <Button x:Name="GenerateTourReport" Content="Generate Tour Report" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
-                    <Button x:Name="GenerateTourSummarizeReport" Content="Generate Tour Summary" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
-                </StackPanel>
+            <StackPanel Grid.Row="1">
+                <Button x:Name="ExportTours" Content="Export Tours" Height="50px"/>
+                <Button x:Name="ImportTours" Content="Import Tours" Height="50px"/>
+                <DockPanel>
+                    <Button x:Name="CreateTour" Content="Create Tour"/>
+                    <Button x:Name="UpdateTour" Content="Update Tour"/>
+                    <Button x:Name="DeleteTour" Content="Delete Tour"/>
+                </DockPanel>
             </StackPanel>
-        </ScrollViewer>
-    </Grid>
+
+            <DataGrid x:Name="Tours" SelectedItem="SelectedTour" Grid.Row="2" Width="300" Height="800" VerticalAlignment="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
+                    <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <ScrollViewer Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <ContentControl x:Name="SelectedTour"/>
+                    <StackPanel>
+                        <Button x:Name="GenerateTourReport" Content="Generate Tour Report" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                        <Button x:Name="GenerateTourSummarizeReport" Content="Generate Tour Summary" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </busyIndicator:BusyMask>
 </UserControl>
