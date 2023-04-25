@@ -3,16 +3,18 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
 {
     using FastReport;
     using FastReport.Export.Image;
+    using FastReport.Utils;
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Text;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlanner.DataTransferObjects.Models.Reporting;
 
     public class FastReportGenerationService : IFastReportGenerationService
     {
-        private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
-        //private string InFolder = @"C:\Studium\SWENSemesterProject_TourPlanner\Reporting";
+        //private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
+        private string InFolder = @"C:\Studium\SWENSemesterProject_TourPlanner\Reporting";
 
         public void GenerateSummarizeReport(IEnumerable<Tour> tours)
         {
@@ -37,8 +39,28 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
 
             Report report = new Report();
             report.Load(Path.Combine(InFolder, "TourReport.frx"));
+
+            //ReportPage page = new ReportPage();
+            //report.Pages.Add(page);
+            //page.CreateUniqueName();
+
+            //DataBand data = new DataBand();
+            //page.Bands.Add(data);
+            //data.CreateUniqueName();
+            //data.Height = Units.Centimeters * 1; //Set band height
+
+            //PictureObject tourImage = new PictureObject();
             report.RegisterData(businessObject, "Tours");
-            report.Prepare();
+
+            PictureObject pic = report.FindObject("Picture1") as PictureObject;
+            using (MemoryStream ms = new MemoryStream(tour.Route.MapImage))
+            {
+                Bitmap bitmap = new Bitmap(ms);
+                pic.Image = bitmap;
+                pic.Bounds = new RectangleF(0, 0, bitmap.HorizontalResolution, bitmap.VerticalResolution);
+                pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+                report.Prepare();
+            }
 
             report.SavePrepared("C:\\Testreport.fpx");
 

@@ -79,6 +79,7 @@
 		<TextObject Name="Text18" Left="460" Width="150" Height="18.9" Text="[Tours.TourLogs.Difficulty]"/>
 		<TextObject Name="Text19" Left="610" Width="150" Height="18.9" Text="[Tours.TourLogs.Rating]"/>
 	  </DataBand>
+	  <PictureObject Name="Picture1"/>
     </DataBand>
   </ReportPage>
 </Report>

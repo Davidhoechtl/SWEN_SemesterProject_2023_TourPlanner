@@ -88,7 +88,6 @@ namespace TourPlannerFrontEnd.Modules.RateTour
 
                         // updates auto calculated properties of tour
                         tourAutoPropertyService.RecalculateTourProperties(this.Model.TourId);
-                        throw new Exception("Test");
                     }, 
                     successMsg: "Saved succesful.",
                     errorMsg: "Operation failed",
