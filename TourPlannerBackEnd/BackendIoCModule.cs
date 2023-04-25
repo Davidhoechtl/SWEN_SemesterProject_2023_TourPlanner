@@ -39,7 +39,8 @@ namespace TourPlannerBackEnd
                 typeof(TourCsvExportService),
                 typeof(TourCsvImportService),
                 typeof(FastReportGenerationService),
-                typeof(TourAutoPropertyService)
+                typeof(TourAutoPropertyService),
+                typeof(CalorieCalculationService)
             )
             .SingleInstance()
             .AsImplementedInterfaces()

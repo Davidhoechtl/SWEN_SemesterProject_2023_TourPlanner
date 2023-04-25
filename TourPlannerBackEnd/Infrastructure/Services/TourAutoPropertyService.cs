@@ -5,9 +5,10 @@ namespace TourPlannerBackEnd.Infrastructure.Services
 {
     public class TourAutoPropertyService
     {
-        public TourAutoPropertyService(TourRepository tourRepository)
+        public TourAutoPropertyService(TourRepository tourRepository, CalorieCalculationService calorieCalculationService)
         {
             this.tourRepository = tourRepository;
+            this.calorieCalculationService = calorieCalculationService;
         }
 
         public void RecalculateTourProperties(int tourId)
@@ -16,6 +17,7 @@ namespace TourPlannerBackEnd.Infrastructure.Services
 
             tour.Popularity = CalculatePopularity(tour);
             tour.ChildFriendliness = CalculateChildFriendliness(tour);
+            tour.CaloriesCount = calorieCalculationService.CalculateCaloriesForTour(tour);
 
             tourRepository.UpdateTour(tour);
         }
@@ -132,5 +134,6 @@ namespace TourPlannerBackEnd.Infrastructure.Services
         }
 
         private readonly TourRepository tourRepository;
+        private readonly CalorieCalculationService calorieCalculationService;
     }
 }
