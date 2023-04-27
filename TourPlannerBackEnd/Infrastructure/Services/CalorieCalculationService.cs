@@ -11,6 +11,11 @@ namespace TourPlannerBackEnd.Infrastructure.Services
     {
         public double? CalculateCaloriesForTour(Tour tour)
         {
+            if (tour == null)
+            {
+                throw new ArgumentNullException(nameof(tour));
+            }
+
             double distanceInKm = tour.Route.DistanceInKm;
             if (tour.TravellingType.Equals(RouteType.Pedestriant))
             {
