@@ -66,7 +66,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         }
 
         public ToursOverviewScreenViewModel(
-            TourRepository tourRepository,
+            ITourRepository tourRepository,
             TourLogRepository tourLogRepository,
             TourPlannerMapQuestService mapQuestService,
             TourAutoPropertyService tourAutoPropertyService,
@@ -291,10 +291,10 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         private string busyText;
 
         private TourDetailViewModel selectedTour;
-        private readonly TourRepository tourRepository;
-        private readonly TourLogRepository tourLogRepository;
         private readonly TourPlannerMapQuestService mapQuestService;
         private readonly TourAutoPropertyService tourAutoPropertyService;
+        private readonly TourLogRepository tourLogRepository;
+        private readonly ITourRepository tourRepository;
         private readonly IExportService exportService;
         private readonly IImportService importService;
         private readonly IFastReportGenerationService reportGenerationService;

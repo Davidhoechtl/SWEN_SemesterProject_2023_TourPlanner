@@ -1,16 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TourPlanner.DataTransferObjects.Models;
-using TourPlanner.EntityFramework.DataAccess;
-
+﻿
 namespace TourPlannerBackEnd.Repositories
 {
-    public class TourRepository
+    using Microsoft.EntityFrameworkCore;
+    using TourPlanner.DataTransferObjects.Models;
+    using TourPlanner.EntityFramework.DataAccess;
+    
+    public class TourRepository : ITourRepository
     {
         private readonly TourPlannerDbContext dbContext;
 

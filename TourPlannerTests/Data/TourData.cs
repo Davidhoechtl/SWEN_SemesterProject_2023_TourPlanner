@@ -3,7 +3,7 @@ namespace TourPlannerTests.Data
 {
     using TourPlanner.DataTransferObjects.Models;
 
-    internal class TourData
+    internal static class TourData
     {
         public static List<Tour> Tours = new List<Tour>()
         {

@@ -17,7 +17,7 @@ namespace TourPlannerFrontEnd.Modules.Search
 
         public Action<TourSearchResult> OnSearch { get; set; }
 
-        public SearchBarViewModel(TourRepository tourRepository)
+        public SearchBarViewModel(ITourRepository tourRepository)
         {
             this.tourRepository = tourRepository;
         }
@@ -97,6 +97,6 @@ namespace TourPlannerFrontEnd.Modules.Search
             return found;
         }
 
-        private readonly TourRepository tourRepository;
+        private readonly ITourRepository tourRepository;
     }
 }

@@ -5,7 +5,7 @@ namespace TourPlannerBackEnd.Infrastructure.Services
 {
     public class TourAutoPropertyService
     {
-        public TourAutoPropertyService(TourRepository tourRepository, CalorieCalculationService calorieCalculationService)
+        public TourAutoPropertyService(ITourRepository tourRepository, CalorieCalculationService calorieCalculationService)
         {
             this.tourRepository = tourRepository;
             this.calorieCalculationService = calorieCalculationService;
@@ -133,7 +133,7 @@ namespace TourPlannerBackEnd.Infrastructure.Services
             return (int)Math.Ceiling(FriendlinessSum);
         }
 
-        private readonly TourRepository tourRepository;
+        private readonly ITourRepository tourRepository;
         private readonly CalorieCalculationService calorieCalculationService;
     }
 }

@@ -82,7 +82,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(TourRepository tourRepository, TourPlannerMapQuestService mapQuestService, IBusyIndicatorContainer busyIndicatorContainer)
+        public CreateTourViewModel(ITourRepository tourRepository, TourPlannerMapQuestService mapQuestService, IBusyIndicatorContainer busyIndicatorContainer)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
             this.tourRepository = tourRepository;
@@ -196,9 +196,10 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
         private string selectedTravellingType;
         private readonly string[] travellingTypes;
-        private readonly TourRepository tourRepository;
-        private readonly TourPlannerMapQuestService mapQuestService;
+        
+        private readonly ITourRepository tourRepository;
         private readonly IBusyIndicatorContainer busyIndicatorContainer;
+        private readonly TourPlannerMapQuestService mapQuestService;
         private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }
 }

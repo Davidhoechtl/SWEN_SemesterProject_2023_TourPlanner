@@ -39,7 +39,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         }
 
         public CreateTourScreenViewModel(
-            TourRepository tourRepository,
+            ITourRepository tourRepository,
             TourPlannerMapQuestService mapQuestService)
         {
             CreateTourViewModel = new CreateTourViewModel(tourRepository, mapQuestService, this);
