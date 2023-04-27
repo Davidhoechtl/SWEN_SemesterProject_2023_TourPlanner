@@ -55,10 +55,11 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
             PictureObject pic = report.FindObject("Picture1") as PictureObject;
             using (MemoryStream ms = new MemoryStream(tour.Route.MapImage))
             {
+
                 Bitmap bitmap = new Bitmap(ms);
                 pic.Image = bitmap;
-                pic.Bounds = new RectangleF(0, 0, bitmap.HorizontalResolution, bitmap.VerticalResolution);
-                pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+                pic.Bounds = new RectangleF(380, 80, bitmap.Width / 2, bitmap.Height/ 2);
+                pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
                 report.Prepare();
             }
 

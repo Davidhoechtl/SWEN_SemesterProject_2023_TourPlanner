@@ -72,14 +72,15 @@
 	  <TextObject Name="Text204" Top="345" Left="460" Width="150" Height="18.9" Text="Difficulty" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
 	  <TextObject Name="Text205" Top="345" Left="610" Width="150" Height="18.9" Text="Rating" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>	 
 
-	  <DataBand Name="Data2" Width="760.2" Height="25" DataSource="TourLogs">
+	  <PictureObject Name="Picture1"/>
+	  
+	  <DataBand Name="Data2" Top="745" Width="760.2" Height="25" DataSource="TourLogs">
 		<TextObject Name="Text14" Width="150" Height="18.9" Text="[Tours.TourLogs.Date]"/>
 		<TextObject Name="Text16" Left="155" Width="150" Height="18.9" Text="[Tours.TourLogs.Comment]"/>
 		<TextObject Name="Text17" Left="305" Width="150" Height="18.9" Text="[Tours.TourLogs.TakenTimeInSeconds]"/>
 		<TextObject Name="Text18" Left="460" Width="150" Height="18.9" Text="[Tours.TourLogs.Difficulty]"/>
 		<TextObject Name="Text19" Left="610" Width="150" Height="18.9" Text="[Tours.TourLogs.Rating]"/>
 	  </DataBand>
-	  <PictureObject Name="Picture1"/>
     </DataBand>
   </ReportPage>
 </Report>
