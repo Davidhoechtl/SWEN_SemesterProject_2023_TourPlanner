@@ -1,4 +1,5 @@
-﻿using TourPlanner.DataTransferObjects.Models;
+﻿using System.Linq.Expressions;
+using TourPlanner.DataTransferObjects.Models;
 using TourPlannerBackEnd.Repositories;
 
 namespace TourPlannerBackEnd.Infrastructure.Services
@@ -15,11 +16,18 @@ namespace TourPlannerBackEnd.Infrastructure.Services
         {
             Tour tour = tourRepository.GetTourById(tourId);
 
-            tour.Popularity = CalculatePopularity(tour);
-            tour.ChildFriendliness = CalculateChildFriendliness(tour);
-            tour.CaloriesCount = calorieCalculationService.CalculateCaloriesForTour(tour);
+            if(tour != null)
+            {
+                tour.Popularity = CalculatePopularity(tour);
+                tour.ChildFriendliness = CalculateChildFriendliness(tour);
+                tour.CaloriesCount = calorieCalculationService.CalculateCaloriesForTour(tour);
 
-            tourRepository.UpdateTour(tour);
+                tourRepository.UpdateTour(tour);
+            }
+            else
+            {
+                throw new Exception($"Tour with id {tourId} was not found");
+            }
         }
 
         private int CalculatePopularity(Tour tour)
