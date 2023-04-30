@@ -1,13 +1,8 @@
 ﻿
 namespace TourPlanner.MapQuestApi
 {
-    using Newtonsoft.Json;
     using System.Collections.Specialized;
-    using System.Net.Http.Headers;
-    using System.Text;
     using System.Text.Json;
-    using System.Web;
-    using System.Xml.Linq;
     using TourPlanner.MapQuestApi.Domain;
 
     public class MapQuestGeocodingApiService

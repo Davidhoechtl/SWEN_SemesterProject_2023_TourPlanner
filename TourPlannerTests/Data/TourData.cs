@@ -58,7 +58,7 @@ namespace TourPlannerTests.Data
                         Name = "Bar",
                         StartDate = DateTime.Now,
                         TravellingType = RouteType.DrivingFastest.ToString(),
-                        CaloriesCount = 100,
+                        CaloriesCount = 200,
                         ChildFriendliness = 5,
                         Popularity = 2,
                         Start = new Location()

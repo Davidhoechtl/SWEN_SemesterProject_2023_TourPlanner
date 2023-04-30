@@ -68,12 +68,13 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         //public List<TourLog> TourLogs => this.Model?.TourLogs;
 
         public void Setup(
-            TourLogRepository tourLogRepository, 
-            INavigationHost navigationHost, 
-            IEventAggregator eventAggregator, 
+            ITourRepository tourRepository,
+            TourLogRepository tourLogRepository,
+            INavigationHost navigationHost,
+            IEventAggregator eventAggregator,
             TourAutoPropertyService tourAutoPropertyService)
         {
-            TourLogs = new TourLogsViewModel(tourLogRepository, tourAutoPropertyService, navigationHost, eventAggregator);
+            TourLogs = new TourLogsViewModel(tourRepository, tourLogRepository, tourAutoPropertyService, navigationHost, eventAggregator);
         }
 
         private string GetRouteTimeInMinutes()

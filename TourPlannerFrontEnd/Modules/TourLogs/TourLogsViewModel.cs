@@ -30,6 +30,7 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
         }
 
         public TourLogsViewModel(
+            ITourRepository tourRepository,
             TourLogRepository tourLogRepository,
             TourAutoPropertyService tourAutoPropertyService,
             INavigationHost navigationHost,
@@ -37,6 +38,7 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
         {
             this.tourLogRepository = tourLogRepository;
             this.tourAutoPropertyService = tourAutoPropertyService;
+            this.tourRepository = tourRepository;
             this.navigationHost = navigationHost;
             this.eventAggregator = eventAggregator;
         }
@@ -60,7 +62,7 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
                     await ShowAsyncOperation.Run(() =>
                         {
                             tourLogRepository.UpdateTourLog(SelectedTourLog.Model);
-                            tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
+                            UpdateTourAutoProperties();
                         },
                         Log
                     );
@@ -84,7 +86,7 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
                     await ShowAsyncOperation.Run(() =>
                         {
                             tourLogRepository.DeleteTourLog(this.SelectedTourLog.Model);
-                            tourAutoPropertyService.RecalculateTourProperties(this.Model.Id);
+                            UpdateTourAutoProperties();
                         },
                         Log
                     );
@@ -106,12 +108,19 @@ namespace TourPlannerFrontEnd.Modules.TourLogs
             base.OnModelChanged();
         }
 
-        private List<TourLogValidationViewModel> tourLogs;
+        private void UpdateTourAutoProperties()
+        {
+            Tour tour = tourRepository.GetTourById(this.Model.Id);
+            tourAutoPropertyService.RecalculateTourProperties(this.Model);
+            tourRepository.UpdateTour(this.Model);
+        }
 
+        private List<TourLogValidationViewModel> tourLogs;
         private readonly TourLogRepository tourLogRepository;
         private readonly TourAutoPropertyService tourAutoPropertyService;
         private readonly INavigationHost navigationHost;
         private readonly IEventAggregator eventAggregator;
+        private readonly ITourRepository tourRepository;
         private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }
 }

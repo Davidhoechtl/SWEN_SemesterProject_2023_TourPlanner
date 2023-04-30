@@ -12,23 +12,37 @@ namespace TourPlannerBackEnd.Infrastructure.Services
             this.calorieCalculationService = calorieCalculationService;
         }
 
-        public void RecalculateTourProperties(int tourId)
+        public void RecalculateTourProperties(Tour tour)
         {
-            Tour tour = tourRepository.GetTourById(tourId);
-
-            if(tour != null)
+            if(tour != null )
             {
                 tour.Popularity = CalculatePopularity(tour);
                 tour.ChildFriendliness = CalculateChildFriendliness(tour);
                 tour.CaloriesCount = calorieCalculationService.CalculateCaloriesForTour(tour);
-
-                tourRepository.UpdateTour(tour);
             }
             else
             {
-                throw new Exception($"Tour with id {tourId} was not found");
+                throw new Exception($"Tour was not found!");
             }
         }
+
+        //public void RecalculateTourProperties(int tourId)
+        //{
+        //    Tour tour = tourRepository.GetTourById(tourId);
+
+        //    if(tour != null)
+        //    {
+        //        tour.Popularity = CalculatePopularity(tour);
+        //        tour.ChildFriendliness = CalculateChildFriendliness(tour);
+        //        tour.CaloriesCount = calorieCalculationService.CalculateCaloriesForTour(tour);
+
+        //        tourRepository.UpdateTour(tour);
+        //    }
+        //    else
+        //    {
+        //        throw new Exception($"Tour with id {tourId} was not found");
+        //    }
+        //}
 
         private int CalculatePopularity(Tour tour)
         {

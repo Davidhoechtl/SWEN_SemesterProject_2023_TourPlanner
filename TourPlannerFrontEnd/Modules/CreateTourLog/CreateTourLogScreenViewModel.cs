@@ -38,9 +38,9 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
             }
         }
 
-        public CreateTourLogScreenViewModel(TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService)
+        public CreateTourLogScreenViewModel(ITourRepository tourRepository, TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService)
         {
-            TourLogViewModel = new CreateTourLogViewModel(tourLogRepository, tourAutoPropertyService, this);
+            TourLogViewModel = new CreateTourLogViewModel(tourRepository, tourLogRepository, tourAutoPropertyService, this);
             DisplayName = "Create Tour Log";
         }
 
@@ -51,7 +51,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTourLog
 
         public override Task OnPageNavigatedTo(CancellationToken cancellationToken, object dataContext)
         {
-            if(dataContext is Tour tour)
+            if (dataContext is Tour tour)
             {
                 TourLogViewModel.Model = new TourLog()
                 {

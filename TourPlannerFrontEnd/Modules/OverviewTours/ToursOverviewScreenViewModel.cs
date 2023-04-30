@@ -174,7 +174,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 List<Tour> tours = importService.Import(dialog.FileName);
-                await ShowAsyncOperation.RunAndShowMessage( () =>
+                await ShowAsyncOperation.RunAndShowMessage(() =>
                     {
                         foreach (Tour tour in tours)
                         {
@@ -231,7 +231,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         private async Task<IEnumerable<Tour>> GetToursAsync(CancellationToken cancellationToken)
         {
             List<Tour> tours = new();
-            bool success =  await ShowAsyncOperation.Run(() =>
+            bool success = await ShowAsyncOperation.Run(() =>
                 {
                     tours = tourRepository.GetAllTours();
                 },
@@ -266,7 +266,7 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         {
             Tours = tours.SelectViewModels<Tour, TourDetailViewModel>(viewModel =>
             {
-                viewModel.Setup(tourLogRepository, NavigationHost, eventAggregator, tourAutoPropertyService);
+                viewModel.Setup(tourRepository, tourLogRepository, NavigationHost, eventAggregator, tourAutoPropertyService);
             }).ToList();
 
             SelectedTour = Tours.FirstOrDefault();

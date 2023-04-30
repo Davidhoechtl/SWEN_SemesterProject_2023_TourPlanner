@@ -23,7 +23,7 @@ namespace TourPlannerTests
 
             Assert.Throws<Exception>(() =>
             {
-                propertyCalculator.RecalculateTourProperties(-1);
+                propertyCalculator.RecalculateTourProperties(null);
             });
         }
 
@@ -33,7 +33,7 @@ namespace TourPlannerTests
             Tour tour = TourData.Tours[0];
             tour.Id = 0;
 
-            propertyCalculator.RecalculateTourProperties(tour.Id);
+            propertyCalculator.RecalculateTourProperties(tour);
 
             Assert.That(tour.Popularity == 1);
         }
@@ -49,7 +49,7 @@ namespace TourPlannerTests
             tour.TravellingType = RouteType.Pedestriant.ToString();
             tour.Route.TravellingType = RouteType.Pedestriant.ToString();
 
-            propertyCalculator.RecalculateTourProperties(tour.Id);
+            propertyCalculator.RecalculateTourProperties(tour);
 
             Assert.That(tour.ChildFriendliness == 4);
         }
@@ -65,7 +65,7 @@ namespace TourPlannerTests
             tour.TravellingType = RouteType.Bicycle.ToString();
             tour.Route.TravellingType = RouteType.Bicycle.ToString();
 
-            propertyCalculator.RecalculateTourProperties(tour.Id);
+            propertyCalculator.RecalculateTourProperties(tour);
 
             Assert.That(tour.ChildFriendliness == 0);
         }

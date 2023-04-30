@@ -65,8 +65,9 @@ namespace TourPlannerFrontEnd.Modules.RateTour
             }
         }
 
-        public CreateTourLogViewModel(TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService, IBusyIndicatorContainer busyIndicator)
+        public CreateTourLogViewModel(ITourRepository tourRepository, TourLogRepository tourLogRepository, TourAutoPropertyService tourAutoPropertyService, IBusyIndicatorContainer busyIndicator)
         {
+            this.tourRepository = tourRepository;
             this.tourLogRepository = tourLogRepository;
             this.tourAutoPropertyService = tourAutoPropertyService;
             this.busyIndicator = busyIndicator;
@@ -87,7 +88,9 @@ namespace TourPlannerFrontEnd.Modules.RateTour
                         tourLogRepository.SaveTourLog(this.Model);
 
                         // updates auto calculated properties of tour
-                        tourAutoPropertyService.RecalculateTourProperties(this.Model.TourId);
+                        Tour tour = tourRepository.GetTourById(this.Model.TourId);
+                        tourAutoPropertyService.RecalculateTourProperties(tour);
+                        tourRepository.UpdateTour(tour);
                     }, 
                     successMsg: "Saved succesful.",
                     errorMsg: "Operation failed",
@@ -135,6 +138,7 @@ namespace TourPlannerFrontEnd.Modules.RateTour
         private readonly TourLogRepository tourLogRepository;
         private readonly TourAutoPropertyService tourAutoPropertyService;
         private readonly IBusyIndicatorContainer busyIndicator;
+        private readonly ITourRepository tourRepository;
         private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
     }
 }
