@@ -26,6 +26,7 @@ namespace TourPlannerTests
             Tour tour = TourData.Tours[0];
             tour.Route.DistanceInKm = 5;
             tour.Route.TravellingType = RouteType.Pedestriant.ToString();
+            tour.TravellingType = RouteType.Pedestriant.ToString();
 
             double? cal = calculator.CalculateCaloriesForTour(tour);
 
@@ -40,6 +41,7 @@ namespace TourPlannerTests
             Tour tour = TourData.Tours[0];
             tour.Route.DistanceInKm = 15;
             tour.Route.TravellingType = RouteType.Bicycle.ToString();
+            tour.TravellingType = RouteType.Bicycle.ToString();
 
             double? cal = calculator.CalculateCaloriesForTour(tour);
 
