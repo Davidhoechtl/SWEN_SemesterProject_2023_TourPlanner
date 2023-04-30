@@ -2,7 +2,7 @@
 
 namespace TourPlannerFrontEnd.Infrastructure
 {
-    internal class ViewModel<T> : PropertyChangedBase
+    public class ViewModel<T> : PropertyChangedBase
         where T : class
     {
         public T Model 

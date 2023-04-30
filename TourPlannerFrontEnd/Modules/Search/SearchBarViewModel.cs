@@ -11,7 +11,7 @@ namespace TourPlannerFrontEnd.Modules.Search
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
 
-    internal class SearchBarViewModel : ViewModel<TourSearchResult>
+    public class SearchBarViewModel : ViewModel<TourSearchResult>
     {
         public string SearchText { get; set; }
 
@@ -28,11 +28,16 @@ namespace TourPlannerFrontEnd.Modules.Search
             {
                 await Task.Run(() =>
                 {
-                    this.Model.FoundTours = tourRepository.GetToursBySearchText( Match, SearchText, GetSearchParameters(SearchText));
+                    this.Model.FoundTours = SearchTours(SearchText);
                 });
             }
 
             OnSearch?.Invoke(this.Model);
+        }
+
+        public List<Tour> SearchTours(string searchText)
+        {
+            return tourRepository.GetToursBySearchText(Match, searchText, GetSearchParameters(searchText));
         }
 
         private bool Match(Tour tour, string searchText, Dictionary<string, string> searchParameter)
@@ -52,7 +57,7 @@ namespace TourPlannerFrontEnd.Modules.Search
             }
             if (searchParameter.TryGetValue("childfriendliness", out string childfriendlinessValue))
             {
-                if (int.TryParse(popularityValue, out int convertedChildfriendlinessValue) &&
+                if (int.TryParse(childfriendlinessValue, out int convertedChildfriendlinessValue) &&
                    tour.ChildFriendliness == convertedChildfriendlinessValue)
                 {
                     return true;
@@ -60,7 +65,7 @@ namespace TourPlannerFrontEnd.Modules.Search
             }
             if (searchParameter.TryGetValue("calories", out string caloriesValue))
             {
-                if (int.TryParse(popularityValue, out int convertedCaloriesValue) &&
+                if (int.TryParse(caloriesValue, out int convertedCaloriesValue) &&
                    tour.CaloriesCount == convertedCaloriesValue)
                 {
                     return true;
