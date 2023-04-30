@@ -12,8 +12,7 @@ namespace TourPlannerTests
         public void Setup()
         {
             CalorieCalculationService caloriesCalculator = new();
-            ITourRepository tourRepo = new MockTourRepository();
-            propertyCalculator = new TourAutoPropertyService(tourRepo, caloriesCalculator);
+            propertyCalculator = new TourAutoPropertyService(caloriesCalculator);
         }
 
         [Test]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TourPlannerFrontEnd.Infrastructure.Validation
 {
-    internal class PropertyValidationContext
+    public class PropertyValidationContext
     {
         public string PropertyName { get; set; }
         public Func<string> ValidationAction { get; set; }

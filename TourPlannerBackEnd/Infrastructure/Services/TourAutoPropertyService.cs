@@ -1,14 +1,12 @@
-﻿using System.Linq.Expressions;
-using TourPlanner.DataTransferObjects.Models;
-using TourPlannerBackEnd.Repositories;
-
+﻿
 namespace TourPlannerBackEnd.Infrastructure.Services
 {
+    using TourPlanner.DataTransferObjects.Models;
+
     public class TourAutoPropertyService
     {
-        public TourAutoPropertyService(ITourRepository tourRepository, CalorieCalculationService calorieCalculationService)
+        public TourAutoPropertyService(CalorieCalculationService calorieCalculationService)
         {
-            this.tourRepository = tourRepository;
             this.calorieCalculationService = calorieCalculationService;
         }
 
@@ -155,7 +153,6 @@ namespace TourPlannerBackEnd.Infrastructure.Services
             return (int)Math.Ceiling(FriendlinessSum);
         }
 
-        private readonly ITourRepository tourRepository;
         private readonly CalorieCalculationService calorieCalculationService;
     }
 }

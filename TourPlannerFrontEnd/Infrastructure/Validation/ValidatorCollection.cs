@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TourPlannerFrontEnd.Infrastructure.Validation
 {
-    internal class ValidatorCollection
+    public class ValidatorCollection
     {
         public void Add(string propertyName, Func<string> validationAction)
         {

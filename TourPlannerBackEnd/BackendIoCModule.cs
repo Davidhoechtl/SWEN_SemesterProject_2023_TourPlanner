@@ -50,11 +50,15 @@ namespace TourPlannerBackEnd
         private void RegisterRepositories(ContainerBuilder builder)
         {
             builder.RegisterTypes(
-                typeof(TourRepository),
-                typeof(TourLogRepository)
+                typeof(TourRepository)
             )
             .SingleInstance()
             .AsImplementedInterfaces();
+
+            builder.RegisterTypes(
+                typeof(TourLogRepository)
+            )
+            .SingleInstance();
         }
 
         private void RegisterDataAccess(ContainerBuilder builder)

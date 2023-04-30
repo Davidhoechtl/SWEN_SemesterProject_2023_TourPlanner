@@ -1,15 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TourPlanner.DataTransferObjects.Models;
-using TourPlanner.EntityFramework.DataAccess;
-
+﻿
 namespace TourPlannerBackEnd.Repositories
 {
+    using TourPlanner.DataTransferObjects.Models;
+    using TourPlanner.EntityFramework.DataAccess;
+
     public class TourLogRepository
     {
         public TourLogRepository(TourPlannerDbContext dbContext)
