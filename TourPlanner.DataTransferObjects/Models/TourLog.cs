@@ -10,7 +10,7 @@ namespace TourPlanner.DataTransferObjects.Models
         public int Id { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Today;
 
         [Required]
         public string Comment { get; set; }
