@@ -25,6 +25,7 @@ namespace TourPlannerTests
         {
             string searchText = "None";
 
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 0);
@@ -35,6 +36,7 @@ namespace TourPlannerTests
         {
             string searchText = "Foo";
 
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 1);
@@ -45,6 +47,7 @@ namespace TourPlannerTests
         {
             string searchText = "foo";
 
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 1);
@@ -55,6 +58,7 @@ namespace TourPlannerTests
         {
             string searchText = "Test";
 
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 1);
@@ -65,6 +69,8 @@ namespace TourPlannerTests
         {
             string searchText = "test";
 
+
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 1);
@@ -75,6 +81,7 @@ namespace TourPlannerTests
         {
             string searchText = "<popularity:1>";
 
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 1);
@@ -85,6 +92,7 @@ namespace TourPlannerTests
         {
             string searchText = "<childfriendliness:1>";
 
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 1);
@@ -96,11 +104,22 @@ namespace TourPlannerTests
         {
             string searchText = "<calories:100>";
 
+            searchBarVw.HasCustomText = true;
             List<Tour> found = searchBarVw.SearchTours(searchText);
 
             Assert.That(found.Count == 1);
         }
 
+        [Test]
+        public void Search_WithEmptyText()
+        {
+            string searchText = "";
+
+            searchBarVw.HasCustomText = false;
+            List<Tour> found = searchBarVw.SearchTours(searchText);
+
+            Assert.That(found.Count == 2);
+        }
 
         private SearchBarViewModel searchBarVw;
     }
