@@ -7,7 +7,7 @@
              xmlns:customControls="clr-namespace:TourPlannerFrontEnd.Infrastructure.CustomControls"
              mc:Ignorable="d">
     <StackPanel Orientation="Horizontal">
-        <customControls:WatermarkTextBox x:Name="SearchText" WatermarkText="Search for tours" WatermarkBrush="Gray" Width="1000px"/>
-        <Button x:Name="Search" Content="Search"/>
+        <customControls:WatermarkTextBox x:Name="SearchText" HasCustomText="{Binding HasCustomText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" WatermarkText="Search for tours" WatermarkBrush="Gray" Width="1000px"/>
+        <Button x:Name="ReactOnSearch" Content="Search"/>
     </StackPanel>
 </UserControl>
