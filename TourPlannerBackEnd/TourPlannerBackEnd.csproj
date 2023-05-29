@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TourPlanner.DataTransferObjects\TourPlanner.DataTransferObjects.csproj" />
     <ProjectReference Include="..\TourPlanner.EntityFramework.DataAccess\TourPlanner.DataAccess.EntityFramework.csproj" />
     <ProjectReference Include="..\TourPlanner.MapRequestApi\TourPlanner.MapQuestApi.csproj" />
   </ItemGroup>
