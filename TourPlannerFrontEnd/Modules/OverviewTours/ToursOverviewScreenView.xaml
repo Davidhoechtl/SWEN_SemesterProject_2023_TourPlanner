@@ -35,11 +35,14 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="DisplayName" Style="{StaticResource DisplayNameStyle}" />
+            
             <ContentControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"/>
 
             <StackPanel Grid.Row="1">
-                <Button x:Name="ExportTours" Content="Export Tours" Height="50px"/>
-                <Button x:Name="ImportTours" Content="Import Tours" Height="50px"/>
+                <DockPanel>
+                    <Button x:Name="ExportTours" Style="{StaticResource ExportButtonStyle}" />
+                    <Button x:Name="ImportTours" Style="{StaticResource ImportButtonStyle}" />
+                </DockPanel>
                 <DockPanel>
                     <Button x:Name="CreateTour" Content="Create Tour"/>
                     <Button x:Name="UpdateTour" Content="Update Tour"/>
