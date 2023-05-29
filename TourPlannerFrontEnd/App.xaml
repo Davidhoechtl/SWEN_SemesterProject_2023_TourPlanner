@@ -9,6 +9,7 @@
                     <local:Bootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Infrastructure/Styles/ValidatingStyles.xaml" />
+                <ResourceDictionary Source="Infrastructure/Styles/TourOverviewScreenStyles.xaml" />
                 <ResourceDictionary Source="Infrastructure/Styles/SearchBarStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/BusyIndicator;component/Theme/Default.xaml"/>
             </ResourceDictionary.MergedDictionaries>

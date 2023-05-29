@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="DisplayName" FontSize="40"/>
+            <Label x:Name="DisplayName" Style="{StaticResource DisplayNameStyle}" />
             <ContentControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"/>
 
             <StackPanel Grid.Row="1">
