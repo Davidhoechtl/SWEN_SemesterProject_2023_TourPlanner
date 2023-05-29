@@ -14,7 +14,7 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
     public class FastReportGenerationService : IFastReportGenerationService
     {
         //private string InFolder = @"D:\Studium\Sommersemester 2023\SWEN2\SWEN_SemesterProject_2023_TourPlanner\Reporting";
-        private string InFolder = @"C:\Studium\SWENSemesterProject_TourPlanner\Reporting";
+        private string InFolder = @"../../../../Reporting";
 
         public void GenerateSummarizeReport(IEnumerable<Tour> tours)
         {
@@ -27,7 +27,7 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
 
             ImageExport image = new ImageExport();
             image.ImageFormat = ImageExportFormat.Jpeg;
-            report.Export(image, "C:\\TestSummary.jpg");
+            report.Export(image, "TestSummary.jpg");
 
             report.Dispose();
         }
@@ -63,11 +63,11 @@ namespace TourPlannerBackEnd.Infrastructure.Reporting
                 report.Prepare();
             }
 
-            report.SavePrepared("C:\\Testreport.fpx");
+            report.SavePrepared("Testreport.fpx");
 
             ImageExport image = new ImageExport();
             image.ImageFormat = ImageExportFormat.Jpeg;
-            report.Export(image, "C:\\Testreport.jpg");
+            report.Export(image, "Testreport.jpg");
 
             report.Dispose();
         }

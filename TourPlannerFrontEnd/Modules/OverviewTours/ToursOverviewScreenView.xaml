@@ -50,7 +50,7 @@
             <DataGrid x:Name="Tours" SelectedItem="SelectedTour" Grid.Row="2" Width="300" Height="800" VerticalAlignment="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
-                    <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate}" Width="*"/>
+                    <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate,StringFormat=d}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 

@@ -32,7 +32,7 @@
             </DataGrid.Resources>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ElementStyle="{StaticResource errorStyle}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=d, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ElementStyle="{StaticResource errorStyle}"/>
                 <DataGridTextColumn Header="TakenTimeInMinutes" Binding="{Binding Path=TakenTimeInMinutes, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ElementStyle="{StaticResource errorStyle}"/>
                 <DataGridTextColumn Header="Difficulty" Binding="{Binding Path=Difficulty, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ElementStyle="{StaticResource errorStyle}"/>
                 <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="*" ElementStyle="{StaticResource errorStyle}"/>

@@ -8,48 +8,10 @@
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
+                <ResourceDictionary Source="Infrastructure/Styles/ValidatingStyles.xaml" />
+                <ResourceDictionary Source="Infrastructure/Styles/SearchBarStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/BusyIndicator;component/Theme/Default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="{x:Type FrameworkElement}" x:Key="ValidatingControl">
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="ToolTip" Value="{Binding 
-                Path=(Validation.Errors)[0].ErrorContent, 
-                RelativeSource={x:Static RelativeSource.Self}}" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="{x:Type TextBox}" x:Key="ValidatingTextBox" BasedOn="{StaticResource ValidatingControl}">
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="ToolTip" Value="{Binding 
-                Path=(Validation.Errors)[0].ErrorContent, 
-                RelativeSource={x:Static RelativeSource.Self}}" />
-                        <Setter Property="BorderBrush" Value="Red"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="{x:Type DatePicker}" x:Key="ValidatingDatePicker" BasedOn="{StaticResource ValidatingControl}">
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="ToolTip" Value="{Binding 
-                Path=(Validation.Errors)[0].ErrorContent, 
-                RelativeSource={x:Static RelativeSource.Self}}" />
-                        <Setter Property="BorderBrush" Value="Red"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="{x:Type ComboBox}" x:Key="ValidatingComboBox" BasedOn="{StaticResource ValidatingControl}">
-                <Style.Triggers>
-                    <Trigger Property="Validation.HasError" Value="True">
-                        <Setter Property="ToolTip" Value="{Binding 
-                Path=(Validation.Errors)[0].ErrorContent, 
-                RelativeSource={x:Static RelativeSource.Self}}" />
-                        <Setter Property="BorderBrush" Value="Red"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

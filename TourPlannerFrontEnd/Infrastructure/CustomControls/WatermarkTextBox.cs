@@ -36,14 +36,14 @@ namespace TourPlannerFrontEnd.Infrastructure.CustomControls
         private static readonly DependencyProperty ForegroundBrushProperty =
             DependencyProperty.Register("ForegroundBrush", typeof(Brush), typeof(WatermarkTextBox), new PropertyMetadata(null));
 
-        private bool HasCustomText
+        public bool HasCustomText
         {
             get { return (bool)GetValue(HasCustomTextProperty); }
             set { SetValue(HasCustomTextProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for HasCustomText.  This enables animation, styling, binding, etc...
-        private static readonly DependencyProperty HasCustomTextProperty =
+        public static readonly DependencyProperty HasCustomTextProperty =
             DependencyProperty.Register("HasCustomText", typeof(bool), typeof(WatermarkTextBox), new PropertyMetadata(false));
 
         public bool FocusHandlerRunning

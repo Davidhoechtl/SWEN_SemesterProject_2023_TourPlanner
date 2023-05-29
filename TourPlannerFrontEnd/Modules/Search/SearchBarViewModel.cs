@@ -14,6 +14,7 @@ namespace TourPlannerFrontEnd.Modules.Search
     public class SearchBarViewModel : ViewModel<TourSearchResult>
     {
         public string SearchText { get; set; }
+        public bool HasCustomText { get; set; }
 
         public Action<TourSearchResult> OnSearch { get; set; }
 
@@ -37,7 +38,14 @@ namespace TourPlannerFrontEnd.Modules.Search
 
         public List<Tour> SearchTours(string searchText)
         {
-            return tourRepository.GetToursBySearchText(Match, searchText, GetSearchParameters(searchText));
+            if (!string.IsNullOrEmpty(searchText) && HasCustomText)
+            {
+                return tourRepository.GetToursBySearchText(Match, searchText, GetSearchParameters(searchText));
+            }
+            else
+            {
+                return tourRepository.GetAllTours();
+            }
         }
 
         private bool Match(Tour tour, string searchText, Dictionary<string, string> searchParameter)
@@ -47,10 +55,10 @@ namespace TourPlannerFrontEnd.Modules.Search
                 return true;
             }
 
-            if(searchParameter.TryGetValue("popularity", out string popularityValue))
+            if (searchParameter.TryGetValue("popularity", out string popularityValue))
             {
-                if(int.TryParse(popularityValue, out int convertedPopularityValue) &&
-                   tour.Popularity == convertedPopularityValue )
+                if (int.TryParse(popularityValue, out int convertedPopularityValue) &&
+                   tour.Popularity == convertedPopularityValue)
                 {
                     return true;
                 }
