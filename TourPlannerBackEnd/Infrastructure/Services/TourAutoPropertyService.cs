@@ -12,11 +12,15 @@ namespace TourPlannerBackEnd.Infrastructure.Services
 
         public void RecalculateTourProperties(Tour tour)
         {
-            if(tour != null )
+            if (tour != null)
             {
-                tour.Popularity = CalculatePopularity(tour);
-                tour.ChildFriendliness = CalculateChildFriendliness(tour);
                 tour.CaloriesCount = calorieCalculationService.CalculateCaloriesForTour(tour);
+
+                if (tour.TourLogs != null)
+                {
+                    tour.ChildFriendliness = CalculateChildFriendliness(tour);
+                    tour.Popularity = CalculatePopularity(tour);
+                }
             }
             else
             {

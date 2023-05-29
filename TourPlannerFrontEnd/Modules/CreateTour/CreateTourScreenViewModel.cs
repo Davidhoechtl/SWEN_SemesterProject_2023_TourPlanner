@@ -7,6 +7,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using System.Windows.Navigation;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Infrastructure;
+    using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.ViewContainers;
@@ -40,9 +41,10 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
         public CreateTourScreenViewModel(
             ITourRepository tourRepository,
-            TourPlannerMapQuestService mapQuestService)
+            TourPlannerMapQuestService mapQuestService,
+            TourAutoPropertyService autoPropertyService)
         {
-            CreateTourViewModel = new CreateTourViewModel(tourRepository, mapQuestService, this);
+            CreateTourViewModel = new CreateTourViewModel(tourRepository, mapQuestService, this, autoPropertyService);
             DisplayName = "Create Tour";
         }
 

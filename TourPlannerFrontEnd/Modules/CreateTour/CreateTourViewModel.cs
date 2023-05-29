@@ -8,6 +8,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
     using System.Windows;
     using TourPlanner.DataTransferObjects.Models;
     using TourPlannerBackEnd.Infrastructure;
+    using TourPlannerBackEnd.Infrastructure.Services;
     using TourPlannerBackEnd.Repositories;
     using TourPlannerFrontEnd.Infrastructure;
     using TourPlannerFrontEnd.Infrastructure.Helper;
@@ -82,12 +83,13 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
             }
         }
 
-        public CreateTourViewModel(ITourRepository tourRepository, TourPlannerMapQuestService mapQuestService, IBusyIndicatorContainer busyIndicatorContainer)
+        public CreateTourViewModel(ITourRepository tourRepository, TourPlannerMapQuestService mapQuestService, IBusyIndicatorContainer busyIndicatorContainer, TourAutoPropertyService autoPropertyService)
         {
             travellingTypes = Enum.GetValues<RouteType>().Select(v => v.ToString()).ToArray();
             this.tourRepository = tourRepository;
             this.mapQuestService = mapQuestService;
             this.busyIndicatorContainer = busyIndicatorContainer;
+            this.autoPropertyService = autoPropertyService;
         }
 
         /// <summary>
@@ -114,6 +116,8 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
                         ).Result;
 
                         this.Model.Route.MapImage = mapQuestService.GetRouteImage(Start, Destination, 600, 400).Result;
+
+                        autoPropertyService.RecalculateTourProperties(this.Model);
 
                         tourRepository.InsertTour(this.Model);
                     },
@@ -199,6 +203,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
         
         private readonly ITourRepository tourRepository;
         private readonly IBusyIndicatorContainer busyIndicatorContainer;
+        private readonly TourAutoPropertyService autoPropertyService;
         private readonly TourPlannerMapQuestService mapQuestService;
         private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
     }

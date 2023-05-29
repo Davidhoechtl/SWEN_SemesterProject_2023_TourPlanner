@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:TourPlannerFrontEnd.Infrastructure.Converter"
              mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <converters:BoolVisibleCollapsedConverter x:Key="BoolVisibleCollapsedConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -74,6 +80,9 @@
 
             <Label Content="Travel distance in kilometers: "/>
             <TextBox x:Name="RouteDistance" IsReadOnly="True"/>
+
+            <Label Content="Calculated calories count: " Visibility="{Binding IsCaloriesCountVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+            <TextBox x:Name="CaloriesCount" IsReadOnly="True" Visibility="{Binding IsCaloriesCountVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
         </StackPanel>
 
         <Image Width="600" Height="400" Source="{Binding MapImageSource}" Grid.RowSpan="6" Grid.Column="2"></Image>

@@ -62,6 +62,9 @@ namespace TourPlannerFrontEnd.Modules.OverviewTours
         public string RouteTime => GetRouteTimeInMinutes();
         public string RouteDistance => this.Model?.Route?.DistanceInKm.ToString() ?? "error";
 
+        public bool IsCaloriesCountVisible => this.Model.CaloriesCount.HasValue;
+        public string CaloriesCount => this.Model.CaloriesCount?.ToString();
+
         public ImageSource MapImageSource { get; set; }
 
         public TourLogsViewModel TourLogs { get; private set; }
