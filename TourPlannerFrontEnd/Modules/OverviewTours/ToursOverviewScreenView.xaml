@@ -38,19 +38,25 @@
             
             <ContentControl x:Name="SearchBar" Grid.Column="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch"/>
 
-            <StackPanel Grid.Row="1">
-                <DockPanel>
-                    <Button x:Name="ExportTours" Style="{StaticResource ExportButtonStyle}" />
-                    <Button x:Name="ImportTours" Style="{StaticResource ImportButtonStyle}" />
-                </DockPanel>
-                <DockPanel>
-                    <Button x:Name="CreateTour" Content="Create Tour"/>
-                    <Button x:Name="UpdateTour" Content="Update Tour"/>
-                    <Button x:Name="DeleteTour" Content="Delete Tour"/>
-                </DockPanel>
-            </StackPanel>
+            <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <DataGrid x:Name="Tours" SelectedItem="SelectedTour" Grid.Row="2" Width="300" Height="800" VerticalAlignment="Top" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+                <Button x:Name="CreateTour" Style="{StaticResource CreateTourButtonStyle}" Grid.Row="1" Grid.Column="0"/>
+                <Button x:Name="UpdateTour" Style="{StaticResource UpdateTourButtonStyle}" Grid.Row="1" Grid.Column="1"/>
+                <Button x:Name="DeleteTour" Style="{StaticResource DeleteTourButtonStyle}" Grid.Row="1" Grid.Column="2"/>
+                <Button x:Name="ExportTours" Style="{StaticResource ExportButtonStyle}" Grid.Row="0" Grid.Column="2"/>
+                <Button x:Name="ImportTours" Style="{StaticResource ImportButtonStyle}" Grid.Row="0" Grid.Column="0"/>
+            </Grid>
+
+            <DataGrid x:Name="Tours" Style="{StaticResource ToursDataGridStyle}" SelectedItem="SelectedTour" Grid.Row="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
                     <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate,StringFormat=d}" Width="*"/>

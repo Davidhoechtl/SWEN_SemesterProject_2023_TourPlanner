@@ -32,10 +32,27 @@
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="Height" Value="50" />
+        <Setter Property="Background" Value="Green"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="BorderBrush" Value="Black"/>
     </Style>
 
-    <Style x:Key="CRUDOperationButtonStyle" TargetType="Button" BasedOn="{StaticResource CommonButtonStyle}">
-        
+    <Style x:Key="CRUDButtonStyle" TargetType="Button" BasedOn="{StaticResource CommonButtonStyle}">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Background" Value="Coral"/>
+    </Style>
+
+    <Style x:Key="CreateTourButtonStyle" TargetType="Button" BasedOn="{StaticResource CRUDButtonStyle}">
+        <Setter Property="Content" Value="Create Tour"/>
+    </Style>
+    
+    <Style x:Key="UpdateTourButtonStyle" TargetType="Button" BasedOn="{StaticResource CRUDButtonStyle}">
+        <Setter Property="Content" Value="Update Tour"/>
+    </Style>
+    
+    <Style x:Key="DeleteTourButtonStyle" TargetType="Button" BasedOn="{StaticResource CRUDButtonStyle}">
+        <Setter Property="Content" Value="Delete Tour"/>
     </Style>
 
     <Style x:Key="ExportButtonStyle" TargetType="Button" BasedOn="{StaticResource ExportImportButtonStyle}">
@@ -46,6 +63,69 @@
     <Style x:Key="ImportButtonStyle" TargetType="Button" BasedOn="{StaticResource ExportImportButtonStyle}">
         <Setter Property="Content" Value="Import" />
         <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="0"/>
+                            <Setter Property="Background" Value="#FF0055"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToursDataGridStyle" TargetType="DataGrid">
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Height" Value ="800"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="Background" Value="#F0F0F0"/>
+        <Setter Property="BorderBrush" Value="#CCCCCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="RowBackground" Value="#FFFFFF"/>
+        <Setter Property="AlternatingRowBackground" Value="#F5F5F5"/>
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="True"/>
+        <Setter Property="CanUserResizeRows" Value="False"/>
+        <Setter Property="CanUserSortColumns" Value="True"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="CellStyle" Value="{StaticResource DataGridCellStyle}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#E5E5E5"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
