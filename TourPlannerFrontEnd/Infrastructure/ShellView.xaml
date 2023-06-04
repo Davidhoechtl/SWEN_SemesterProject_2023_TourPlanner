@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             Width="500" Height="500"
-             Title="TourPlanner">
+             Title="TourPlanner" Width="800" Height="600">
+
     <Grid>
-        <ContentControl x:Name="ActiveItem" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ContentControl x:Name="ActiveItem" Grid.Row="1"/>
     </Grid>
 </Window>

@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:customControls="clr-namespace:TourPlannerFrontEnd.Infrastructure.CustomControls"
-                    xmlns:local="clr-namespace:TourPlannerFrontEnd.Modules.Search">
+                    xmlns:customControls="clr-namespace:TourPlannerFrontEnd.Infrastructure.CustomControls">
 
     <Style x:Key="SearchWatermarkTextBoxStyle" TargetType="customControls:WatermarkTextBox">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>

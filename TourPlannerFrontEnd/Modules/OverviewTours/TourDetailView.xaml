@@ -13,80 +13,101 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Tour name: "/>
-        <TextBox x:Name="TourName" Style="{StaticResource ValidatingTextBox}" Grid.Column="1"/>
+        <TabControl Grid.Row="1" Style="{StaticResource TabControlStyle}">
+            <TabItem Header="General" Style="{StaticResource TabControlItemStyle}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-        <Label Content="Start date: " Grid.Row="1"/>
-        <DatePicker x:Name="StartDate" Grid.Row="1" Grid.Column="1"/>
+                        <StackPanel Grid.Row="0">
+                            <Label Content="General information" Style="{StaticResource DetailLabelHeaderStyle}"/>
+                            <Label Content="Tour name: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="TourName" Style="{StaticResource ValidatingTextBox}"/>
 
-        <Label Content="Travelling type: " Grid.Row="2"/>
-        <TextBox x:Name="TravellingType" Grid.Row="2" Grid.Column="1" IsReadOnly="True"/>
+                            <Label Content="Start date: " Style="{StaticResource DetailLabelStyle}"/>
+                            <DatePicker x:Name="StartDate" Style="{StaticResource DetailDatePickerStyle}"/>
 
-        <Label Content="Start Location: " Grid.Row="3"/>
-        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
-            <Label Content="Street: "/>
-            <TextBox x:Name="StartStreet" IsReadOnly="True"/>
+                            <Label Content="Travelling type: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="TravellingType" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
+                        </StackPanel>
 
-            <Label Content="City: "/>
-            <TextBox x:Name="StartCity" IsReadOnly="True"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0">
+                            <Label Content="Start Location: " Style="{StaticResource DetailLabelHeaderStyle}"/>
+                            <Label Content="Street: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="StartStreet" Style="{StaticResource DetailTextboxStyle}" IsReadOnly="True"/>
 
-            <Label Content="Postal code: "/>
-            <TextBox x:Name="StartPostCode" IsReadOnly="True"/>
+                            <Label Content="City: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="StartCity" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-            <Label Content="State: "/>
-            <TextBox x:Name="StartState" IsReadOnly="True"/>
+                            <Label Content="Postal code: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="StartPostCode" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-            <Label Content="Country: "/>
-            <TextBox x:Name="StartCountry" IsReadOnly="True"/>
-        </StackPanel>
+                            <Label Content="State: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="StartState" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-        <Label Content="Start Location: " Grid.Row="5"/>
-        <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1">
-            <Label Content="Street: "/>
-            <TextBox x:Name="EndStreet" IsReadOnly="True"/>
+                            <Label Content="Country: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="StartCountry" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
+                        </StackPanel>
 
-            <Label Content="City: "/>
-            <TextBox x:Name="EndCity" IsReadOnly="True"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="3">
+                            <Label Content="End Location: " Style="{StaticResource DetailLabelHeaderStyle}"/>
+                            <Label Content="Street: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="EndStreet" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-            <Label Content="Postal code: "/>
-            <TextBox x:Name="EndPostCode" IsReadOnly="True"/>
+                            <Label Content="City: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="EndCity" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-            <Label Content="State: "/>
-            <TextBox x:Name="EndState" IsReadOnly="True"/>
+                            <Label Content="Postal code: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="EndPostCode" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-            <Label Content="Country: "/>
-            <TextBox x:Name="EndCountry" IsReadOnly="True"/>
-        </StackPanel>
+                            <Label Content="State: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="EndState" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-        <Label Content="Route information" Grid.Row="7"/>
-        <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="1">
-            <Label Content="Travel time in minutes: "/>
-            <TextBox x:Name="RouteTime" IsReadOnly="True"/>
+                            <Label Content="Country: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="EndCountry" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
+                        </StackPanel>
 
-            <Label Content="Travel distance in kilometers: "/>
-            <TextBox x:Name="RouteDistance" IsReadOnly="True"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3">
+                            <Label Content="Route information" Style="{StaticResource DetailLabelHeaderStyle}"/>
+                            <Label Content="Travel time in minutes: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="RouteTime" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-            <Label Content="Calculated calories count: " Visibility="{Binding IsCaloriesCountVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
-            <TextBox x:Name="CaloriesCount" IsReadOnly="True" Visibility="{Binding IsCaloriesCountVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
-        </StackPanel>
+                            <Label Content="Travel distance in kilometers: " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox x:Name="RouteDistance" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}"/>
 
-        <Image Width="600" Height="400" Source="{Binding MapImageSource}" Grid.RowSpan="6" Grid.Column="2"></Image>
-
-        <ContentControl x:Name="TourLogs" Grid.Row="6" Grid.Column="2" Width="600"/>
+                            <Label Content="Calculated calories count: " Style="{StaticResource DetailLabelStyle}" Visibility="{Binding IsCaloriesCountVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                            <TextBox x:Name="CaloriesCount" IsReadOnly="True" Style="{StaticResource DetailTextboxStyle}" Visibility="{Binding IsCaloriesCountVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Map" Style="{StaticResource TabControlItemStyle}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <Image Width="600" Height="400" Style="{StaticResource MapImageStyle}" Source="{Binding MapImageSource}"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="TourLogs" Style="{StaticResource TabControlItemStyle}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="TourLogs" Width="600" Style="{StaticResource DetailContentControl}"/>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

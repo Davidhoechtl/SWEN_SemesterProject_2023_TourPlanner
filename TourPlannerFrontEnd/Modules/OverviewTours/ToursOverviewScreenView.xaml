@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:TourPlannerFrontEnd.Modules.OverviewTours"
              xmlns:converters="clr-namespace:TourPlannerFrontEnd.Infrastructure.Converter"
              xmlns:busyIndicator="https://github.com/moh3ngolshani/BusyIndicator"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
 
     <UserControl.Resources>
         <converters:BoolVisibleCollapsedConverter x:Key="BoolVisibleCollapsedConverter"/>
@@ -19,19 +18,18 @@
                             BusyContent="{Binding BusyText, Mode=TwoWay}" 
                             BusyContentMargin="0,20,0,0" 
                             IsBusyAtStartup="False">
-
+        
         <Grid ShowGridLines="True">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Label x:Name="DisplayName" Style="{StaticResource DisplayNameStyle}" />
@@ -56,15 +54,15 @@
                 <Button x:Name="ImportTours" Style="{StaticResource ImportButtonStyle}" Grid.Row="0" Grid.Column="0"/>
             </Grid>
 
-            <DataGrid x:Name="Tours" Style="{StaticResource ToursDataGridStyle}" SelectedItem="SelectedTour" Grid.Row="2">
+            <DataGrid x:Name="Tours" Style="{StaticResource ToursDataGridStyle}" SelectedItem="SelectedTour" Grid.Row="2" VerticalAlignment="Stretch">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
                     <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate,StringFormat=d}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <ScrollViewer Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
-                <StackPanel Orientation="Horizontal">
+            <ScrollViewer Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
                     <ContentControl x:Name="SelectedTour"/>
                     <StackPanel>
                         <Button x:Name="GenerateTourReport" Content="Generate Tour Report" Height="50px" VerticalAlignment="Top" Visibility="{Binding TourDetailSpecificActionsVisible, Converter={StaticResource BoolVisibleCollapsedConverter}}"/>

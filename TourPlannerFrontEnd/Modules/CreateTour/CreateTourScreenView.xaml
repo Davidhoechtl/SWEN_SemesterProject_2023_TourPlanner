@@ -8,6 +8,7 @@
              xmlns:busyIndicator="https://github.com/moh3ngolshani/BusyIndicator"
              d:DesignHeight="450" d:DesignWidth="800">
     
+    
     <busyIndicator:BusyMask x:Name="BusyIndicator" 
                             IsBusy="{Binding IsBusy, Mode=TwoWay}"
                             IndicatorType="Cupertino" 
@@ -21,9 +22,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="Back" Content="Back"/>
-
-            <Label x:Name="DisplayName" FontSize="40" Grid.Row="1"/>
+            <Button x:Name="Back" Style="{StaticResource BackButtonStyle}"/>
+            <Label x:Name="DisplayName" Style="{StaticResource DisplayViewNameStyle}" Grid.Row="1"/>
             <ContentControl x:Name="CreateTourViewModel" Grid.Row="2"/>
         </Grid>
     </busyIndicator:BusyMask>
