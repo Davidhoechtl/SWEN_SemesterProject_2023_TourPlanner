@@ -21,9 +21,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="Back" Content="Back"/>
+            <Button x:Name="Back" Style="{StaticResource BackButtonStyle}"/>
 
-            <Label x:Name="DisplayName" FontSize="40" Grid.Row="1"/>
+            <Label x:Name="DisplayName" Style="{StaticResource DisplayViewNameStyle}" Grid.Row="1"/>
             <ContentControl x:Name="TourLogViewModel" Grid.Row="2"/>
         </Grid>
     </busyIndicator:BusyMask>

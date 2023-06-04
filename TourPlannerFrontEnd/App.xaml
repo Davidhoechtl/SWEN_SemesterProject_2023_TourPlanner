@@ -11,8 +11,8 @@
                 <ResourceDictionary Source="Infrastructure/Styles/ValidatingStyles.xaml" />
                 <ResourceDictionary Source="Infrastructure/Styles/TourOverviewScreenStyles.xaml" />
                 <ResourceDictionary Source="Infrastructure/Styles/SearchBarStyles.xaml" />
-                <ResourceDictionary Source="Infrastructure/Styles/CreateTourFormularStyles.xaml" />
                 <ResourceDictionary Source="Infrastructure/Styles/TourDetailStyles.xaml"/>
+                <ResourceDictionary Source="Infrastructure/Styles/CreateFormStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/BusyIndicator;component/Theme/Default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
