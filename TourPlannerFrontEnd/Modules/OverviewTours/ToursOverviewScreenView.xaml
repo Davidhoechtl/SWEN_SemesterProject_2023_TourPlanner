@@ -54,12 +54,15 @@
                 <Button x:Name="ImportTours" Style="{StaticResource ImportButtonStyle}" Grid.Row="0" Grid.Column="0"/>
             </Grid>
 
-            <DataGrid x:Name="Tours" Style="{StaticResource ToursDataGridStyle}" SelectedItem="SelectedTour" Grid.Row="2" VerticalAlignment="Stretch">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
-                    <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate,StringFormat=d}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <ScrollViewer Grid.Row="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                <DataGrid x:Name="Tours" Style="{StaticResource ToursDataGridStyle}" SelectedItem="SelectedTour" VerticalAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=TourName}"/>
+                        <DataGridTextColumn Header="StartDate" Binding="{Binding Path=StartDate,StringFormat=d}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+
 
             <ScrollViewer Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">

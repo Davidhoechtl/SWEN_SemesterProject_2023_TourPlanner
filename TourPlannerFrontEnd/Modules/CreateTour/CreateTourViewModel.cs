@@ -119,7 +119,7 @@ namespace TourPlannerFrontEnd.Modules.CreateTour
 
                         autoPropertyService.RecalculateTourProperties(this.Model);
 
-                        tourRepository.InsertTour(this.Model);
+                        tourRepository.InsertTour(this.Model);  
                     },
                     successMsg:"Successfully saved!",
                     errorMsg: "Save operation failed.",
